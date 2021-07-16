@@ -1,7 +1,5 @@
 package com.syntifi.casper.model.chain.get.block.transfer;
 
-import java.math.BigInteger;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CasperTransfer {
