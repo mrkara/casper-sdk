@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import com.syntifi.casper.model.chain.get.block.CasperBlock;
@@ -20,10 +22,16 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class curlTest {
     private static String ip = "34.66.154.252";
+    private static List<String> ips = Arrays.asList("34.66.154.252", 
+                                                    "134.209.16.172", 
+                                                    "139.59.226.13", 
+                                                    "135.181.56.53", 
+                                                    "54.252.66.23");
     private static int port = 7777;
     private long lastBlockHeight;
     private String lastBlockParent;
     private static final Casper casper = new Casper(ip, port);
+    private static final Casper casper10 = new Casper(ips, port, 10, 5);
     private static final ObjectMapper mapper = new ObjectMapper();
 
     @BeforeAll
@@ -43,7 +51,7 @@ public class curlTest {
 
     @Test
     void getLastBlock() throws IOException, InterruptedException {
-        CasperBlock lastBlock = casper.getBlock();
+        CasperBlock lastBlock = casper.getLastBlock();
         lastBlockParent = lastBlock.header.parentHash;
         lastBlockHeight = lastBlock.header.height;
         String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
@@ -58,7 +66,7 @@ public class curlTest {
     @Test
     void getBlockByHeight() throws IOException, InterruptedException {
         long height = lastBlockHeight - 5;
-        CasperBlock block = casper.getBlock(height);
+        CasperBlock block = casper.getBlockByHeight(height);
         String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                     "-H", "Content-Type:application/json", "-d", 
                     "{\"jsonrpc\":\"2.0\",\"id\":\"2\",\"method\":\"chain_get_block\", " +
@@ -70,8 +78,28 @@ public class curlTest {
     }
 
     @Test
+    void getManyBlocskByHeight() throws IOException, InterruptedException, ExecutionException {
+        List<Long> heights = Arrays.asList(lastBlockHeight - 1, 
+                                            lastBlockHeight - 2, 
+                                            lastBlockHeight - 3,
+                                            lastBlockHeight - 4,
+                                            lastBlockHeight - 5);
+        List<CasperBlock> blocks = casper.getBlocksByBlockHeights(heights);
+        for (int i=0; i<heights.size(); i++) {
+            String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
+                        "-H", "Content-Type:application/json", "-d", 
+                        "{\"jsonrpc\":\"2.0\",\"id\":\"2\",\"method\":\"chain_get_block\", " +
+                        "\"params\":{\"block_identifier\":{\"Height\": " + heights.get(i) + "}}}"};
+            String curlResponse = curl(command);
+            var obj = mapper.treeToValue(mapper.readTree(curlResponse), CasperBlockResponse.class);
+            assertEquals(mapper.readTree(mapper.writeValueAsString(obj.result.block)), 
+                         mapper.readTree(mapper.writeValueAsString(blocks.get(i))));
+        }
+    }
+
+    @Test
     void getBlockByHash() throws IOException, InterruptedException {
-        CasperBlock block = casper.getBlock(lastBlockParent);
+        CasperBlock block = casper.getBlockByHash(lastBlockParent);
         String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                     "-H", "Content-Type:application/json", "-d", 
                     "{\"jsonrpc\":\"2.0\",\"id\":\"3\",\"method\":\"chain_get_block\", " +
@@ -85,7 +113,7 @@ public class curlTest {
     @Test
     void getEndEraBlock() throws IOException, InterruptedException {
         long height = 106;
-        CasperBlock block = casper.getBlock(height);
+        CasperBlock block = casper.getBlockByHeight(height);
         String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                     "-H", "Content-Type:application/json", "-d", 
                     "{\"jsonrpc\":\"2.0\",\"id\":\"4\",\"method\":\"chain_get_block\", " +
@@ -98,7 +126,7 @@ public class curlTest {
 
     @Test
     void getLastBlockTransfers() throws IOException, InterruptedException {
-        List<CasperTransfer> transfers = casper.getTransfers();
+        List<CasperTransfer> transfers = casper.getLastBlockTransfers();
         String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                     "-H", "Content-Type:application/json", "-d", 
                     "{\"jsonrpc\":\"2.0\",\"id\":\"1\",\"method\":\"chain_get_block_transfers\"}"};
@@ -111,7 +139,7 @@ public class curlTest {
     @Test
     void getTransfersByBlockHeight() throws IOException, InterruptedException {
         long height = lastBlockHeight - 5;
-        List<CasperTransfer> transfers = casper.getTransfers(height);
+        List<CasperTransfer> transfers = casper.getTransfersByBlockHeight(height);
         String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                     "-H", "Content-Type:application/json", "-d", 
                     "{\"jsonrpc\":\"2.0\",\"id\":\"2\",\"method\":\"chain_get_block_transfers\", " +
@@ -123,8 +151,28 @@ public class curlTest {
     }
 
     @Test
+    void getManyTransfersByHeight() throws IOException, InterruptedException, ExecutionException {
+        List<Long> heights = Arrays.asList(lastBlockHeight - 1, 
+                                            lastBlockHeight - 2, 
+                                            lastBlockHeight - 3,
+                                            lastBlockHeight - 4,
+                                            lastBlockHeight - 5);
+        List<List<CasperTransfer>> transfers = casper.getTransfersByBlockHeights(heights);
+        for (int i=0; i<heights.size(); i++) {
+            String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
+                        "-H", "Content-Type:application/json", "-d", 
+                        "{\"jsonrpc\":\"2.0\",\"id\":\"2\",\"method\":\"chain_get_block_transfers\", " +
+                        "\"params\":{\"block_identifier\":{\"Height\": " + heights.get(i) + "}}}"};
+            String curlResponse = curl(command);
+            var obj = mapper.treeToValue(mapper.readTree(curlResponse), CasperTransferResponse.class);
+            assertEquals(mapper.readTree(mapper.writeValueAsString(obj.result.transfers)), 
+                         mapper.readTree(mapper.writeValueAsString(transfers.get(i))));
+        }
+    }
+
+    @Test
     void getTransfersByBlockByHash() throws IOException, InterruptedException {
-        List<CasperTransfer> transfers = casper.getTransfers(lastBlockParent);
+        List<CasperTransfer> transfers = casper.getTransfersByBlockHash(lastBlockParent);
         String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                     "-H", "Content-Type:application/json", "-d", 
                     "{\"jsonrpc\":\"2.0\",\"id\":\"3\",\"method\":\"chain_get_block_transfers\", " +
