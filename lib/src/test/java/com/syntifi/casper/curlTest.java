@@ -84,7 +84,7 @@ public class curlTest {
                                             lastBlockHeight - 3,
                                             lastBlockHeight - 4,
                                             lastBlockHeight - 5);
-        List<CasperBlock> blocks = casper.getBlocksByBlockHeights(heights);
+        List<CasperBlock> blocks = casper10.getBlocksByBlockHeights(heights);
         for (int i=0; i<heights.size(); i++) {
             String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                         "-H", "Content-Type:application/json", "-d", 
@@ -157,7 +157,7 @@ public class curlTest {
                                             lastBlockHeight - 3,
                                             lastBlockHeight - 4,
                                             lastBlockHeight - 5);
-        List<List<CasperTransfer>> transfers = casper.getTransfersByBlockHeights(heights);
+        List<List<CasperTransfer>> transfers = casper10.getTransfersByBlockHeights(heights);
         for (int i=0; i<heights.size(); i++) {
             String[] command = {"curl", "-X",  "POST",  "http://"+ ip + ":" + port + "/rpc",
                         "-H", "Content-Type:application/json", "-d", 

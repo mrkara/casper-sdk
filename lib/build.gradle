@@ -62,7 +62,7 @@ test {
 
 tasks.named('jar') {
     archiveBaseName = 'casper-sdk'
-    archiveVersion =  '0.1.0'
+    archiveVersion =  '0.1.1'
     manifest {
         attributes('Implementation-Title': project.name,
                    'Implementation-Version': project.version)
