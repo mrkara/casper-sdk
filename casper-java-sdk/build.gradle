@@ -19,6 +19,15 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
 
+    // log4j and slf4j
+    implementation "org.apache.logging.log4j:log4j-api:${log4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jApiVersion}"
+
+    // key crypto
+    implementation "net.i2p.crypto:eddsa:${eddsaVersion}"
+
     // lombok compile
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
@@ -26,12 +35,6 @@ dependencies {
     // lombok testing
 	testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
 	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
-    // log4j and slf4j
-    testImplementation "org.apache.logging.log4j:log4j-api:${log4jVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
-    testImplementation "org.slf4j:slf4j-api:${slf4jApiVersion}"
     
     // Use JUnit Jupiter for testing.
     testImplementation "org.junit.jupiter:junit-jupiter:${jupiterVersion}"	

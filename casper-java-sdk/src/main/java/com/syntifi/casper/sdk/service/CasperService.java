@@ -17,6 +17,9 @@ import com.syntifi.casper.sdk.model.stateroothash.CasperStateRootHashData;
 import com.syntifi.casper.sdk.model.storedvalue.CasperStoredValueData;
 import com.syntifi.casper.sdk.model.transfer.CasperTransferData;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Interface to be used as Dynamic Proxy for RPC method operation
  * 
@@ -25,6 +28,9 @@ import com.syntifi.casper.sdk.model.transfer.CasperTransferData;
  * @since 0.0.1
  */
 public interface CasperService {
+    
+    Logger logger = LoggerFactory.getLogger(CasperService.class);
+    
     /**
      * Get network peers data
      * 
