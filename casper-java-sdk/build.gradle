@@ -27,6 +27,7 @@ dependencies {
 
     // key crypto
     implementation "org.bouncycastle:bcpkix-jdk15on:${bouncyVersion}"
+    implementation "org.web3j:core:${web3jVersion}"
     implementation "net.i2p.crypto:eddsa:${eddsaVersion}"
 
     // lombok compile
