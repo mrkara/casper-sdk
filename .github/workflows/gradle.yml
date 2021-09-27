@@ -5,9 +5,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ main ]
+    branches: [ workflow-tests ]
   pull_request:
-    branches: [ main ]
+    branches: [ workflow-tests ]
 
 jobs:
   build:
@@ -25,3 +25,6 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: jacoco-badge-generator
+      uses: cicirello/jacoco-badge-generator@v2.4.1
+
