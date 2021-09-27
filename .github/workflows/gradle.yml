@@ -29,4 +29,5 @@ jobs:
       run: ./gradlew jacocoTestReport
     - name: jacoco-badge-generator
       uses: cicirello/jacoco-badge-generator@v2.4.1
+      jacoco-csv-file: casper-java-sdk/build/reports/jacoco/test/jacocoTestReport.csv
 
