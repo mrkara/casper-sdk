@@ -23,12 +23,28 @@ jobs:
         distribution: 'adopt'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Generate jacoco Code Coverage with Gradle
+
+    - name: Generate JaCoCo coverage report
       run: ./gradlew jacocoTestReport
+
     - name: jacoco-badge-generator
       uses: cicirello/jacoco-badge-generator@v2.4.1
       with:
         jacoco-csv-file: casper-java-sdk/build/reports/jacoco/test/jacocoTestReport.csv
+
+    - name: Commit and push the badge (if it changed)
+      uses: EndBug/add-and-commit@v7
+      with:
+        default_author: github_actions
+        message: 'commit jacoco badge'
+        add: '*.svg'
+
+    - name: Upload JaCoCo coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-report
+        path: casper-java-sdk/build/reports/jacoco/test/
 
