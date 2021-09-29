@@ -38,10 +38,12 @@ public class DeployInfo {
      * Source purse used for payment of the Deploy.
      * @see URef
      */
-    private URef source;
+    //TODO: CHANGE TO URef later
+    private String source;
 
     /**
      * Transfers performed by the Deploy.
      */
     private List<String> transfers;
+
 }
