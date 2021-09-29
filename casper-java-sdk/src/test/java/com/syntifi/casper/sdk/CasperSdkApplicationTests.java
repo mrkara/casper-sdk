@@ -24,6 +24,7 @@ import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
+import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueString;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 import com.syntifi.casper.sdk.service.CasperService;
@@ -63,8 +64,10 @@ class CasperSdkApplicationTests {
 
 	@BeforeAll
 	public static void setUp() throws MalformedURLException {
-		casperServiceMainnet = CasperService.usingPeer(CasperNetwork.MAIN_NET.getIp(), CasperNetwork.MAIN_NET.getPort());
-		casperServiceTestnet = CasperService.usingPeer(CasperNetwork.TEST_NET.getIp(), CasperNetwork.TEST_NET.getPort());
+		casperServiceMainnet = CasperService.usingPeer(CasperNetwork.MAIN_NET.getIp(),
+				CasperNetwork.MAIN_NET.getPort());
+		casperServiceTestnet = CasperService.usingPeer(CasperNetwork.TEST_NET.getIp(),
+				CasperNetwork.TEST_NET.getPort());
 	}
 
 	/**
@@ -223,21 +226,23 @@ class CasperSdkApplicationTests {
 		List<String> path = Arrays.asList("special_value");
 		StoredValueData result = casperServiceTestnet.getStateItem(stateRootHash, key, path);
 
-		assertTrue(result.getCasperStoredValue().getClValue().getValue() instanceof String);
+		assertTrue(result.getStoredValue().getValue() instanceof CLValueString);
 		// Should be equal incoming parsed
-		assertEquals(result.getCasperStoredValue().getClValue().getValue(),
-				result.getCasperStoredValue().getClValue().getParsed());
+		assertEquals(((CLValueString) result.getStoredValue().getValue()).getValue(),
+				((CLValueString) result.getStoredValue().getValue()).getParsed());
 	}
 
 	@Test
 	void getDeploy() {
-		DeployData deployData = casperServiceMainnet.getDeploy("614030ac705ed2067fed57d30545b3a4974ffc40a1c32f72e3b7b7442d6c83a3");
+		DeployData deployData = casperServiceMainnet
+				.getDeploy("614030ac705ed2067fed57d30545b3a4974ffc40a1c32f72e3b7b7442d6c83a3");
 
 		assertNotNull(deployData);
 		assertTrue(deployData.getDeploy() instanceof Deploy);
 		assertTrue(deployData.getDeploy().getSession() instanceof StoredContractByHash);
 		assertTrue(deployData.getExecutionResults().get(0).getResult() instanceof Success);
-		assertTrue(((Success) deployData.getExecutionResults().get(0).getResult()).getEffect().getTransforms().get(0).getTransform() instanceof WriteCLValue);
+		assertTrue(((Success) deployData.getExecutionResults().get(0).getResult()).getEffect().getTransforms().get(0)
+				.getTransform() instanceof WriteCLValue);
 	}
 
 }
