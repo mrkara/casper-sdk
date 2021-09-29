@@ -15,7 +15,7 @@ public enum TransformTypeData {
     WRITE_DEPLOY_INFO("WriteDeployInfo", TransformWriteDeployInfo.class),
     WRITE_ERA_INFO("WriteEraInfo", TransformWriteEraInfo.class),
     WRITE_TRANSFER("WriteTransfer", TransformTransfer.class),
-    WRITE_BID("WriteTransfer", TransformWriteBid.class),
+    WRITE_BID("WriteBid", TransformWriteBid.class),
     WRITE_WITHDRAW("WriteWithdraw", TransformWriteWithdraw.class),
     WRITE_ADDU512("AddUInt512", TransformAddUInt512.class);
 

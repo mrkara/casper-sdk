@@ -1,12 +1,19 @@
 package com.syntifi.casper.sdk.model.deploy;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.uref.URef;
+
+import org.apache.commons.codec.DecoderException;
 
 import lombok.Data;
 
@@ -23,8 +30,9 @@ public class Bid {
     /**
      * The purse that was used for bonding.
      */
+    //TODO: convert to URef
     @JsonProperty("bonding_purse")
-    private URef bondingPurse;
+    private String bondingPurse;
 
     /**
      * Delegation rate
@@ -35,7 +43,17 @@ public class Bid {
     /**
      * This validator's delegators, indexed by their public keys
      */
-    private HashMap<PublicKey, Delegator> delegators;
+    //@JsonDeserialize(as= HashMap.class, keyAs = PublicKey.class, contentAs = Delegator.class)
+    @JsonIgnore
+    private Map<PublicKey, Delegator> delegators = new HashMap<>();
+    @JsonProperty("delegators")
+    private void unpackNested(Map<String, Delegator> node) throws DecoderException, NoSuchAlgorithmException{
+        for (Map.Entry<String, Delegator> entry : node.entrySet()){
+            PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
+            Delegator delegator = entry.getValue();
+            this.delegators.put(publicKey, delegator);
+        }
+    }
 
     /**
      * `true` if validator has been \"evicted\"
