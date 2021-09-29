@@ -38,8 +38,6 @@ public abstract class AbstractCLValueSerializer<T extends AbstractCLValue<?>> ex
             throw new SerializationException("Error serializing CLValues", e);
         }
 
-        gen.writeStartObject();
-
         writeCLTypeData(gen, value, false);
 
         gen.writeStringField("bytes", value.getBytes());
@@ -48,8 +46,11 @@ public abstract class AbstractCLValueSerializer<T extends AbstractCLValue<?>> ex
         if (value.getParsed() != null) {
             gen.writeObjectField("parsed", value.getParsed());
         }
+    }
 
-        gen.writeEndObject();
+    @Override
+    public boolean isUnwrappingSerializer() {
+        return true;
     }
 
     /**
@@ -128,10 +129,10 @@ public abstract class AbstractCLValueSerializer<T extends AbstractCLValue<?>> ex
         gen.writeEndObject();
     }
 
-    private void writeCLTypeDataByteArray(JsonGenerator gen, AbstractCLValue<?> clValue, CLType clType) throws IOException {
+    private void writeCLTypeDataByteArray(JsonGenerator gen, AbstractCLValue<?> clValue, CLType clType)
+            throws IOException {
         gen.writeObjectFieldStart(CL_TYPE_JSON_PROP_NAME);
-        gen.writeNumberField(clType.getClTypeData().getClTypeName(),
-                ((CLValueByteArray) clValue).getValue().length);
+        gen.writeNumberField(clType.getClTypeData().getClTypeName(), ((CLValueByteArray) clValue).getValue().length);
         gen.writeEndObject();
     }
 

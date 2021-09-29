@@ -17,8 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.Result;
+import com.syntifi.casper.sdk.model.contract.Contract;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
+import com.syntifi.casper.sdk.model.storedvalue.StoredValueCLValue;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLTypeData;
@@ -91,8 +93,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueU8
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueU8);
-        assertEquals((byte) 1, sv.getCasperStoredValue().getClValue().getValue());
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueU8);
+        CLValueU8 expected = new CLValueU8((byte) 1);
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -109,8 +115,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be string
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueString);
-        assertEquals("the string", sv.getCasperStoredValue().getClValue().getValue());
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueString);
+        CLValueString expected = new CLValueString("the string");
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -127,12 +137,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple1
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueTuple1);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple1);
         CLValueTuple1 expected = new CLValueTuple1(new Unit<>(new CLValueBool(true)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -149,12 +159,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple2
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueTuple2);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple2);
         CLValueTuple2 expected = new CLValueTuple2(new Pair<>(new CLValueI32(1), new CLValueString("Hello, World!")));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(sv.getCasperStoredValue().getClValue(), expected);
+        assertEquals(sv.getStoredValue().getValue(), expected);
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -164,7 +174,8 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_tuple3_u8_string_bool_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException {
+    void test_tuple3_u8_string_bool_clvalue_mapping()
+            throws IOException, CLValueEncodeException, DynamicInstanceException {
         String inputJson = getPrettyJson(
                 loadJsonFromFile("stored-value-samples/stored-value-tuple3-u8-string-bool.json"));
 
@@ -172,13 +183,13 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueTuple3);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(
                 new Triplet<>(new CLValueU8((byte) 1), new CLValueString("Hello, World!"), new CLValueBool(true)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(sv.getCasperStoredValue().getClValue(), expected);
+        assertEquals(sv.getStoredValue().getValue(), expected);
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -188,7 +199,8 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_tuple3_i32_string_bool_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException {
+    void test_tuple3_i32_string_bool_clvalue_mapping()
+            throws IOException, CLValueEncodeException, DynamicInstanceException {
         String inputJson = getPrettyJson(
                 loadJsonFromFile("stored-value-samples/stored-value-tuple3-i32-string-bool.json"));
 
@@ -196,13 +208,13 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueTuple3);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(
                 new Triplet<>(new CLValueI32(1), new CLValueString("Hello, World!"), new CLValueBool(true)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(sv.getCasperStoredValue().getClValue(), expected);
+        assertEquals(sv.getStoredValue().getValue(), expected);
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -212,7 +224,8 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_tuple3_tuple1_bool_string_bool_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException {
+    void test_tuple3_tuple1_bool_string_bool_clvalue_mapping()
+            throws IOException, CLValueEncodeException, DynamicInstanceException {
         String inputJson = getPrettyJson(
                 loadJsonFromFile("stored-value-samples/stored-value-tuple3-tuple1-bool-string-bool.json"));
 
@@ -220,14 +233,14 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueTuple3);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
                 new CLValueTuple1(new Unit<CLValueBool>(new CLValueBool(true))), new CLValueString("Hello, World!"),
                 new CLValueBool(true)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(sv.getCasperStoredValue().getClValue(), expected);
+        assertEquals(sv.getStoredValue().getValue(), expected);
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -237,7 +250,8 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_tuple3_tuple1_u512_string_bool_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException {
+    void test_tuple3_tuple1_u512_string_bool_clvalue_mapping()
+            throws IOException, CLValueEncodeException, DynamicInstanceException {
         String inputJson = getPrettyJson(
                 loadJsonFromFile("stored-value-samples/stored-value-tuple3-tuple1-u512-string-bool.json"));
 
@@ -245,14 +259,14 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueTuple3);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
                 new CLValueTuple1(new Unit<CLValueU512>(new CLValueU512(new BigInteger("123456789101112131415", 10)))),
                 new CLValueString("Hello, World!"), new CLValueBool(true)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(sv.getCasperStoredValue().getClValue(), expected);
+        assertEquals(sv.getStoredValue().getValue(), expected);
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -269,12 +283,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueList
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueList);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueList);
         CLValueList expected = new CLValueList(Arrays.asList(new CLValueI32(1), new CLValueI32(2), new CLValueI32(3)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -291,14 +305,14 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueMap
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueMap);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueMap);
         Map<CLValueString, CLValueI32> map = new LinkedHashMap<>();
         map.put(new CLValueString("ABC"), new CLValueI32(10));
         CLValueMap expected = new CLValueMap(map);
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -315,7 +329,7 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueResult
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueResult);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
         Result result = new Result();
         result.setOk(new CLValueI32(10));
         result.setErr(new CLValueString("Uh oh"));
@@ -323,7 +337,7 @@ public class CLValuesTests {
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -340,12 +354,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueOption);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.ofNullable(null));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -362,12 +376,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueOption);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.of(new CLValueBool(true)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -384,12 +398,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueOption);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.of(new CLValueI32(10)));
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -406,12 +420,12 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueUnit
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueUnit);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueUnit);
         CLValueUnit expected = new CLValueUnit();
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -428,10 +442,10 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValuURef
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueURef);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueURef);
         assertEquals(new URef(
                 Hex.decodeHex("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a".toCharArray()),
-                URefAccessRight.READ_ADD_WRITE), sv.getCasperStoredValue().getClValue().getValue());
+                URefAccessRight.READ_ADD_WRITE), sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -448,12 +462,15 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValuePublicKey
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValuePublicKey);
-        PublicKey expected = new PublicKey();
-        expected.setAlgorithm(Algorithm.ED25519);
-        expected.setKey(
-                Hex.decodeHex("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a".toCharArray()));
-        assertEquals(expected, sv.getCasperStoredValue().getClValue().getValue());
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValuePublicKey);
+        PublicKey pk = new PublicKey();
+        pk.setAlgorithm(Algorithm.ED25519);
+        pk.setKey(Hex.decodeHex("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a".toCharArray()));
+        CLValuePublicKey expected = new CLValuePublicKey(pk);
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -470,22 +487,40 @@ public class CLValuesTests {
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueByteArray
-        assertTrue(sv.getCasperStoredValue().getClValue() instanceof CLValueByteArray);
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueByteArray);
         CLValueByteArray expected = new CLValueByteArray(new byte[] { 122, -50, 107, 117, -83, -99, 95, 64, -35, 5, 34,
                 44, 108, -122, 69, -78, 28, -20, 71, 119, 98, 48, -34, 0, 111, -53, -39, 107, -38, 124, 73, -75 });
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
 
-        sv.getCasperStoredValue().getClValue().equals(expected);
+        sv.getStoredValue().getValue().equals(expected);
 
-        assertEquals(expected, sv.getCasperStoredValue().getClValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
         assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_contract_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+
+        assertTrue(sv.getStoredValue().getValue() instanceof Contract);
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+
     }
 
     /**

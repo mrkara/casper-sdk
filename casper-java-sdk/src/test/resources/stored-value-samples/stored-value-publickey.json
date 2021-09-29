@@ -3,8 +3,7 @@
   "stored_value" : {
     "CLValue" : {
       "cl_type" : "PublicKey",
-      "bytes":"012a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a",
-      "parsed" : "the public key"
+      "bytes":"012a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"
     }
   },
   "merkle_proof" : "-- erased --"

@@ -18,7 +18,7 @@ public class StoredValueData {
     private String apiVersion;
 
     @JsonProperty("stored_value")
-    private StoredValue casperStoredValue;
+    private StoredValue<?> storedValue;
 
     @JsonProperty("merkle_proof")
     private String merkleProof;
