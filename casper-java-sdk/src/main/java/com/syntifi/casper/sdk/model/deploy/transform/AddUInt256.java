@@ -1,12 +1,13 @@
 package com.syntifi.casper.sdk.model.deploy.transform;
 
+import java.math.BigInteger;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.model.deploy.Bid;
 
 import lombok.Data;
 
 /**
- * An implmentation of Transform that Writes the given Bid to global state.
+ * An implmentation of Transform that Adds the given `u256`
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -14,14 +15,14 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-public class WriteBid implements Transform {
+public class AddUInt256 implements Transform {
    
     /**
-     * @see Bid 
+     * u256 
      */
-    @JsonProperty("WriteBid")
-    private Bid bid;
-}
+    @JsonProperty("AddUInt256")
+    private BigInteger addUInt256;
 
+}
 
 

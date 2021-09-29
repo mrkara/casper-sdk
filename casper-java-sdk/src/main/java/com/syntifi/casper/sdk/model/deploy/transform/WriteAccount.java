@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * An implmentation of Transform that Writes the given Account to global state.
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace

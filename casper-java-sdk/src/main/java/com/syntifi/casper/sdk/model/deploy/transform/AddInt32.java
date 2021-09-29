@@ -1,12 +1,11 @@
 package com.syntifi.casper.sdk.model.deploy.transform;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.model.deploy.Bid;
 
 import lombok.Data;
 
 /**
- * An implmentation of Transform that Writes the given Bid to global state.
+ * An implmentation of Transform that Adds the given `i32`
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -14,14 +13,13 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-public class WriteBid implements Transform {
+public class AddInt32 implements Transform {
    
     /**
-     * @see Bid 
+     * i32 
      */
-    @JsonProperty("WriteBid")
-    private Bid bid;
+    @JsonProperty("AddInt32")
+    private long addInt32;
+
 }
-
-
 
