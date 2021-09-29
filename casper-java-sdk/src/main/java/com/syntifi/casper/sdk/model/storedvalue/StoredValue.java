@@ -21,6 +21,5 @@ import com.syntifi.casper.sdk.jackson.StoredValueResolver;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
 @JsonTypeResolver(StoredValueResolver.class)
 public interface StoredValue<T> {
-    @JsonUnwrapped
     public abstract T getValue();
 }

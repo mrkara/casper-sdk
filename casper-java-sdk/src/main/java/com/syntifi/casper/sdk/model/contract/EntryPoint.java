@@ -2,9 +2,8 @@ package com.syntifi.casper.sdk.model.contract;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.model.deploy.NamedArg;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -46,7 +45,7 @@ public class EntryPoint {
      * args(Array/Object) - Parameter to a method
      */
     @JsonProperty("args")
-    private List<NamedArg<?>> args;
+    private List<Parameter> args;
 
     /**
      * entry_point_type(enum/String) - Context of method execution
@@ -64,5 +63,5 @@ public class EntryPoint {
      * ret(CLValue)
      */
     @JsonProperty("ret")
-    private AbstractCLValue<?> ret;
+    private String ret;
 }

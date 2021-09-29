@@ -223,10 +223,7 @@ class CasperSdkApplicationTests {
 		List<String> path = Arrays.asList("special_value");
 		StoredValueData result = casperServiceTestnet.getStateItem(stateRootHash, key, path);
 
-		assertTrue(result.getCasperStoredValue().getClValue().getValue() instanceof String);
-		// Should be equal incoming parsed
-		assertEquals(result.getCasperStoredValue().getClValue().getValue(),
-				result.getCasperStoredValue().getClValue().getParsed());
+		assertTrue(result.getStoredValue().getValue() instanceof String);
 	}
 
 	@Test
