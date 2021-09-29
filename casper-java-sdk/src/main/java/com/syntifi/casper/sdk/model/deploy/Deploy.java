@@ -27,7 +27,7 @@ public class Deploy {
     private DeployHeader header;
 
     /**
-     * List of @see Approval
+     * @see Approval
      */
     private List<Approval> approvals;
 

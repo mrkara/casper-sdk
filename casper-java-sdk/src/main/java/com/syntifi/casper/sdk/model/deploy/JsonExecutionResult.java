@@ -1,6 +1,7 @@
 package com.syntifi.casper.sdk.model.deploy;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.model.deploy.executionresult.ExecutionResult;
 
 import lombok.Data;
 
