@@ -1,6 +1,7 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.deploy.transform;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.model.transfer.Transfer;
 
 import lombok.Data;
 
@@ -13,14 +14,14 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-public class TransformWriteBid implements Transform {
+public class WriteTransfer implements Transform {
    
     /**
-     * Hex-encoded account hash 
+     * @see Transfer 
      */
-    @JsonProperty("WriteBid")
-    private Bid bid;
-}
+    @JsonProperty("WriteTransfer")
+    private Transfer transfer;
 
+}
 
 

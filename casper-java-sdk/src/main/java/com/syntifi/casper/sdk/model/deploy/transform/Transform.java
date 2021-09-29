@@ -1,8 +1,10 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.deploy.transform;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 import com.syntifi.casper.sdk.jackson.TransformResolver;
+import com.syntifi.casper.sdk.model.deploy.Failure;
+import com.syntifi.casper.sdk.model.deploy.Success;
 
 
 /**

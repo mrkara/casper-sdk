@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Data
 @JsonTypeName("Failure")
-public class Failure extends ExecutionResult{
+public class Failure implements ExecutionResult{
     /**
      * The cost of executing the deploy.
      */

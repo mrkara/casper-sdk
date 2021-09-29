@@ -1,9 +1,8 @@
-package com.syntifi.casper.sdk.model.deploy;
-
-import java.util.List;
-
+package com.syntifi.casper.sdk.model.deploy.transform;
+    
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 
 import lombok.Data;
 
@@ -16,17 +15,14 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-@JsonTypeName("ModuleBytes")
-public class ExecutableDeployItemModuleBytes extends ExecutableDeployItem {
+@JsonTypeName("WriteCLValue")
+public class WriteCLValue implements Transform {
    
     /**
-     * List of @see NamedArg 
+     * @see CLValue 
      */
-    private List<NamedArg<?>> args;
+    //@JsonUnrapped
+    @JsonProperty("WriteCLValue")
+    private AbstractCLValue<?> clvalue;
 
-    /**
-     * Module bytes 
-     */
-    @JsonProperty("module_bytes")
-    private String bytes;
 }

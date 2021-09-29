@@ -16,6 +16,9 @@ import com.syntifi.casper.sdk.model.block.JsonBlock;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
+import com.syntifi.casper.sdk.model.deploy.Success;
+import com.syntifi.casper.sdk.model.deploy.executabledeploy.StoredContractByHash;
+import com.syntifi.casper.sdk.model.deploy.transform.WriteCLValue;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
@@ -232,6 +235,9 @@ class CasperSdkApplicationTests {
 
 		assertNotNull(deployData);
 		assertTrue(deployData.getDeploy() instanceof Deploy);
+		assertTrue(deployData.getDeploy().getSession() instanceof StoredContractByHash);
+		assertTrue(deployData.getExecutionResults().get(0).getResult() instanceof Success);
+		assertTrue(((Success) deployData.getExecutionResults().get(0).getResult()).getEffect().getTransforms().get(0).getTransform() instanceof WriteCLValue);
 	}
 
 }

@@ -1,8 +1,6 @@
 package com.syntifi.casper.sdk.model.deploy;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 
 /**
  * The type of operation performed while executing a deploy.

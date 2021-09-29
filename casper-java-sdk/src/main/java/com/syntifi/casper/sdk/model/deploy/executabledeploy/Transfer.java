@@ -1,8 +1,9 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.deploy.executabledeploy;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.syntifi.casper.sdk.model.deploy.NamedArg;
 
 import lombok.Data;
 
@@ -16,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @JsonTypeName("Transfer")
-public class ExecutableDeployItemTransfer extends ExecutableDeployItem{
+public class Transfer implements ExecutableDeployItem{
    
     /**
      * List of @see NamedArg 

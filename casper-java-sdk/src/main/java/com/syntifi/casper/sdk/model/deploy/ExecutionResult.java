@@ -18,5 +18,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = Failure.class, name = "Failure"),
     @JsonSubTypes.Type(value = Success.class, name = "Success")
 })
-public abstract class ExecutionResult {
+public interface ExecutionResult {
 }

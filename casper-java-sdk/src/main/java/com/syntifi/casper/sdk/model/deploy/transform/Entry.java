@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.deploy.transform;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-public class TransformEntry {
+public class Entry {
     /**
      * The formatted string of the `Key`
      */

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.model.deploy.TransformTypeData;
+import com.syntifi.casper.sdk.model.deploy.transform.TypeData;
 
 /**
  * Core Deserializer for the CLValue property. This deserializer is used by the {@link CLTypeResolver} 
@@ -49,7 +49,7 @@ public class TransformDeserializer extends AsPropertyTypeDeserializer {
         Class<?> subType;
         try {
             String transformType = node.isObject() ? node.fieldNames().next() : node.asText();
-            subType = TransformTypeData.getClassByName(transformType);
+            subType = TypeData.getClassByName(transformType);
         } catch (NoSuchTypeException e) {
             throw new IOException("Parse error", e);
         }

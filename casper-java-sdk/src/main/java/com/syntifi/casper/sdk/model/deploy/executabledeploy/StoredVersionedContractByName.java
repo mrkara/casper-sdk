@@ -1,14 +1,15 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.deploy.executabledeploy;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.syntifi.casper.sdk.model.deploy.NamedArg;
 
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type StoredVersionedContractByHash containing the runtime 
+ * An AbstractExecutableDeployItem of Type StoredVersionedContractByName containing the runtime 
  * args of the contract.
  * 
  * @author Alexandre Carvalho
@@ -16,8 +17,8 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-@JsonTypeName("StoredVersionedContractByHash")
-public class ExecutableDeployItemStoredVersionedContractByHash extends ExecutableDeployItem{
+@JsonTypeName("StoredVersionedContractByName")
+public class StoredVersionedContractByName implements ExecutableDeployItem{
    
     /**
      * List of @see NamedArg 
@@ -31,9 +32,9 @@ public class ExecutableDeployItemStoredVersionedContractByHash extends Executabl
     private String entryPoint;
 
     /**
-     * Hex-encoded Hash 
+     * Contract Name 
      */
-    private String hash;
+    private String name;
 
     /**
      * contract version
