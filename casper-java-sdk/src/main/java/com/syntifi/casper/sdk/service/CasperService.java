@@ -13,6 +13,7 @@ import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
+import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
@@ -132,8 +133,8 @@ public interface CasperService {
      * @param deployHash The deploy hash
      * @return Object holding the api version, the deploy and the map of block hash to execution result
      */
-    //@JsonRpcMethod("info_get_deploy")
-    //public DeployData getDeploy(@JsonRpcParam("deploy_hash") String deployHash);
+    @JsonRpcMethod("info_get_deploy")
+    public DeployData getDeploy(@JsonRpcParam("deploy_hash") String deployHash);
 
     // @JsonRpcMethod("info_get_status")
     // public CasperStatus getStatus();

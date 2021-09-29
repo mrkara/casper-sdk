@@ -14,6 +14,8 @@ import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.model.block.JsonBlock;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
+import com.syntifi.casper.sdk.model.deploy.Deploy;
+import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
@@ -222,6 +224,14 @@ class CasperSdkApplicationTests {
 		// Should be equal incoming parsed
 		assertEquals(result.getCasperStoredValue().getClValue().getValue(),
 				result.getCasperStoredValue().getClValue().getParsed());
+	}
+
+	@Test
+	void getDeploy() {
+		DeployData deployData = casperServiceMainnet.getDeploy("614030ac705ed2067fed57d30545b3a4974ffc40a1c32f72e3b7b7442d6c83a3");
+
+		assertNotNull(deployData);
+		assertTrue(deployData.getDeploy() instanceof Deploy);
 	}
 
 }
