@@ -18,6 +18,10 @@ import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.Result;
 import com.syntifi.casper.sdk.model.contract.Contract;
+import com.syntifi.casper.sdk.model.deploy.Deploy;
+import com.syntifi.casper.sdk.model.deploy.DeployData;
+import com.syntifi.casper.sdk.model.deploy.JsonExecutionResult;
+import com.syntifi.casper.sdk.model.deploy.executionresult.ExecutionResult;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueCLValue;
@@ -523,6 +527,24 @@ public class CLValuesTests {
 
     }
 
+    @Test
+    void test_deploy_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
+
+        assertTrue(dd.getDeploy() instanceof Deploy);
+        assertTrue(dd.getExecutionResults().get(0) instanceof JsonExecutionResult);
+
+        String reserializedJson = getPrettyJson(dd);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+
+    }
     /**
      * Loads test json from resources
      * 
