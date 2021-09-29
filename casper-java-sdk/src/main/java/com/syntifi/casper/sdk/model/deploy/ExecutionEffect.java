@@ -2,8 +2,6 @@ package com.syntifi.casper.sdk.model.deploy;
 
 import java.util.List;
 
-import com.syntifi.casper.sdk.model.deploy.transform.Entry;
-
 import lombok.Data;
 
 /**

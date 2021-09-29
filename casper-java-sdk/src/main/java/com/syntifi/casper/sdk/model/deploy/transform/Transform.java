@@ -18,7 +18,7 @@ import com.syntifi.casper.sdk.jackson.TransformResolver;
  * @see WriteAccount
  * @see WriteBid
  * @see WriteCLValue
- * @see WriteContractA
+ * @see WriteContract
  * @see WriteDeployInfo
  * @see WriteEraInfo
  * @see WriteTransfer

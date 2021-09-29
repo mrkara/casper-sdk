@@ -1,4 +1,6 @@
-package com.syntifi.casper.sdk.model.deploy.transform;
+package com.syntifi.casper.sdk.model.deploy;
+
+import com.syntifi.casper.sdk.model.deploy.transform.Transform;
 
 import lombok.Data;
 

@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * An implmentation of Transform that gives details about a failed transformation, 
+ * containing an error message
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -16,7 +17,7 @@ import lombok.Data;
 public class Failure implements Transform {
    
     /**
-     *  
+     *  erroe message
      */
     @JsonProperty("Failure")
     private String failure;
