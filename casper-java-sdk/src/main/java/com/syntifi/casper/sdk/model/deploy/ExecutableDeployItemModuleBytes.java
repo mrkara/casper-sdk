@@ -22,7 +22,7 @@ public class ExecutableDeployItemModuleBytes extends ExecutableDeployItem {
     /**
      * List of @see NamedArg 
      */
-    private List<NamedArg> args;
+    private List<NamedArg<?>> args;
 
     /**
      * Module bytes 

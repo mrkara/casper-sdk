@@ -1,7 +1,6 @@
 package com.syntifi.casper.sdk.model.deploy;
     
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -14,13 +13,12 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-@JsonTypeName("WriteAccount")
-public class TransformWriteAccount extends Transform {
+public class TransformWriteAccount implements Transform {
    
     /**
      * Hex-encoded account hash 
      */
-    @JsonUnwrapped
+    @JsonProperty("WriteAccount")
     private String account;
 
 }

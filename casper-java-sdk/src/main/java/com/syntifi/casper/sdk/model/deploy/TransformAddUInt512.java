@@ -1,7 +1,8 @@
 package com.syntifi.casper.sdk.model.deploy;
 
+import java.math.BigInteger;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.model.transfer.Transfer;
 
 import lombok.Data;
 
@@ -14,14 +15,15 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-public class TransformTransfer implements Transform {
+public class TransformAddUInt512 implements Transform {
    
     /**
-     * @see Transfer 
+     *  
      */
-    @JsonProperty("WriteTransfer")
-    private Transfer transfer;
+    @JsonProperty("AddUInt512")
+    private BigInteger addUInt512;
 
 }
+
 
 

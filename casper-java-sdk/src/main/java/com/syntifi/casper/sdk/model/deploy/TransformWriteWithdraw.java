@@ -2,8 +2,7 @@ package com.syntifi.casper.sdk.model.deploy;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -16,13 +15,12 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-@JsonTypeName("WriteWithdraw")
-public class TransformWriteWithdraw extends Transform {
+public class TransformWriteWithdraw implements Transform {
    
     /**
      * Hex-encoded account hash 
      */
-    @JsonUnwrapped
+    @JsonProperty("WriteWithdraw")
     private List<UnbondingPurse> purses;
 
 }

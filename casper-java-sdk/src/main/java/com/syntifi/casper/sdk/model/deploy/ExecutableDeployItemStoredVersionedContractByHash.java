@@ -22,7 +22,7 @@ public class ExecutableDeployItemStoredVersionedContractByHash extends Executabl
     /**
      * List of @see NamedArg 
      */
-    private List<NamedArg> args;
+    private List<NamedArg<?>> args;
 
     /**
      * Entry Point 

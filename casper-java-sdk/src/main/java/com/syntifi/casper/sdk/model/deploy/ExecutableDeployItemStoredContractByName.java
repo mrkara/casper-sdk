@@ -22,7 +22,7 @@ public class ExecutableDeployItemStoredContractByName extends ExecutableDeployIt
     /**
      * List of @see NamedArg 
      */
-    private List<NamedArg> args;
+    private List<NamedArg<?>> args;
 
     /**
      * Entry Point 

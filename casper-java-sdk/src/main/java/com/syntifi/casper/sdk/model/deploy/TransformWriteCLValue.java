@@ -1,7 +1,7 @@
 package com.syntifi.casper.sdk.model.deploy;
     
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 
 import lombok.Data;
@@ -16,12 +16,13 @@ import lombok.Data;
  */
 @Data
 @JsonTypeName("WriteCLValue")
-public class TransformWriteCLValue extends Transform {
+public class TransformWriteCLValue implements Transform {
    
     /**
      * @see CLValue 
      */
-    @JsonUnwrapped
+    //@JsonUnrapped
+    @JsonProperty("WriteCLValue")
     private AbstractCLValue<?> clvalue;
 
 }
