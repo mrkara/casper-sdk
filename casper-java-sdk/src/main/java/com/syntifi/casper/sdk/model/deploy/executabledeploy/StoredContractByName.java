@@ -8,20 +8,21 @@ import com.syntifi.casper.sdk.model.deploy.NamedArg;
 
 import lombok.Data;
 
+
 /**
- * An AbstractExecutableDeployItem of Type StoredContractByName containing the runtime 
- * args of the contract.
- * 
+ * Abstract Executable Deploy Item containing the StoredContractByName.
+ *
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
+ * @see ExecutableDeployItem 
  */
 @Data
 @JsonTypeName("StoredContractByName")
 public class StoredContractByName implements ExecutableDeployItem{
    
     /**
-     * List of @see NamedArg 
+     * @see NamedArg 
      */
     private List<NamedArg<?>> args;
 
