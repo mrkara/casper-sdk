@@ -338,8 +338,8 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, buf);
 
-        BigInteger bigInt = new BigInteger(buf);
-//        BigInteger bigInt = new BigInteger(StringByteHelper.convertBytesToHex(buf), 16);
+        //BigInteger bigInt = new BigInteger(buf);
+        BigInteger bigInt = new BigInteger(StringByteHelper.convertBytesToHex(buf), 16);
 
         LOGGER.debug(LOG_DECODED_VALUE_MESSAGE_STRING, BigInteger.class.getSimpleName(), bigInt);
 

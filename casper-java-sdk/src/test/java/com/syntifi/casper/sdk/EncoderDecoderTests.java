@@ -78,7 +78,7 @@ public class EncoderDecoderTests {
             new TestData<BigInteger>(CLType.U512, new BigInteger("1024", 10), "020004", null),
             new TestData<BigInteger>(CLType.U512, new BigInteger("123456789101112131415", 10), "0957ff1ada959f4eb106",
                     null),
-           new TestData<BigInteger>(CLType.U512, new BigInteger("2500010000"), "0410200395", null),
+            new TestData<BigInteger>(CLType.U512, new BigInteger("2500010000", 10), "0410200395", null),
             new TestData<String>(CLType.STRING, "the string", "0a00000074686520737472696e67", null),
             new TestData<String>(CLType.STRING, "Hello, World!", "0d00000048656c6c6f2c20576f726c6421", null),
             new TestData<Optional<?>>(CLType.OPTION, Optional.ofNullable(null), "00", new Class<?>[] {}),
