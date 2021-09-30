@@ -3,21 +3,17 @@ package com.syntifi.casper.sdk.model.clvalue;
 import java.io.IOException;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
-import com.syntifi.casper.sdk.jackson.deserializer.CLValueResultDeserializer;
-import com.syntifi.casper.sdk.jackson.serializer.CLValueResultSerializer;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeResult;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Casper Result CLValue implementation
@@ -27,16 +23,13 @@ import lombok.NoArgsConstructor;
  * @see CLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValueResult extends CLValue<Result, CLTypeResult> {
     @JsonProperty("cl_type")
     private CLTypeResult clType;
-
-    // @Override
-    // public void setClType(CLType value) {
-    //     this.clType = (CLTypeResult) value;
-    // }
 
     public CLValueResult(Result value) {
         this.setValue(value);
@@ -82,5 +75,11 @@ public class CLValueResult extends CLValue<Result, CLTypeResult> {
         // }
 
         // setValue(result);
+    }
+
+    @Override
+    protected void setChildTypes() {
+        // TODO Auto-generated method stub
+
     }
 }

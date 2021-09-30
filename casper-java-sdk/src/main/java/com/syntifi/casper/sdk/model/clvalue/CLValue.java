@@ -29,4 +29,6 @@ public abstract class CLValue<T, P extends CLType> implements EncodableValue, De
 
     public abstract P getClType();
     public abstract void setClType(P value);
+    
+    protected abstract void setChildTypes();
 }

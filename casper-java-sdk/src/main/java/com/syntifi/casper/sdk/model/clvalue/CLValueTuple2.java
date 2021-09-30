@@ -12,8 +12,10 @@ import com.syntifi.casper.sdk.model.clvalue.type.CLTypeTuple2;
 
 import org.javatuples.Pair;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Casper Tuple2 CLValue implementation
@@ -23,16 +25,13 @@ import lombok.NoArgsConstructor;
  * @see CLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValueTuple2 extends CLValue<Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeTuple2> {
     @JsonProperty("cl_type")
     private CLTypeTuple2 clType;
-
-    // @Override
-    // public void setClType(CLType value) {
-    // this.clType = (CLTypeTuple2) value;
-    // }
 
     public CLValueTuple2(Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>> value) {
         this.setValue(value);
@@ -64,5 +63,11 @@ public class CLValueTuple2 extends CLValue<Pair<? extends CLValue<?, ?>, ? exten
         // setValue(new Pair<>(child1, child2));
         // setBytes(getValue().getValue0().getBytes() +
         // getValue().getValue1().getBytes());
+    }
+
+    @Override
+    protected void setChildTypes() {
+        // TODO Auto-generated method stub
+
     }
 }

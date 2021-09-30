@@ -11,7 +11,9 @@ import com.syntifi.casper.sdk.model.clvalue.type.CLType;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Casper Unit CLValue implementation
@@ -24,17 +26,14 @@ import lombok.Data;
  * @see AbstractCLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 public class CLValueUnit extends CLValue<Object, CLTypeBasic> {
     private static final String UNITY_EMPTY_VALUE = "";
     @JsonProperty("cl_type")
     @JsonUnwrapped
-    private CLTypeBasic clType;
-
-    // @Override
-    // public void setClType(CLType value) {
-    //     this.clType = (CLTypeBasic) value;
-    // }
+    private CLTypeBasic clType = new CLTypeBasic(CLType.UNIT);
 
     public CLValueUnit() {
         this.setValue(UNITY_EMPTY_VALUE);
@@ -48,5 +47,11 @@ public class CLValueUnit extends CLValue<Object, CLTypeBasic> {
     @Override
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException {
         setBytes(UNITY_EMPTY_VALUE);
+    }
+
+    @Override
+    protected void setChildTypes() {
+        // TODO Auto-generated method stub
+
     }
 }

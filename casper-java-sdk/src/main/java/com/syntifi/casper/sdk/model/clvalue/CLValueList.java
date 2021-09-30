@@ -9,10 +9,12 @@ import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeList;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Casper List CLValue implementation
@@ -22,7 +24,10 @@ import lombok.Data;
  * @see CLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeList> {
     @JsonProperty("cl_type")
     private CLTypeList clType;
@@ -69,5 +74,11 @@ public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeLi
         // }
 
         // setValue(list);
+    }
+
+    @Override
+    protected void setChildTypes() {
+        // TODO Auto-generated method stub
+
     }
 }

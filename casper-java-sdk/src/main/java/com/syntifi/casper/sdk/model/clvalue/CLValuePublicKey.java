@@ -8,13 +8,16 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
+import com.syntifi.casper.sdk.model.clvalue.type.CLType;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
 import org.apache.commons.codec.DecoderException;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Casper PublicKey CLValue implementation
@@ -24,17 +27,14 @@ import lombok.NoArgsConstructor;
  * @see CLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValuePublicKey extends CLValue<PublicKey, CLTypeBasic> {
     @JsonProperty("cl_type")
     @JsonUnwrapped
-    private CLTypeBasic clType;
-
-    // @Override
-    // public void setClType(CLType value) {
-    // this.clType = (CLTypeBasic) value;
-    // }
+    private CLTypeBasic clType = new CLTypeBasic(CLType.PUBLIC_KEY);
 
     public CLValuePublicKey(PublicKey value) {
         this.setValue(value);
@@ -52,5 +52,11 @@ public class CLValuePublicKey extends CLValue<PublicKey, CLTypeBasic> {
         } catch (DecoderException | NoSuchAlgorithmException e) {
             throw new CLValueDecodeException("Error decoding CLValuePublicKey", e);
         }
+    }
+
+    @Override
+    protected void setChildTypes() {
+        // TODO Auto-generated method stub
+
     }
 }

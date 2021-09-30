@@ -10,10 +10,12 @@ import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeMap;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Casper Map CLValue implementation
@@ -23,7 +25,10 @@ import lombok.Data;
  * @see CLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class CLValueMap extends CLValue<Map<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeMap> {
     @JsonProperty("cl_type")
     private CLTypeMap clType;
@@ -74,6 +79,12 @@ public class CLValueMap extends CLValue<Map<? extends CLValue<?, ?>, ? extends C
         // }
 
         // setValue(map);
+    }
+
+    @Override
+    protected void setChildTypes() {
+        // TODO Auto-generated method stub
+
     }
 
     // static List<CLType> getCLTypeDataOfChildren(Map<? extends CLValue<?>, ?

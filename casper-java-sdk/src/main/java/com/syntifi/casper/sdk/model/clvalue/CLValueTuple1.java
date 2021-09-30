@@ -1,6 +1,7 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
@@ -9,13 +10,15 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeMap;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeTuple1;
 
 import org.javatuples.Unit;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Casper Tuple1 CLValue implementation
@@ -25,23 +28,23 @@ import lombok.NoArgsConstructor;
  * @see CLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValueTuple1 extends CLValue<Unit<? extends CLValue<?, ?>>, CLTypeTuple1> {
     @JsonProperty("cl_type")
-    private CLTypeTuple1 clType;
-
-    // @Override
-    // public void setClType(CLType value) {
-    //     this.clType = (CLTypeTuple1) value;
-    // }
+    private CLTypeTuple1 clType = new CLTypeTuple1();
 
     public CLValueTuple1(Unit<? extends CLValue<?, ?>> value) {
         this.setValue(value);
+        setChildTypes();
     }
 
     @Override
     public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException {
+        setChildTypes();
+
         getValue().getValue0().encode(clve);
 
         setBytes(getValue().getValue0().getBytes());
@@ -49,13 +52,20 @@ public class CLValueTuple1 extends CLValue<Unit<? extends CLValue<?, ?>>, CLType
 
     @Override
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException {
-        // CLType childTypeData1 = getClType().getChildTypes().get(0);
+        CLType childTypeData1 = clType.getChildClTypeData(0);
 
-        // CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1.getClTypeData());
-        // child1.setClType(childTypeData1);
-        // child1.decode(clvd);
+        CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1.getClTypeData());
+        child1.decode(clvd);
 
-        // setValue(new Unit<>(child1));
-        // setBytes(getValue().getValue0().getBytes());
+        setValue(new Unit<>(child1));
+        setBytes(getValue().getValue0().getBytes());
+
+        setChildTypes();
+    }
+
+    @Override
+    protected void setChildTypes() {
+        clType.setChildTypes(Arrays.asList());
+
     }
 }

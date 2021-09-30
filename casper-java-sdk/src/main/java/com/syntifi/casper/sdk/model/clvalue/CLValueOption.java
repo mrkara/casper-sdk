@@ -15,7 +15,9 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeOption;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Casper Option CLValue implementation
@@ -25,35 +27,26 @@ import lombok.Data;
  * @see CLValue
  * @since 0.0.1
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 public class CLValueOption extends CLValue<Optional<? extends CLValue<?, ?>>, CLTypeOption> {
     @JsonProperty("cl_type")
     private CLTypeOption clType = new CLTypeOption();
 
-    // @Override
-    // public void setClType(CLType value) {
-    // this.clType = (CLTypeOption) value;
-    // }
     public CLValueOption() {
         this(Optional.ofNullable(null));
     }
 
     public CLValueOption(Optional<? extends CLValue<?, ?>> value) {
         this.setValue(value);
-        clType.setChildTypes(
-                value.isPresent() && value.get() == null ? new ArrayList<>() : getCLTypeDataOfChildren(value));
-    }
-
-    static List<String> getCLTypeDataOfChildren(Optional<? extends CLValue<?, ?>> value) {
-        if (value.isPresent()) {
-            return Arrays.asList(value.get().getClType().getTypeName());
-        } else {
-            return new ArrayList<>();
-        }
+        setChildTypes();
     }
 
     @Override
     public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException {
+        setChildTypes();
+
         CLValueBool isPresent = new CLValueBool(getValue().isPresent());
         clve.writeBool(isPresent);
         setBytes(isPresent.getBytes());
@@ -81,6 +74,22 @@ public class CLValueOption extends CLValue<Optional<? extends CLValue<?, ?>>, CL
             setBytes(getBytes() + child.getBytes());
         } else {
             setValue(Optional.ofNullable(null));
+        }
+
+        setChildTypes();
+    }
+
+    @Override
+    protected void setChildTypes() {
+        clType.setChildTypes(getValue().isPresent() && getValue().get() == null ? new ArrayList<>()
+                : getCLTypeDataOfChildren(getValue()));
+    }
+
+    protected List<String> getCLTypeDataOfChildren(Optional<? extends CLValue<?, ?>> value) {
+        if (value.isPresent()) {
+            return Arrays.asList(value.get().getClType().getTypeName());
+        } else {
+            return new ArrayList<>();
         }
     }
 }
