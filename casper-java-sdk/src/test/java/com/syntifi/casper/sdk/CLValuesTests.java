@@ -528,8 +528,8 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_deploy_mapping() throws JsonMappingException, JsonProcessingException, IOException {
-        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy.json"));
+    void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v1.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
@@ -543,7 +543,23 @@ public class CLValuesTests {
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
         assertEquals(inputJson, reserializedJson);
+    }
 
+    @Test
+    void test_deploy_mapping_2() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v2.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
+
+        assertTrue(dd.getDeploy() instanceof Deploy);
+        
+        String reserializedJson = getPrettyJson(dd);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
     }
     /**
      * Loads test json from resources
