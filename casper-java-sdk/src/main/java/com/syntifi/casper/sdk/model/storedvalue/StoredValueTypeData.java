@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum StoredValueTypeData {
-    STORED_VALUE_CLVALUE("CLValue", StoredValueCLValue.class),
+    STORED_VALUE_CLVALUE("CLValue", com.syntifi.casper.sdk.model.clvalue.StoredValueCLValue.class),
     STORED_VALUE_CONTRACT("Contract", StoredValueContract.class);
 
     private final String name;

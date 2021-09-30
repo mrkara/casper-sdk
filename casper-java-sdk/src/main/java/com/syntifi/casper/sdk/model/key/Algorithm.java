@@ -11,7 +11,7 @@ import lombok.Getter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see StoredValue
+ * @see StoredValueData
  * @since 0.0.1
  */
 @Getter
