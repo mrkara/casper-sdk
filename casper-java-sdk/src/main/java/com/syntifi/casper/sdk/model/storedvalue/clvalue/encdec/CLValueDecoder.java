@@ -25,8 +25,6 @@ import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueU8;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -336,11 +334,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
         clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { lengthOfNextNumber })
                 + StringByteHelper.convertBytesToHex(buf));
 
-        StringByteHelper.reverse(buf);
+//        StringByteHelper.reverse(buf);
 
-        LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, buf);
+//        LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, buf);
 
-        BigInteger bigInt = new BigInteger(buf);
+//        BigInteger bigInt = new BigInteger(buf);
+        BigInteger bigInt = new BigInteger(StringByteHelper.convertBytesToHex(buf));
 
         LOGGER.debug(LOG_DECODED_VALUE_MESSAGE_STRING, BigInteger.class.getSimpleName(), bigInt);
 
@@ -389,9 +388,9 @@ public class CLValueDecoder extends ByteArrayInputStream {
         clValue.setValue(string);
     }
 
-    public void readPublicKey(CLValuePublicKey clvalue) throws DecoderException, NoSuchAlgorithmException {
+    public void readPublicKey(CLValuePublicKey clvalue) throws NoSuchAlgorithmException {
         byte[] key = this.readAllBytes();
-        clvalue.setBytes(new String(Hex.encodeHex(key, true)));
+        clvalue.setBytes(StringByteHelper.convertBytesToHex(key));
         clvalue.setValue(PublicKey.fromTaggedHexString(clvalue.getBytes()));
     }
 

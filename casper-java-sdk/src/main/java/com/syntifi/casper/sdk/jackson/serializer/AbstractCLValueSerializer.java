@@ -50,7 +50,7 @@ public abstract class AbstractCLValueSerializer<T extends AbstractCLValue<?>> ex
 
     @Override
     public boolean isUnwrappingSerializer() {
-        return true;
+        return false;
     }
 
     /**

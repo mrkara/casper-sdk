@@ -45,11 +45,10 @@ import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueURef;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.CLValueEncoder;
+import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 import org.javatuples.Unit;
@@ -99,6 +98,7 @@ public class CLValuesTests {
         // Should be CLValueU8
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU8);
         CLValueU8 expected = new CLValueU8((byte) 1);
+        expected.setParsed("");;
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -439,7 +439,7 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_uref_clvalue_mapping() throws IOException, DecoderException {
+    void test_uref_clvalue_mapping() throws IOException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-uref.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -448,7 +448,7 @@ public class CLValuesTests {
         // Should be CLValuURef
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueURef);
         assertEquals(new URef(
-                Hex.decodeHex("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a".toCharArray()),
+                StringByteHelper.hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"),
                 URefAccessRight.READ_ADD_WRITE), sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
@@ -459,7 +459,7 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_public_key_clvalue_mapping() throws IOException, DecoderException {
+    void test_public_key_clvalue_mapping() throws IOException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-publickey.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -469,7 +469,7 @@ public class CLValuesTests {
         assertTrue(sv.getStoredValue().getValue() instanceof CLValuePublicKey);
         PublicKey pk = new PublicKey();
         pk.setAlgorithm(Algorithm.ED25519);
-        pk.setKey(Hex.decodeHex("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a".toCharArray()));
+        pk.setKey(StringByteHelper.hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"));
         CLValuePublicKey expected = new CLValuePublicKey(pk);
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);

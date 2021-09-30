@@ -29,7 +29,6 @@ import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 import com.syntifi.casper.sdk.service.CasperService;
 
-import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -102,7 +101,7 @@ class CasperSdkApplicationTests {
 	 * Test if get public key serialization is correct
 	 */
 	@Test
-	void testFirstBlocksPublicKeySerialization() throws DecoderException {
+	void testFirstBlocksPublicKeySerialization() {
 		JsonBlockData result = casperServiceMainnet.getBlock(new BlockIdentifierByHeight(0));
 		PublicKey key = result.getBlock().getBody().getProposer();
 

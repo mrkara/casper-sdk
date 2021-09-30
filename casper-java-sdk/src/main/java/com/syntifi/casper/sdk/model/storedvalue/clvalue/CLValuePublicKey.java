@@ -12,8 +12,6 @@ import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.CLValueEncoder;
 
-import org.apache.commons.codec.DecoderException;
-
 /**
  * Casper PublicKey CLValue implementation
  * 
@@ -42,7 +40,7 @@ public class CLValuePublicKey extends AbstractCLValue<PublicKey> {
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException {
         try {
             clvd.readPublicKey(this);
-        } catch (DecoderException | NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new CLValueDecodeException("Error decoding CLValuePublicKey", e);
         }
     }

@@ -4,9 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
-
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
+import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.StringByteHelper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,13 +29,14 @@ public class URef {
     URefAccessRight accessRight;
 
     @JsonCreator
-    public static URef fromString(String uref) throws IOException, DecoderException, DynamicInstanceException {
-        if (!uref.substring(0, 5).equals("uref-")){
+    public static URef fromString(String uref) throws IOException, DynamicInstanceException {
+        String[] urefParts = uref.split("-");
+        if (!urefParts[0].equals("uref-") || urefParts.length!=3){
             throw new IOException("Not a valid Uref");
         }
-        byte[] address = Hex.decodeHex(uref.substring(5,37));
+        byte[] address = StringByteHelper.hexStringToByteArray(urefParts[1]); 
         URefAccessRight accessRight = URefAccessRight.getTypeBySerializationTag(
-            Hex.decodeHex(uref.substring(38))[0]);
+            StringByteHelper.hexStringToByteArray(urefParts[2])[0]);
         return new URef(address, accessRight);
 
     }

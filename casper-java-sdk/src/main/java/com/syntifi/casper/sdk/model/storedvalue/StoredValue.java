@@ -1,7 +1,6 @@
 package com.syntifi.casper.sdk.model.storedvalue;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 import com.syntifi.casper.sdk.jackson.StoredValueResolver;
 

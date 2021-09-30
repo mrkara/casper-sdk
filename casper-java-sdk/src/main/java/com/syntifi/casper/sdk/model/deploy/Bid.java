@@ -9,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
-import org.apache.commons.codec.DecoderException;
-
 import lombok.Data;
 
 /**
@@ -43,7 +41,7 @@ public class Bid {
     @JsonIgnore
     private Map<PublicKey, Delegator> delegators = new HashMap<>();
     @JsonProperty("delegators")
-    private void unpackNested(Map<String, Delegator> node) throws DecoderException, NoSuchAlgorithmException{
+    private void unpackNested(Map<String, Delegator> node) throws NoSuchAlgorithmException{
         for (Map.Entry<String, Delegator> entry : node.entrySet()){
             PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
             Delegator delegator = entry.getValue();

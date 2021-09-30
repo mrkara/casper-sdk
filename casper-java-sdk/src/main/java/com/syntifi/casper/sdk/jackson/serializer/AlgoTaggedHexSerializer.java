@@ -17,7 +17,7 @@ import org.apache.commons.codec.binary.Hex;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public abstract class AbstractAlgoTaggedHexSerializer extends JsonSerializer<AlgoTaggedHex> {
+public class AlgoTaggedHexSerializer extends JsonSerializer<AlgoTaggedHex> {
     
     @Override
     public void serialize(AlgoTaggedHex key, JsonGenerator jgen, SerializerProvider provider) 
