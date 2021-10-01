@@ -8,8 +8,7 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeURef;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
@@ -36,10 +35,10 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueURef extends CLValue<URef, CLTypeBasic> {
+public class CLValueURef extends CLValue<URef, CLTypeURef> {
     @JsonProperty("cl_type")
     @JsonUnwrapped
-    private CLTypeBasic clType = new CLTypeBasic(CLType.UREF);
+    private CLTypeURef clType = new CLTypeURef();
 
     public CLValueURef(URef value) {
         this.setValue(value);
@@ -60,11 +59,5 @@ public class CLValueURef extends CLValue<URef, CLTypeBasic> {
         clvd.readU8(serializationTag);
         uref.setAccessRight(URefAccessRight.getTypeBySerializationTag(serializationTag.getValue()));
         setValue(uref);
-    }
-
-    @Override
-    protected void setChildTypes() {
-        // TODO Auto-generated method stub
-
     }
 }

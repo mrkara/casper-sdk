@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(CLTypeResolver.class)
-@JsonPropertyOrder({"cl_type", "bytes", "parsed"}) // TODO: Just for testing
+@JsonPropertyOrder({ "cl_type", "bytes", "parsed" }) // TODO: Just for testing
 public abstract class CLValue<T, P extends CLType> implements EncodableValue, DecodableValue {
     @JsonProperty("bytes")
     private String bytes;
@@ -28,7 +28,6 @@ public abstract class CLValue<T, P extends CLType> implements EncodableValue, De
     private T value;
 
     public abstract P getClType();
+
     public abstract void setClType(P value);
-    
-    protected abstract void setChildTypes();
 }

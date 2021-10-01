@@ -3,9 +3,11 @@ package com.syntifi.casper.sdk.model.clvalue.type;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public abstract class CLType {
     public static final String BOOL = "Bool";
     public static final String I32 = "I32";
@@ -33,7 +35,6 @@ public abstract class CLType {
     public static final String BYTE_ARRAY = "ByteArray";
 
     public abstract String getTypeName();
-    public abstract void setTypeName(String value);
 
     @JsonIgnore
     public CLTypeData getClTypeData() throws NoSuchTypeException {

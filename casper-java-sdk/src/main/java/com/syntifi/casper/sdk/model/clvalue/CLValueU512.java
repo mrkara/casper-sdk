@@ -9,8 +9,7 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeU512;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 
 import lombok.EqualsAndHashCode;
@@ -30,10 +29,10 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueU512 extends CLValue<BigInteger, CLTypeBasic> {
+public class CLValueU512 extends CLValue<BigInteger, CLTypeU512> {
     @JsonProperty("cl_type")
     @JsonUnwrapped
-    private CLTypeBasic clType = new CLTypeBasic(CLType.U512);
+    private CLTypeU512 clType = new CLTypeU512();
 
     public CLValueU512(BigInteger value) {
         this.setValue(value);
@@ -47,11 +46,5 @@ public class CLValueU512 extends CLValue<BigInteger, CLTypeBasic> {
     @Override
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException {
         clvd.readU512(this);
-    }
-
-    @Override
-    protected void setChildTypes() {
-        // TODO Auto-generated method stub
-
     }
 }

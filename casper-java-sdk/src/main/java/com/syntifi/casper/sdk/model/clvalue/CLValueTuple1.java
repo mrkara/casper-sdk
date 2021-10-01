@@ -9,7 +9,7 @@ import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeTuple1;
 
@@ -32,7 +32,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueTuple1 extends CLValue<Unit<? extends CLValue<?, ?>>, CLTypeTuple1> {
+public class CLValueTuple1 extends CLValueChildren<Unit<? extends CLValue<?, ?>>, CLTypeTuple1> {
     @JsonProperty("cl_type")
     private CLTypeTuple1 clType = new CLTypeTuple1();
 
@@ -52,9 +52,13 @@ public class CLValueTuple1 extends CLValue<Unit<? extends CLValue<?, ?>>, CLType
 
     @Override
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException {
-        CLType childTypeData1 = clType.getChildClTypeData(0);
+        CLTypeData childTypeData1 = clType.getChildClTypeData(0);
 
-        CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1.getClTypeData());
+        CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
+        if (child1.getClType() instanceof CLTypeChildren) {
+            ((CLTypeChildren) child1.getClType()).getChildTypes()
+                    .addAll(((CLTypeChildren) clType.getChildTypes().get(0)).getChildTypes());
+        }
         child1.decode(clvd);
 
         setValue(new Unit<>(child1));
@@ -65,7 +69,6 @@ public class CLValueTuple1 extends CLValue<Unit<? extends CLValue<?, ?>>, CLType
 
     @Override
     protected void setChildTypes() {
-        clType.setChildTypes(Arrays.asList());
-
+        clType.setChildTypes(Arrays.asList(getValue().getValue0().getClType()));
     }
 }

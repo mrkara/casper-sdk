@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeAny;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBool;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 
 import lombok.EqualsAndHashCode;
@@ -28,10 +28,10 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueAny extends CLValue<Object, CLTypeBasic> {
+public class CLValueAny extends CLValue<Object, CLTypeAny> {
     @JsonProperty("cl_type")
     @JsonUnwrapped
-    private CLTypeBasic clType = new CLTypeBasic(CLType.ANY);
+    private CLTypeAny clType = new CLTypeAny();
 
     public CLValueAny(Object value) {
         this.setValue(value);
@@ -45,11 +45,5 @@ public class CLValueAny extends CLValue<Object, CLTypeBasic> {
     @Override
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException {
         clvd.readAny(this);
-    }
-
-    @Override
-    protected void setChildTypes() {
-        // TODO Auto-generated method stub
-        
     }
 }

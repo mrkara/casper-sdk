@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypePublicKey;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
 import org.apache.commons.codec.DecoderException;
@@ -31,10 +30,10 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValuePublicKey extends CLValue<PublicKey, CLTypeBasic> {
+public class CLValuePublicKey extends CLValue<PublicKey, CLTypePublicKey> {
     @JsonProperty("cl_type")
     @JsonUnwrapped
-    private CLTypeBasic clType = new CLTypeBasic(CLType.PUBLIC_KEY);
+    private CLTypePublicKey clType = new CLTypePublicKey();
 
     public CLValuePublicKey(PublicKey value) {
         this.setValue(value);
@@ -52,11 +51,5 @@ public class CLValuePublicKey extends CLValue<PublicKey, CLTypeBasic> {
         } catch (DecoderException | NoSuchAlgorithmException e) {
             throw new CLValueDecodeException("Error decoding CLValuePublicKey", e);
         }
-    }
-
-    @Override
-    protected void setChildTypes() {
-        // TODO Auto-generated method stub
-
     }
 }

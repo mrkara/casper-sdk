@@ -7,8 +7,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeUnit;
 import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
 
 import lombok.EqualsAndHashCode;
@@ -29,11 +28,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CLValueUnit extends CLValue<Object, CLTypeBasic> {
+public class CLValueUnit extends CLValue<Object, CLTypeUnit> {
     private static final String UNITY_EMPTY_VALUE = "";
     @JsonProperty("cl_type")
     @JsonUnwrapped
-    private CLTypeBasic clType = new CLTypeBasic(CLType.UNIT);
+    private CLTypeUnit clType = new CLTypeUnit();
 
     public CLValueUnit() {
         this.setValue(UNITY_EMPTY_VALUE);
@@ -47,11 +46,5 @@ public class CLValueUnit extends CLValue<Object, CLTypeBasic> {
     @Override
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException {
         setBytes(UNITY_EMPTY_VALUE);
-    }
-
-    @Override
-    protected void setChildTypes() {
-        // TODO Auto-generated method stub
-
     }
 }

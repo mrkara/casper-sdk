@@ -3,7 +3,6 @@ package com.syntifi.casper.sdk.model.clvalue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +11,7 @@ import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeOption;
 
@@ -30,7 +30,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CLValueOption extends CLValue<Optional<? extends CLValue<?, ?>>, CLTypeOption> {
+public class CLValueOption extends CLValueChildren<Optional<? extends CLValue<?, ?>>, CLTypeOption> {
     @JsonProperty("cl_type")
     private CLTypeOption clType = new CLTypeOption();
 
@@ -53,6 +53,10 @@ public class CLValueOption extends CLValue<Optional<? extends CLValue<?, ?>>, CL
 
         Optional<? extends CLValue<?, ?>> child = getValue();
         if (child.isPresent()) {
+            if (child.get().getClType() instanceof CLTypeChildren) {
+                ((CLTypeChildren) child.get().getClType()).getChildTypes()
+                        .addAll(((CLTypeChildren) clType.getChildTypes().get(0)).getChildTypes());
+            }
             child.get().encode(clve);
             setBytes(getBytes() + child.get().getBytes());
         }
@@ -65,7 +69,7 @@ public class CLValueOption extends CLValue<Optional<? extends CLValue<?, ?>>, CL
         setBytes(isPresent.getBytes());
 
         if (Boolean.TRUE.equals(isPresent.getValue())) {
-            CLTypeData childTypeData = getClType().getChildClTypeData();
+            CLTypeData childTypeData = getClType().getChildClTypeData(0);
 
             CLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childTypeData);
             child.decode(clvd);
@@ -81,15 +85,8 @@ public class CLValueOption extends CLValue<Optional<? extends CLValue<?, ?>>, CL
 
     @Override
     protected void setChildTypes() {
-        clType.setChildTypes(getValue().isPresent() && getValue().get() == null ? new ArrayList<>()
-                : getCLTypeDataOfChildren(getValue()));
-    }
-
-    protected List<String> getCLTypeDataOfChildren(Optional<? extends CLValue<?, ?>> value) {
-        if (value.isPresent()) {
-            return Arrays.asList(value.get().getClType().getTypeName());
-        } else {
-            return new ArrayList<>();
-        }
+        getValue().ifPresent(value -> {
+            clType.setChildTypes(value == null ? new ArrayList<>() : Arrays.asList(getValue().get().getClType()));
+        });
     }
 }

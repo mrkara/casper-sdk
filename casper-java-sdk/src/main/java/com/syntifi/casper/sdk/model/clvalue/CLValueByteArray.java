@@ -34,10 +34,4 @@ public class CLValueByteArray extends CLValue<byte[], CLTypeByteArray> {
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException {
         clvd.readByteArray(this, this.getClType().getLength());
     }
-
-    @Override
-    protected void setChildTypes() {
-        // TODO Auto-generated method stub
-
-    }
 }

@@ -1,15 +1,33 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
-public class CLTypeList extends CLType {
+@Getter
+@EqualsAndHashCode(callSuper = true)
+public class CLTypeList extends CLTypeChildren {
     @JsonIgnore
     private String typeName = CLType.LIST;
 
-    @JsonProperty("ByteArray")
-    private int length;
+    @JsonProperty(CLType.LIST)
+    private List<Object> childTypeObjects;
+
+    public List<Object> getChildTypeObjects() {
+        super.loadChildTypeObjects(childTypeObjects);
+        return this.childTypeObjects;
+    }
+
+    public void setChildTypeObjects(List<Object> childTypeObjects) {
+        this.childTypeObjects = childTypeObjects;
+        super.loadCLTypes(childTypeObjects);
+    }
+
+    public List<Object> loadChildTypeObjects() {
+        return this.childTypeObjects;
+    }
 }
