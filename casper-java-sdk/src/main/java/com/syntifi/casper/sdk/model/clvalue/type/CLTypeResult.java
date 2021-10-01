@@ -6,6 +6,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,7 @@ import lombok.Setter;
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "okErrTypes" })
 public class CLTypeResult extends CLTypeBasic {
-    @Getter
-    @Setter
+    @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public class CLTypeResultOkErrTypes {
