@@ -1,7 +1,7 @@
 package com.syntifi.casper.sdk.model.uref;
 
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLValueURef;
+import com.syntifi.casper.sdk.model.clvalue.CLValueURef;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

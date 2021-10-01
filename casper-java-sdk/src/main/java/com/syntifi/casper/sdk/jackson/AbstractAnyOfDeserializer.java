@@ -9,13 +9,12 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
 import com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
+import com.syntifi.casper.sdk.model.clvalue.CLValue;
 
 /**
  * Core Deserializer for the CLValue property. This deserializer is used by the
@@ -25,7 +24,7 @@ import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see AbstractCLValue
+ * @see CLValue
  */
 public abstract class AbstractAnyOfDeserializer extends AsPropertyTypeDeserializer {
 

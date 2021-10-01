@@ -22,6 +22,6 @@ public class Transfer implements ExecutableDeployItem{
     /**
      * List of @see NamedArg 
      */
-    private List<NamedArg<?>> args;
+    private List<NamedArg<?, ?>> args;
 
 }

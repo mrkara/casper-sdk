@@ -27,7 +27,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.CLValueURef;
 import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
-import com.syntifi.casper.sdk.model.clvalue.StoredValue;
+import com.syntifi.casper.sdk.model.storedvalue.StoredValue;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 
 import lombok.Data;
 

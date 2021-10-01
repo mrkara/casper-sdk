@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.CLValueDecoder;
+import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 
 /**
  * Defines an object as being capable of decoding with {@link CLValueDecoder}

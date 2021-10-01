@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
+import com.syntifi.casper.sdk.model.clvalue.CLValue;
 
 /**
  * Specification of the Custom Type Resolver for CLValue subtype identification.
@@ -16,7 +16,7 @@ import com.syntifi.casper.sdk.model.storedvalue.clvalue.AbstractCLValue;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see AbstractCLValue
+ * @see CLValue
  */
 public class StoredValueResolver extends StdTypeResolverBuilder {
     @Override

@@ -23,10 +23,10 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueTuple1;
 import com.syntifi.casper.sdk.model.clvalue.CLValueTuple2;
 import com.syntifi.casper.sdk.model.clvalue.CLValueTuple3;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
-import com.syntifi.casper.sdk.model.clvalue.StoredValueCLValue;
-import com.syntifi.casper.sdk.model.clvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
+import com.syntifi.casper.sdk.model.storedvalue.StoredValueCLValue;
+import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
