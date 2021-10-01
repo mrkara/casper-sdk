@@ -62,10 +62,8 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
     public void decode(CLValueDecoder clvd)
             throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         Result result = new Result();
-
         CLValueBool bool = new CLValueBool();
         bool.decode(clvd);
-
         CLTypeData typeOk = clType.getOkErrTypes().getOkType().getClTypeData();
         CLValue<?, ?> clValueOk = CLTypeData.createCLValueFromCLTypeData(typeOk);
         if (clValueOk.getClType() instanceof CLTypeChildren) {
@@ -73,7 +71,10 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
                     .addAll(((CLTypeChildren) clType.getOkErrTypes().getOkType()).getChildTypes());
         }
         clValueOk.decode(clvd);
+        result.setOk(clValueOk);
 
+        bool = new CLValueBool();
+        bool.decode(clvd);
         CLTypeData typeErr = clType.getOkErrTypes().getErrType().getClTypeData();
         CLValue<?, ?> clValueErr = CLTypeData.createCLValueFromCLTypeData(typeErr);
         if (clValueErr.getClType() instanceof CLTypeChildren) {
@@ -81,15 +82,9 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
                     .addAll(((CLTypeChildren) clType.getOkErrTypes().getErrType()).getChildTypes());
         }
         clValueErr.decode(clvd);
-
-        if (Boolean.TRUE.equals(bool.getValue())) {
-            result.setOk(clValueOk);
-        } else {
-            result.setErr(clValueErr);
-        }
+        result.setErr(clValueErr);
 
         setValue(result);
-
         setChildTypes();
     }
 

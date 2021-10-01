@@ -317,8 +317,8 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_list_i32_clvalue_mapping()
-            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException, CLValueDecodeException {
+    void test_list_i32_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-list-i32.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -344,8 +344,8 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_map_string_i32_clvalue_mapping()
-            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException, CLValueDecodeException {
+    void test_map_string_i32_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-map-string-i32.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -373,13 +373,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_result_i32_string_clvalue_mapping()
-            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    void test_result_i32_string_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-result-i32-string.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValueResult
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
         Result result = new Result();
@@ -399,13 +403,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_option_empty_clvalue_mapping()
-            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    void test_option_empty_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-option-empty.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.ofNullable(null));
@@ -422,13 +430,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_option_bool_clvalue_mapping()
-            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    void test_option_bool_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-option-bool.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.of(new CLValueBool(true)));
@@ -445,13 +457,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_option_i32_clvalue_mapping()
-            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    void test_option_i32_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-option-i32.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.of(new CLValueI32(10)));
@@ -468,12 +484,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_unit_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException {
+    void test_unit_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            CLValueDecodeException, NoSuchTypeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-unit.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValueUnit
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueUnit);
         CLValueUnit expected = new CLValueUnit();
@@ -490,12 +511,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_uref_clvalue_mapping() throws IOException {
+    void test_uref_clvalue_mapping()
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-uref.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValuURef
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueURef);
         CLValueURef expected = new CLValueURef(new URef(
@@ -515,12 +541,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_public_key_clvalue_mapping() throws IOException {
+    void test_public_key_clvalue_mapping()
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-publickey.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValuePublicKey
         assertTrue(sv.getStoredValue().getValue() instanceof CLValuePublicKey);
         PublicKey pk = new PublicKey();
@@ -541,12 +572,17 @@ public class CLValuesTests {
     }
 
     @Test
-    void test_byte_array() throws IOException, CLValueEncodeException, DynamicInstanceException {
+    void test_byte_array() throws IOException, CLValueEncodeException, DynamicInstanceException, CLValueDecodeException,
+            NoSuchTypeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-bytearray.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        try (CLValueDecoder clvd = new CLValueDecoder(
+                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        }
         // Should be CLValueByteArray
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueByteArray);
         CLValueByteArray expected = new CLValueByteArray(new byte[] { 122, -50, 107, 117, -83, -99, 95, 64, -35, 5, 34,
