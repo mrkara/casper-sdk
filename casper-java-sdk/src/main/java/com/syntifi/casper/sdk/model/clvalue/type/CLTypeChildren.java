@@ -95,9 +95,6 @@ public abstract class CLTypeChildren extends CLType {
                 parent.add(nextParent);
                 addChildType(entry.getValue(), ((CLTypeChildren) nextParent).getChildTypes());
             }
-            // List<CLType> childTypeName
-            // for (String childTypeNameItem : childTypeName) {
-            // addChildType(childTypeNameItem, parent);
         }
     }
 }

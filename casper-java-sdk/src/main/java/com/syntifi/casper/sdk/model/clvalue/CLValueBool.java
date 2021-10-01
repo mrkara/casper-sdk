@@ -16,7 +16,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = "clType")
 @NoArgsConstructor
 public class CLValueBool extends CLValue<Boolean, CLTypeBool> {
     @JsonProperty("cl_type")

@@ -12,9 +12,13 @@ import com.syntifi.casper.sdk.model.clvalue.interfaces.DecodableValue;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.EncodableValue;
 import com.syntifi.casper.sdk.model.clvalue.type.CLType;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = { "bytes", "value" })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(CLTypeResolver.class)
 @JsonPropertyOrder({ "cl_type", "bytes", "parsed" }) // TODO: Just for testing
