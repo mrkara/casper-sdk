@@ -9,19 +9,19 @@ import com.syntifi.casper.sdk.model.deploy.NamedArg;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * Abstract Executable Deploy Item containing the ModuleBytes of the contract.
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
+ * @see ExecutableDeployItem 
  */
 @Data
 @JsonTypeName("ModuleBytes")
 public class ModuleBytes implements ExecutableDeployItem {
    
     /**
-     * List of @see NamedArg 
+     * @see NamedArg 
      */
     private List<NamedArg<?, ?>> args;
 

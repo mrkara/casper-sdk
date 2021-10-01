@@ -17,8 +17,8 @@ import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
 import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
-import com.syntifi.casper.sdk.model.deploy.Success;
 import com.syntifi.casper.sdk.model.deploy.executabledeploy.StoredContractByHash;
+import com.syntifi.casper.sdk.model.deploy.executionresult.Success;
 import com.syntifi.casper.sdk.model.deploy.transform.WriteCLValue;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
@@ -29,7 +29,6 @@ import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 import com.syntifi.casper.sdk.service.CasperService;
 
-import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -102,7 +101,7 @@ class CasperSdkApplicationTests {
 	 * Test if get public key serialization is correct
 	 */
 	@Test
-	void testFirstBlocksPublicKeySerialization() throws DecoderException {
+	void testFirstBlocksPublicKeySerialization() {
 		JsonBlockData result = casperServiceMainnet.getBlock(new BlockIdentifierByHeight(0));
 		PublicKey key = result.getBlock().getBody().getProposer();
 

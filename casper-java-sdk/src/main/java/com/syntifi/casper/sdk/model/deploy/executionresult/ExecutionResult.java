@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.deploy.executionresult;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

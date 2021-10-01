@@ -8,8 +8,8 @@ import com.syntifi.casper.sdk.model.deploy.UnbondingPurse;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * An implmentation of Transform that Writes the given Withdraw to global state.
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -19,7 +19,8 @@ import lombok.Data;
 public class WriteWithdraw implements Transform {
    
     /**
-     * Hex-encoded account hash 
+     * Array of UnbondingPurse 
+     * @see UnbondingPurse
      */
     @JsonProperty("WriteWithdraw")
     private List<UnbondingPurse> purses;

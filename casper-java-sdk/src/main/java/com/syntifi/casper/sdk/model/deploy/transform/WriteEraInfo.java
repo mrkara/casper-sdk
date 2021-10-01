@@ -6,8 +6,8 @@ import com.syntifi.casper.sdk.model.deploy.EraInfo;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * An implmentation of Transform that Writes the given EraInfo to global state.
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -17,7 +17,7 @@ import lombok.Data;
 public class WriteEraInfo implements Transform {
    
     /**
-     * Hex-encoded account hash 
+     * @see EraInfo 
      */
     @JsonProperty("WriteEraInfo")
     private EraInfo deployInfo;

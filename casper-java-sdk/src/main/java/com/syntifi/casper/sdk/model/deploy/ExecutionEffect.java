@@ -2,8 +2,6 @@ package com.syntifi.casper.sdk.model.deploy;
 
 import java.util.List;
 
-import com.syntifi.casper.sdk.model.deploy.transform.Entry;
-
 import lombok.Data;
 
 /**
@@ -16,12 +14,12 @@ import lombok.Data;
 @Data
 public class ExecutionEffect {
     /**
-     * List of @see Operation
+     * @see Operation
      */
     private List<Operation> operations;
 
     /**
-     * List of @see TrasnformEntry 
+     * @see TrasnformEntry 
      */
     private List<Entry> transforms;
 }

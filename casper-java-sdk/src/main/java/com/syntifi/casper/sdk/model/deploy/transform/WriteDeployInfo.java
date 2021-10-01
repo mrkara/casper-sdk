@@ -6,8 +6,8 @@ import com.syntifi.casper.sdk.model.deploy.DeployInfo;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * An implmentation of Transform that Writes the given DeployInfo to global state.
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -17,7 +17,7 @@ import lombok.Data;
 public class WriteDeployInfo implements Transform {
    
     /**
-     * Hex-encoded account hash 
+     * @see DeployInfo 
      */
     @JsonProperty("WriteDeployInfo")
     private DeployInfo deployInfo;

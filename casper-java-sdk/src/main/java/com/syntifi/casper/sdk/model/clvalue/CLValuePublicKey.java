@@ -11,8 +11,6 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypePublicKey;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
-import org.apache.commons.codec.DecoderException;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,7 +46,7 @@ public class CLValuePublicKey extends CLValue<PublicKey, CLTypePublicKey> {
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException {
         try {
             clvd.readPublicKey(this);
-        } catch (DecoderException | NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new CLValueDecodeException("Error decoding CLValuePublicKey", e);
         }
     }

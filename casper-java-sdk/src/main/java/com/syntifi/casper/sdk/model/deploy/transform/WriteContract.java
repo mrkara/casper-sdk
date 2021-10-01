@@ -4,7 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 
 /**
- * The type of operation performed while executing a deploy.
+ * An implmentation of Transform that specifies any of the enum values
+ * - Identity 
+ * - WriteContractWasm
+ * - WriteContract
+ * - WriteContractPackage
+ * 
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace

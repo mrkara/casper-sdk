@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * An implmentation of Transform that Adds the given `u512`
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -18,7 +18,7 @@ import lombok.Data;
 public class AddUInt512 implements Transform {
    
     /**
-     *  
+     * u512 
      */
     @JsonProperty("AddUInt512")
     private BigInteger addUInt512;

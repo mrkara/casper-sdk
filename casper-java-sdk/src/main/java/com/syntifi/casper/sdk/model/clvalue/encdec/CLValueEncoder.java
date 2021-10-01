@@ -2,6 +2,7 @@ package com.syntifi.casper.sdk.model.clvalue.encdec;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -249,7 +250,14 @@ public class CLValueEncoder extends ByteArrayOutputStream {
 
         this.write(bigIntegerLength);
 
-        byte[] valueByteArray = Arrays.copyOfRange(clValue.getValue().toByteArray(), 0, bigIntegerLength);
+        byte[] byteArray = clValue.getValue().toByteArray(); 
+
+        //Removing leading zeroes
+        int i = 0;
+        while(byteArray[i] == 0)
+            i++;
+        
+        byte[] valueByteArray = Arrays.copyOfRange(byteArray, i, bigIntegerLength+i);
 
         StringByteHelper.reverse(valueByteArray);
 

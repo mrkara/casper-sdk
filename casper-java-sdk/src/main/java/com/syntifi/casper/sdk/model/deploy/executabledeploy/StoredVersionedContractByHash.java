@@ -9,19 +9,19 @@ import com.syntifi.casper.sdk.model.deploy.NamedArg;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type StoredVersionedContractByHash containing the runtime 
- * args of the contract.
- * 
+ * Abstract Executable Deploy Item containing the StoredVersionedContractByHash.
+ *
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
+ * @see ExecutableDeployItem 
  */
 @Data
 @JsonTypeName("StoredVersionedContractByHash")
 public class StoredVersionedContractByHash implements ExecutableDeployItem{
    
     /**
-     * List of @see NamedArg 
+     * @see NamedArg 
      */
     private List<NamedArg<?, ?>> args;
 
@@ -39,7 +39,6 @@ public class StoredVersionedContractByHash implements ExecutableDeployItem{
     /**
      * contract version
      */
-    //TODO: CREATE A VERSION class
-    private Object version;
+    private long version;
 
 }

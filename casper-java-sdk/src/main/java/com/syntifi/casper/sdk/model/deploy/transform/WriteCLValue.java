@@ -7,8 +7,8 @@ import com.syntifi.casper.sdk.model.clvalue.CLValue;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type ModuleBytes containing the runtime 
- * args of the contract.
+ * An implmentation of Transform that Writes the given CLValue to global state.
+ * @see Transform
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -21,7 +21,6 @@ public class WriteCLValue implements Transform {
     /**
      * @see CLValue 
      */
-    //@JsonUnrapped
     @JsonProperty("WriteCLValue")
     private CLValue<?, ?> clvalue;
 
