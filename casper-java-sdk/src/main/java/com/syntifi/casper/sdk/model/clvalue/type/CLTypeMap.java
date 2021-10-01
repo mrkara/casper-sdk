@@ -1,33 +1,54 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class CLTypeMap extends CLTypeChildren {
+public class CLTypeMap extends CLTypeBasic {
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class CLTypeMapEntryType {
+        @JsonProperty("key")
+        private String key;
+        @JsonProperty("value")
+        private String value;
+
+        @JsonIgnore
+        public CLType getKeyType() throws DynamicInstanceException, NoSuchTypeException {
+            return CLTypeData.createCLTypeFromCLTypeName(this.key);
+        }
+
+        @JsonIgnore
+        public void setKeyType(CLType keyType) {
+            this.key = keyType.getTypeName();
+        }
+
+        @JsonIgnore
+        public CLType getValueType() throws DynamicInstanceException, NoSuchTypeException {
+            return CLTypeData.createCLTypeFromCLTypeName(this.value);
+        }
+
+        @JsonIgnore
+        public void setValueType(CLType valueType) {
+            this.key = valueType.getTypeName();
+        }
+    }
+
     @JsonIgnore
     private final String typeName = CLType.MAP;
 
+    @Setter
     @JsonProperty(CLType.MAP)
-    private List<Object> childTypeObjects;
-
-    public List<Object> getChildTypeObjects() {
-        super.loadChildTypeObjects(childTypeObjects);
-        return this.childTypeObjects;
-    }
-
-    public void setChildTypeObjects(List<Object> childTypeObjects) {
-        this.childTypeObjects = childTypeObjects;
-        super.loadCLTypes(childTypeObjects);
-    }
-
-    public List<Object> loadChildTypeObjects() {
-        return this.childTypeObjects;
-    }
+    private CLTypeMapEntryType keyValueTypes;
 }

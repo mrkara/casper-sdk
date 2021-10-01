@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class CLTypeByteArray extends CLType {
+public class CLTypeByteArray extends CLTypeBasic {
     @JsonIgnore
     private final String typeName = CLType.BYTE_ARRAY;
 

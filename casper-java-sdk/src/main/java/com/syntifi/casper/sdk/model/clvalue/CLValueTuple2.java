@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
@@ -42,7 +43,7 @@ public class CLValueTuple2 extends CLValueChildren<Pair<? extends CLValue<?, ?>,
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException {
+    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         setChildTypes();
 
         getValue().getValue0().encode(clve);
@@ -52,7 +53,7 @@ public class CLValueTuple2 extends CLValueChildren<Pair<? extends CLValue<?, ?>,
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException {
+    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         CLTypeData childTypeData1 = clType.getChildClTypeData(0);
         CLTypeData childTypeData2 = clType.getChildClTypeData(1);
 

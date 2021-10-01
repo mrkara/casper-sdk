@@ -1,7 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
@@ -43,7 +43,8 @@ public class CLValueMap extends CLValueChildren<Map<? extends CLValue<?, ?>, ? e
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException {
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         setChildTypes();
 
         CLValueI32 mapLength = new CLValueI32(getValue().size());
@@ -58,9 +59,10 @@ public class CLValueMap extends CLValueChildren<Map<? extends CLValue<?, ?>, ? e
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException {
-        CLTypeData keyType = clType.getChildClTypeData(0);
-        CLTypeData valType = clType.getChildClTypeData(1);
+    public void decode(CLValueDecoder clvd)
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+        CLTypeData keyType = clType.getKeyValueTypes().getKeyType().getClTypeData();
+        CLTypeData valType = clType.getKeyValueTypes().getValueType().getClTypeData();
 
         Map<CLValue<?, ?>, CLValue<?, ?>> map = new LinkedHashMap<>();
         CLValueI32 mapLength = new CLValueI32(0);
@@ -70,14 +72,14 @@ public class CLValueMap extends CLValueChildren<Map<? extends CLValue<?, ?>, ? e
             CLValue<?, ?> key = CLTypeData.createCLValueFromCLTypeData(keyType);
             if (key.getClType() instanceof CLTypeChildren) {
                 ((CLTypeChildren) key.getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getChildTypes().get(0)).getChildTypes());
+                        .addAll(((CLTypeChildren) clType.getKeyValueTypes().getKeyType()).getChildTypes());
             }
             key.decode(clvd);
 
             CLValue<?, ?> val = CLTypeData.createCLValueFromCLTypeData(valType);
             if (val.getClType() instanceof CLTypeChildren) {
                 ((CLTypeChildren) val.getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getChildTypes().get(0)).getChildTypes());
+                        .addAll(((CLTypeChildren) clType.getKeyValueTypes().getValueType()).getChildTypes());
             }
             val.decode(clvd);
 
@@ -93,7 +95,7 @@ public class CLValueMap extends CLValueChildren<Map<? extends CLValue<?, ?>, ? e
     protected void setChildTypes() {
         Entry<? extends CLValue<?, ?>, ? extends CLValue<?, ?>> entry = getValue().entrySet().iterator().next();
 
-        clType.setChildTypes(
-                Arrays.asList(entry.getKey().getClType(), entry.getValue().getClType()));
+        clType.setKeyValueTypes(clType.new CLTypeMapEntryType(entry.getKey().getClType().getTypeName(),
+                entry.getValue().getClType().getTypeName()));
     }
 }

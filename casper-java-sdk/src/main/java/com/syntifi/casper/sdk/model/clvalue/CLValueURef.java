@@ -46,7 +46,7 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
 
     @Override
     public void encode(CLValueEncoder clve) throws IOException {
-        // URef is not directly encoded, it does not write any data
+        // TODO: Encode
     }
 
     @Override

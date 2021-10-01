@@ -1,33 +1,31 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class CLTypeList extends CLTypeChildren {
+public class CLTypeList extends CLTypeBasic {
     @JsonIgnore
-    private String typeName = CLType.LIST;
+    private final String typeName = CLType.LIST;
 
+    @Setter
     @JsonProperty(CLType.LIST)
-    private List<Object> childTypeObjects;
+    private String listTypeName;
 
-    public List<Object> getChildTypeObjects() {
-        super.loadChildTypeObjects(childTypeObjects);
-        return this.childTypeObjects;
+    @JsonIgnore
+    public CLType getListType() throws DynamicInstanceException, NoSuchTypeException {
+        return CLTypeData.createCLTypeFromCLTypeName(listTypeName);
     }
 
-    public void setChildTypeObjects(List<Object> childTypeObjects) {
-        this.childTypeObjects = childTypeObjects;
-        super.loadCLTypes(childTypeObjects);
-    }
-
-    public List<Object> loadChildTypeObjects() {
-        return this.childTypeObjects;
+    @JsonIgnore
+    public void setListType(CLType listType) {
+        this.listTypeName = listType.getTypeName();
     }
 }

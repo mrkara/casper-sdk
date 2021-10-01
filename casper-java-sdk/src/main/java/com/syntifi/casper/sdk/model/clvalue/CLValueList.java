@@ -1,7 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
@@ -32,18 +32,19 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueList extends CLValueChildren<List<? extends CLValue<?, ?>>, CLTypeList> {
+public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeList> {
     @JsonProperty("cl_type")
     private CLTypeList clType = new CLTypeList();
 
     public CLValueList(List<? extends CLValue<?, ?>> value) {
         this.setValue(value);
-        setChildTypes();
+        setListType();
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException {
-        setChildTypes();
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+        setListType();
 
         // List length is written first
         CLValueI32 length = new CLValueI32(getValue().size());
@@ -53,7 +54,7 @@ public class CLValueList extends CLValueChildren<List<? extends CLValue<?, ?>>, 
         for (CLValue<?, ?> child : getValue()) {
             if (child.getClType() instanceof CLTypeChildren) {
                 ((CLTypeChildren) child.getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getChildTypes().get(0)).getChildTypes());
+                        .addAll(((CLTypeChildren) clType.getListType()).getChildTypes());
             }
             child.encode(clve);
             setBytes(getBytes() + child.getBytes());
@@ -61,8 +62,9 @@ public class CLValueList extends CLValueChildren<List<? extends CLValue<?, ?>>, 
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException {
-        CLTypeData childrenType = getClType().getChildClTypeData(0);
+    public void decode(CLValueDecoder clvd)
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+        CLTypeData childrenType = getClType().getListType().getClTypeData();
 
         // List length is sent first
         CLValueI32 length = new CLValueI32();
@@ -79,11 +81,10 @@ public class CLValueList extends CLValueChildren<List<? extends CLValue<?, ?>>, 
 
         setValue(list);
 
-        setChildTypes();
+        setListType();
     }
 
-    @Override
-    protected void setChildTypes() {
-        clType.setChildTypes(Arrays.asList(getValue().get(0).getClType()));
+    protected void setListType() {
+        clType.setListType(getValue().get(0).getClType());
     }
 }

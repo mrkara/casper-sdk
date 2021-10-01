@@ -1,12 +1,12 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
@@ -35,12 +35,13 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
     private CLTypeResult clType = new CLTypeResult();
 
     public CLValueResult(Result value) {
-        this.setValue(value);        
+        this.setValue(value);
         setChildTypes();
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException {
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         setChildTypes();
 
         CLValueBool clValueTrue = new CLValueBool(true);
@@ -58,26 +59,33 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException {
+    public void decode(CLValueDecoder clvd)
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         Result result = new Result();
 
-        for (int i = 0; i < 2; i++) {
-            CLValueBool bool = new CLValueBool();
-            bool.decode(clvd);
+        CLValueBool bool = new CLValueBool();
+        bool.decode(clvd);
 
-            CLTypeData type = clType.getChildClTypeData(Boolean.TRUE.equals(bool.getValue()) ? 0 : 1);
-            CLValue<?, ?> okErr = CLTypeData.createCLValueFromCLTypeData(type);
-            if (okErr.getClType() instanceof CLTypeChildren) {
-                ((CLTypeChildren) okErr.getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getChildTypes().get(i)).getChildTypes());
-            }
-            okErr.decode(clvd);
+        CLTypeData typeOk = clType.getOkErrTypes().getOkType().getClTypeData();
+        CLValue<?, ?> clValueOk = CLTypeData.createCLValueFromCLTypeData(typeOk);
+        if (clValueOk.getClType() instanceof CLTypeChildren) {
+            ((CLTypeChildren) clValueOk.getClType()).getChildTypes()
+                    .addAll(((CLTypeChildren) clType.getOkErrTypes().getOkType()).getChildTypes());
+        }
+        clValueOk.decode(clvd);
 
-            if (Boolean.TRUE.equals(bool.getValue())) {
-                result.setOk(okErr);
-            } else {
-                result.setErr(okErr);
-            }
+        CLTypeData typeErr = clType.getOkErrTypes().getErrType().getClTypeData();
+        CLValue<?, ?> clValueErr = CLTypeData.createCLValueFromCLTypeData(typeErr);
+        if (clValueErr.getClType() instanceof CLTypeChildren) {
+            ((CLTypeChildren) clValueErr.getClType()).getChildTypes()
+                    .addAll(((CLTypeChildren) clType.getOkErrTypes().getErrType()).getChildTypes());
+        }
+        clValueErr.decode(clvd);
+
+        if (Boolean.TRUE.equals(bool.getValue())) {
+            result.setOk(clValueOk);
+        } else {
+            result.setErr(clValueErr);
         }
 
         setValue(result);
@@ -87,7 +95,7 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
 
     @Override
     protected void setChildTypes() {
-        clType.setChildTypes(Arrays.asList(getValue().getOk().getClType(),
-                getValue().getErr().getClType()));
+        clType.setOkErrTypes(clType.new CLTypeResultOkErrTypes(getValue().getOk().getClType().getTypeName(),
+                getValue().getErr().getClType().getTypeName()));
     }
 }

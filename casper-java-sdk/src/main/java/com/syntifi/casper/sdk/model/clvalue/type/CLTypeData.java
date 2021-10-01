@@ -46,28 +46,24 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CLTypeData {
-    BOOL(CLType.BOOL, 0x0, CLValueBool.class, CLTypeBool.class), 
-    I32(CLType.I32, 0x1, CLValueI32.class, CLTypeI32.class),
-    I64(CLType.I64, 0x2, CLValueI64.class, CLTypeI64.class), 
-    U8(CLType.U8, 0x3, CLValueU8.class, CLTypeU8.class), 
-    U32(CLType.U32, 0x4, CLValueU32.class, CLTypeU32.class),
-    U64(CLType.U64, 0x5, CLValueU64.class, CLTypeU64.class), 
+    BOOL(CLType.BOOL, 0x0, CLValueBool.class, CLTypeBool.class),
+    I32(CLType.I32, 0x1, CLValueI32.class, CLTypeI32.class), I64(CLType.I64, 0x2, CLValueI64.class, CLTypeI64.class),
+    U8(CLType.U8, 0x3, CLValueU8.class, CLTypeU8.class), U32(CLType.U32, 0x4, CLValueU32.class, CLTypeU32.class),
+    U64(CLType.U64, 0x5, CLValueU64.class, CLTypeU64.class),
     U128(CLType.U128, 0x6, CLValueU128.class, CLTypeU128.class),
-    U256(CLType.U256, 0x7, CLValueU256.class, CLTypeU256.class), 
+    U256(CLType.U256, 0x7, CLValueU256.class, CLTypeU256.class),
     U512(CLType.U512, 0x8, CLValueU512.class, CLTypeU512.class),
-    UNIT(CLType.UNIT, 0x9, CLValueUnit.class, CLTypeUnit.class), 
+    UNIT(CLType.UNIT, 0x9, CLValueUnit.class, CLTypeUnit.class),
     STRING(CLType.STRING, 0x10, CLValueString.class, CLTypeString.class),
-    UREF(CLType.UREF, 0x11, CLValueURef.class, CLTypeURef.class),
-    KEY(CLType.KEY, 0x12, null, null),
-    OPTION(CLType.OPTION, 0x13, CLValueOption.class, CLTypeOption.class), 
-    LIST(CLType.LIST, 0x14, CLValueList.class, CLTypeList.class),
-    FIXED_LIST(CLType.FIXED_LIST, 0x15, null, null), 
+    UREF(CLType.UREF, 0x11, CLValueURef.class, CLTypeURef.class), KEY(CLType.KEY, 0x12, null, null),
+    OPTION(CLType.OPTION, 0x13, CLValueOption.class, CLTypeOption.class),
+    LIST(CLType.LIST, 0x14, CLValueList.class, CLTypeList.class), FIXED_LIST(CLType.FIXED_LIST, 0x15, null, null),
     RESULT(CLType.RESULT, 0x16, CLValueResult.class, CLTypeResult.class),
-    MAP(CLType.MAP, 0x17, CLValueMap.class, CLTypeBool.class), 
+    MAP(CLType.MAP, 0x17, CLValueMap.class, CLTypeMap.class),
     TUPLE1(CLType.TUPLE1, 0x18, CLValueTuple1.class, CLTypeTuple1.class),
-    TUPLE2(CLType.TUPLE2, 0x19, CLValueTuple2.class, CLTypeTuple2.class), 
+    TUPLE2(CLType.TUPLE2, 0x19, CLValueTuple2.class, CLTypeTuple2.class),
     TUPLE3(CLType.TUPLE3, 0x20, CLValueTuple3.class, CLTypeTuple3.class),
-    ANY(CLType.ANY, 0x21, CLValueAny.class, CLTypeBool.class), 
+    ANY(CLType.ANY, 0x21, CLValueAny.class, CLTypeAny.class),
     PUBLIC_KEY(CLType.PUBLIC_KEY, 0x22, CLValuePublicKey.class, CLTypePublicKey.class),
     BYTE_ARRAY(CLType.BYTE_ARRAY, 0x23, CLValueByteArray.class, CLTypeByteArray.class);
 
@@ -125,7 +121,20 @@ public enum CLTypeData {
     }
 
     /**
-     * Dynamically instantiate an AbstractCLValue when needed for decoding children objects
+     * Dynamically instantiate a CLValue when needed for decoding children objects
+     * 
+     * @param clValueName the {@link String} name of the CLValue to instantiate
+     * @return the desired CLValue implementation
+     * @throws DynamicInstanceException
+     * @throws NoSuchTypeException
+     */
+    public static CLValue<?, ?> createCLValueFromCLTypeName(String clValueName)
+            throws DynamicInstanceException, NoSuchTypeException {
+        return CLTypeData.createCLValueFromCLTypeData(CLTypeData.getTypeByName(clValueName));
+    }
+
+    /**
+     * Dynamically instantiate a CLValue when needed for decoding children objects
      * 
      * @param clTypeData the {@link CLTypeData} to instantiate
      * @return the desired CLValue implementation
@@ -136,6 +145,38 @@ public enum CLTypeData {
 
         try {
             return (CLValue<?, ?>) clazz.getConstructor().newInstance();
+
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
+            throw new DynamicInstanceException(String.format("Error while instantiating %s", clazz.getName()), e);
+        }
+    }
+
+    /**
+     * Dynamically instantiate a CLType when needed for decoding children objects
+     * 
+     * @param clValueName the {@link String} name of the CLValue to instantiate
+     * @return the desired CLType implementation
+     * @throws DynamicInstanceException
+     * @throws NoSuchTypeException
+     */
+    public static CLType createCLTypeFromCLTypeName(String clTypeName)
+            throws DynamicInstanceException, NoSuchTypeException {
+        return CLTypeData.createCLTypeFromCLTypeData(CLTypeData.getTypeByName(clTypeName));
+    }
+
+    /**
+     * Dynamically instantiate a CLType when needed for decoding children objects
+     * 
+     * @param clTypeData the {@link CLTypeData} to instantiate
+     * @return the desired CLType implementation
+     * @throws DynamicInstanceException
+     */
+    public static CLType createCLTypeFromCLTypeData(CLTypeData clTypeData) throws DynamicInstanceException {
+        Class<?> clazz = clTypeData.getClTypeClass();
+
+        try {
+            return (CLType) clazz.getConstructor().newInstance();
 
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {

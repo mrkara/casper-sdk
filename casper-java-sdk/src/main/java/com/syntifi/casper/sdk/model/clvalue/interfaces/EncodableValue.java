@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 
 /**
@@ -22,5 +23,6 @@ public interface EncodableValue {
      * @throws CLValueEncodeException
      * @throws DynamicInstanceException
      */
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException;
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException;
 }
