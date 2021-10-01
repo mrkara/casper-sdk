@@ -105,8 +105,9 @@ public class CLValueEncoder extends ByteArrayOutputStream {
                 clValue.getValue());
 
         this.write(clValue.getValue());
-
-        clValue.setBytes(StringByteHelper.convertBytesToHex(clValue.getValue()));
+        
+        clValue.getClType().setLength(clValue.getValue().length);
+        clValue.setBytes(StringByteHelper.convertBytesToHex(clValue.getValue()));        
     }
 
     /**
