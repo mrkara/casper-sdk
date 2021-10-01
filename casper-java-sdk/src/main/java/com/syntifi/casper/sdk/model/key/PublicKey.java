@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.syntifi.casper.sdk.jackson.deserializer.PublicKeyDeserializer;
 import com.syntifi.casper.sdk.jackson.serializer.AlgoTaggedHexSerializer;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.StringByteHelper;
+import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 
 import lombok.NoArgsConstructor;
 

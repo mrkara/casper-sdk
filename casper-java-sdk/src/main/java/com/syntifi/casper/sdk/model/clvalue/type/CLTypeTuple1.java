@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = { "typeName" })
 public class CLTypeTuple1 extends CLTypeChildren {
     @JsonIgnore
     private final String typeName = CLType.TUPLE1;

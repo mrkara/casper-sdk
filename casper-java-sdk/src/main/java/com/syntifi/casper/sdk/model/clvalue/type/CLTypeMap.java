@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = { "typeName", "keyValueTypes" })
 public class CLTypeMap extends CLTypeBasic {
     @Getter
     @Setter

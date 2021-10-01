@@ -9,9 +9,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.syntifi.casper.sdk.exception.DeserializationException;
+import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.key.AlgoTaggedHex;
 import com.syntifi.casper.sdk.model.key.Algorithm;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.StringByteHelper;
 
 /**
  * Customize the mapping of Casper's Hex String preceeded by the crypto algorithm 

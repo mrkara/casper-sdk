@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = { "typeName", "okErrTypes" })
 public class CLTypeResult extends CLTypeBasic {
     @Getter
     @Setter

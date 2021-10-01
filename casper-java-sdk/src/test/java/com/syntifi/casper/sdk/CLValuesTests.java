@@ -587,6 +587,9 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
+        // try (CLValueEncoder clve = new CLValueEncoder()) {
+        // dd.getDeploy().encode(clve);
+        // }
 
         assertTrue(dd.getDeploy() instanceof Deploy);
         assertTrue(dd.getExecutionResults().get(0) instanceof JsonExecutionResult);

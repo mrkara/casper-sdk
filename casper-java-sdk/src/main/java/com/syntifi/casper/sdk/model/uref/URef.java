@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
-import com.syntifi.casper.sdk.model.storedvalue.clvalue.encdec.StringByteHelper;
+import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -24,7 +24,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = { "clType" })
 @NoArgsConstructor
 public class CLValueAny extends CLValue<Object, CLTypeAny> {
     @JsonProperty("cl_type")

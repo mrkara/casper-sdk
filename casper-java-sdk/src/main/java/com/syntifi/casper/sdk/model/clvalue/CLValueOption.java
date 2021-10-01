@@ -45,7 +45,8 @@ public class CLValueOption extends CLValueChildren<Optional<? extends CLValue<?,
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         setChildTypes();
 
         CLValueBool isPresent = new CLValueBool(getValue().isPresent());
@@ -64,7 +65,8 @@ public class CLValueOption extends CLValueChildren<Optional<? extends CLValue<?,
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+    public void decode(CLValueDecoder clvd)
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         CLValueBool isPresent = new CLValueBool();
         isPresent.decode(clvd);
         setBytes(isPresent.getBytes());
@@ -86,8 +88,7 @@ public class CLValueOption extends CLValueChildren<Optional<? extends CLValue<?,
 
     @Override
     protected void setChildTypes() {
-        getValue().ifPresent(value -> {
-            clType.setChildTypes(value == null ? new ArrayList<>() : Arrays.asList(getValue().get().getClType()));
-        });
+        getValue().ifPresent(value -> clType
+                .setChildTypes(value == null ? new ArrayList<>() : Arrays.asList(getValue().get().getClType())));
     }
 }

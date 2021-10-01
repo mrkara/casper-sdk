@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = { "typeName" })
 public class CLTypeOption extends CLTypeChildren {
     @JsonIgnore
     private final String typeName = CLType.OPTION;

@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = { "childTypes" })
 public abstract class CLTypeChildren extends CLType {
 
     @JsonIgnore

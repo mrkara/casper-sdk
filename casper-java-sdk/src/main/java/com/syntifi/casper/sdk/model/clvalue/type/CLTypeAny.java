@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = { "typeName" })
 public class CLTypeAny extends CLTypeBasic {
     @JsonProperty("cl_type")
     private final String typeName = CLType.ANY;
