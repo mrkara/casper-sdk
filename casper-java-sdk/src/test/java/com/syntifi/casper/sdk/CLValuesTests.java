@@ -35,12 +35,10 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.CLValueURef;
 import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.clvalue.Result;
-import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
-import com.syntifi.casper.sdk.model.storedvalue.StoredValueCLValue;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
@@ -48,6 +46,7 @@ import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 import org.javatuples.Unit;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,6 +63,10 @@ public class CLValuesTests {
     private static final Logger LOGGER = LoggerFactory.getLogger(CLValuesTests.class);
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    @BeforeAll
+    public static void init() {
+    }
 
     // @Test
     // void test_instance_types() throws DynamicInstanceException,
@@ -93,15 +96,15 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
+        // try (CLValueDecoder clvd = new CLValueDecoder(
+        // ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
+        // ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
+        // }
         // Should be CLValueU8
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU8);
         CLValueU8 expected = new CLValueU8((byte) 1);
-        expected.setParsed("");
-        ;
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -122,13 +125,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be string
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueString);
         CLValueString expected = new CLValueString("the string");
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -149,13 +150,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueTuple1
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple1);
         CLValueTuple1 expected = new CLValueTuple1(new Unit<>(new CLValueBool(true)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -176,13 +175,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueTuple2
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple2);
         CLValueTuple2 expected = new CLValueTuple2(new Pair<>(new CLValueI32(1), new CLValueString("Hello, World!")));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -204,14 +201,12 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(
                 new Triplet<>(new CLValueU8((byte) 1), new CLValueString("Hello, World!"), new CLValueBool(true)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -233,14 +228,12 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(
                 new Triplet<>(new CLValueI32(1), new CLValueString("Hello, World!"), new CLValueBool(true)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -262,15 +255,13 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
                 new CLValueTuple1(new Unit<CLValueBool>(new CLValueBool(true))), new CLValueString("Hello, World!"),
                 new CLValueBool(true)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -292,15 +283,13 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
         CLValueTuple3 expected = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
                 new CLValueTuple1(new Unit<CLValueU512>(new CLValueU512(new BigInteger("123456789101112131415", 10)))),
                 new CLValueString("Hello, World!"), new CLValueBool(true)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -324,13 +313,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueList
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueList);
         CLValueList expected = new CLValueList(Arrays.asList(new CLValueI32(1), new CLValueI32(2), new CLValueI32(3)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -351,15 +338,13 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueMap
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueMap);
         Map<CLValueString, CLValueI32> map = new LinkedHashMap<>();
         map.put(new CLValueString("ABC"), new CLValueI32(10));
         CLValueMap expected = new CLValueMap(map);
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -380,16 +365,14 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueResult
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
         Result result = new Result();
         result.setOk(new CLValueI32(10));
         result.setErr(new CLValueString("Uh oh"));
         CLValueResult expected = new CLValueResult(result);
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -410,13 +393,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.ofNullable(null));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -437,13 +418,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.of(new CLValueBool(true)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -464,13 +443,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.of(new CLValueI32(10)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -491,13 +468,11 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueUnit
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueUnit);
         CLValueUnit expected = new CLValueUnit();
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -518,21 +493,19 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValuURef
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueURef);
         CLValueURef expected = new CLValueURef(new URef(
                 StringByteHelper
                         .hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"),
                 URefAccessRight.READ_ADD_WRITE));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
         // FIXME: Encoding of UREF!
-        //assertEquals(expected, sv.getStoredValue().getValue());
+        // assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 
@@ -549,10 +522,6 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValuePublicKey
         assertTrue(sv.getStoredValue().getValue() instanceof CLValuePublicKey);
         PublicKey pk = new PublicKey();
@@ -560,6 +529,8 @@ public class CLValuesTests {
         pk.setKey(StringByteHelper
                 .hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"));
         CLValuePublicKey expected = new CLValuePublicKey(pk);
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
@@ -580,14 +551,12 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        try (CLValueDecoder clvd = new CLValueDecoder(
-                ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-            ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        }
         // Should be CLValueByteArray
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueByteArray);
         CLValueByteArray expected = new CLValueByteArray(new byte[] { 122, -50, 107, 117, -83, -99, 95, 64, -35, 5, 34,
                 44, 108, -122, 69, -78, 28, -20, 71, 119, 98, 48, -34, 0, 111, -53, -39, 107, -38, 124, 73, -75 });
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }

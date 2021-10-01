@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
 import com.googlecode.jsonrpc4j.JsonRpcParam;
@@ -151,11 +154,11 @@ public interface CasperService {
      * @throws MalformedURLException is thrown if ip/port are not compliant
      */
     public static CasperService usingPeer(String ip, int port) throws MalformedURLException {
-        JsonRpcHttpClient client = new JsonRpcHttpClient(new URL("http", ip, port, "/rpc"));
-
+        CasperObjectMapper objectMapper = new CasperObjectMapper();
         Map<String, String> newHeaders = new HashMap<>();
         newHeaders.put("Content-Type", "application/json");
-        client.setHeaders(newHeaders);
+
+        JsonRpcHttpClient client = new JsonRpcHttpClient(objectMapper, new URL("http", ip, port, "/rpc"), newHeaders);
 
         return ProxyUtil.createClientProxy(CasperService.class.getClassLoader(), CasperService.class, client);
     }
