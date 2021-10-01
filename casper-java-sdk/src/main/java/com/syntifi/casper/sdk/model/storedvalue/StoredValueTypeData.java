@@ -6,7 +6,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
+/**
+ * Stored Value type data and class mapping
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see StoredValueCLValue
+ * @see StoredValueContract
+ * @since 0.0.1
+ */
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum StoredValueTypeData {

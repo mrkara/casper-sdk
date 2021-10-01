@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see AbstractCLValue
+ * @see CLValue
  */
 public class CLTypeResolver extends StdTypeResolverBuilder {
     @Override

@@ -9,6 +9,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * CLType for {@link CLType.LIST}
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see CLType
+ * @since 0.0.1
+ */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "listTypeName" })
 public class CLTypeList extends CLTypeBasic {

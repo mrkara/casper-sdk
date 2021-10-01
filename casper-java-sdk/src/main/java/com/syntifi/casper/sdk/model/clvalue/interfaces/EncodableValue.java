@@ -22,6 +22,7 @@ public interface EncodableValue {
      * @throws IOException
      * @throws CLValueEncodeException
      * @throws DynamicInstanceException
+     * @throws NoSuchTypeException
      */
     public void encode(CLValueEncoder clve)
             throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException;

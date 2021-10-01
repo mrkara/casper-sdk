@@ -13,6 +13,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Base class for all types which have an array of child types
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @since 0.0.1
+ */
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "childTypes" })

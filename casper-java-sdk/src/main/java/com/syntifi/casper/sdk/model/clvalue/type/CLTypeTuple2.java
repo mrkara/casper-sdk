@@ -8,6 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+/**
+ * CLType for {@link CLType.TUPLE2}
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see CLType
+ * @since 0.0.1
+ */
 @Getter
 @EqualsAndHashCode(callSuper = true, of = { "typeName" })
 public class CLTypeTuple2 extends CLTypeChildren {

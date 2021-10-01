@@ -14,6 +14,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Casper String CLValue implementation
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see CLValue
+ * @since 0.0.1
+ */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)

@@ -26,6 +26,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Base class for CLValues
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see CLTypeData
+ * @since 0.0.1
+ */
 @Getter
 @Setter
 @EqualsAndHashCode(of = { "bytes", "value" })

@@ -6,9 +6,20 @@ import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Basic class for CLType implementation
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see CLType
+ * @since 0.0.1
+ */
 @Getter
 @Setter
 public abstract class CLType {
+    /**
+     * String constants for all CLTypes as defined by the api spec
+     */
     public static final String BOOL = "Bool";
     public static final String I32 = "I32";
     public static final String I64 = "I64";
@@ -34,8 +45,17 @@ public abstract class CLType {
     public static final String PUBLIC_KEY = "PublicKey";
     public static final String BYTE_ARRAY = "ByteArray";
 
+    /**
+     * Required getter for implementations of CLType
+     * 
+     * @return the CLType name
+     */
     public abstract String getTypeName();
 
+    /**
+     * @return the {@link CLTypeData} for the current CLType
+     * @throws NoSuchTypeException
+     */
     @JsonIgnore
     public CLTypeData getClTypeData() throws NoSuchTypeException {
         return CLTypeData.getTypeByName(getTypeName());

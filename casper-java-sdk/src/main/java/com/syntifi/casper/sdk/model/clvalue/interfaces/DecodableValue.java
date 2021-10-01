@@ -22,6 +22,7 @@ public interface DecodableValue {
      * @throws IOException
      * @throws CLValueDecodeException
      * @throws DynamicInstanceException
+     * @throws NoSuchTypeException
      */
     public void decode(CLValueDecoder clvd)
             throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException;

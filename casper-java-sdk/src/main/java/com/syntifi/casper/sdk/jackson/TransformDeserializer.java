@@ -24,7 +24,7 @@ import com.syntifi.casper.sdk.model.deploy.transform.TypeData;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see AbstractCLValue
+ * @see CLValue
  */
 public class TransformDeserializer extends AsPropertyTypeDeserializer {
 

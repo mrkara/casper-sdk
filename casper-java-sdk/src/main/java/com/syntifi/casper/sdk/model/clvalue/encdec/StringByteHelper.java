@@ -3,6 +3,14 @@ package com.syntifi.casper.sdk.model.clvalue.encdec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Helper methods for working with hex encoded string and bytes
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see CLTypeData
+ * @since 0.0.1
+ */
 public final class StringByteHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StringByteHelper.class);

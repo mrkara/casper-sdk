@@ -12,9 +12,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * CLType for {@link CLType.RESULT}
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @see CLType
+ * @since 0.0.1
+ */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "okErrTypes" })
 public class CLTypeResult extends CLTypeBasic {
+
+    /**
+     * Support class for {@link CLType.RESULT} ok/err types
+     * 
+     * @author Alexandre Carvalho
+     * @author Andre Bertolace
+     * @see CLType
+     * @since 0.0.1
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
