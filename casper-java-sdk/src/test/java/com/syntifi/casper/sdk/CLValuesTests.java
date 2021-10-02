@@ -37,6 +37,9 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.clvalue.Result;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
+import com.syntifi.casper.sdk.model.deploy.Deploy;
+import com.syntifi.casper.sdk.model.deploy.DeployData;
+import com.syntifi.casper.sdk.model.deploy.JsonExecutionResult;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
@@ -593,47 +596,39 @@ public class CLValuesTests {
 
     // }
 
-    // @Test
-    // void test_deploy_mapping_1() throws JsonMappingException,
-    // JsonProcessingException, IOException {
-    // String inputJson =
-    // getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v1.json"));
+    @Test
+    void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v1.json"));
 
-    // LOGGER.debug("Original JSON: {}", inputJson);
+        LOGGER.debug("Original JSON: {}", inputJson);
 
-    // DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
-    // // try (CLValueEncoder clve = new CLValueEncoder()) {
-    // // dd.getDeploy().encode(clve);
-    // // }
+        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
 
-    // assertTrue(dd.getDeploy() instanceof Deploy);
-    // assertTrue(dd.getExecutionResults().get(0) instanceof JsonExecutionResult);
+        assertTrue(dd.getDeploy() instanceof Deploy);
+        assertTrue(dd.getExecutionResults().get(0) instanceof JsonExecutionResult);
 
-    // String reserializedJson = getPrettyJson(dd);
+        String reserializedJson = getPrettyJson(dd);
 
-    // LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
-    // assertEquals(inputJson, reserializedJson);
-    // }
+        assertEquals(inputJson, reserializedJson);
+    }
+    @Test
+    void test_deploy_mapping_2() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v2.json"));
 
-    // @Test
-    // void test_deploy_mapping_2() throws JsonMappingException,
-    // JsonProcessingException, IOException {
-    // String inputJson =
-    // getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v2.json"));
+        LOGGER.debug("Original JSON: {}", inputJson);
 
-    // LOGGER.debug("Original JSON: {}", inputJson);
+        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
 
-    // DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
+        assertTrue(dd.getDeploy() instanceof Deploy);
 
-    // assertTrue(dd.getDeploy() instanceof Deploy);
+        String reserializedJson = getPrettyJson(dd);
 
-    // String reserializedJson = getPrettyJson(dd);
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
-    // LOGGER.debug("Serialized JSON: {}", reserializedJson);
-
-    // assertEquals(inputJson, reserializedJson);
-    // }
+        assertEquals(inputJson, reserializedJson);
+    }
 
     /**
      * Loads test json from resources

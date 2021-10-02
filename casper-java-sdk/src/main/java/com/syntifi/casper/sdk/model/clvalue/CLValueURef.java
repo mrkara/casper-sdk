@@ -45,7 +45,11 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
 
     @Override
     public void encode(CLValueEncoder clve) throws IOException {
-        // TODO: Encode
+        URef uref = this.getValue();
+        byte[] urefByte = new byte[uref.getAddress().length + 1];
+        System.arraycopy(uref.getAddress(), 0, urefByte, 0, uref.getAddress().length);
+        System.arraycopy(uref.getAccessRight().serializationTag, 0, urefByte, uref.getAddress().length, 1);
+        clve.write(urefByte);
     }
 
     @Override

@@ -43,7 +43,7 @@ import lombok.Setter;
 public abstract class CLValue<T, P extends CLType> implements EncodableValue, DecodableValue {
     private String bytes;
     @JsonProperty("parsed")
-    @JsonInclude(Include.NON_NULL)
+    //@JsonInclude(Include.NON_NULL)
     private String parsed;
     @JsonIgnore
     private T value;
