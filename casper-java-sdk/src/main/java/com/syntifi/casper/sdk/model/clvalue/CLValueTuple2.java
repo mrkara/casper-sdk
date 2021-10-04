@@ -33,7 +33,8 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueTuple2 extends CLValueChildren<Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeTuple2> {
+public class CLValueTuple2
+        extends CLValueChildren<Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeTuple2> {
     @JsonProperty("cl_type")
     private CLTypeTuple2 clType = new CLTypeTuple2();
 
@@ -43,7 +44,8 @@ public class CLValueTuple2 extends CLValueChildren<Pair<? extends CLValue<?, ?>,
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         setChildTypes();
 
         getValue().getValue0().encode(clve);
@@ -53,7 +55,8 @@ public class CLValueTuple2 extends CLValueChildren<Pair<? extends CLValue<?, ?>,
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+    public void decode(CLValueDecoder clvd)
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         CLTypeData childTypeData1 = clType.getChildClTypeData(0);
         CLTypeData childTypeData2 = clType.getChildClTypeData(1);
 

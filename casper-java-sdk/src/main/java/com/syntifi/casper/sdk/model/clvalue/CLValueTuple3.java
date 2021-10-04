@@ -44,7 +44,8 @@ public class CLValueTuple3 extends
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         setChildTypes();
 
         getValue().getValue0().encode(clve);
@@ -56,7 +57,8 @@ public class CLValueTuple3 extends
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+    public void decode(CLValueDecoder clvd)
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         CLTypeData childTypeData1 = clType.getChildClTypeData(0);
         CLTypeData childTypeData2 = clType.getChildClTypeData(1);
         CLTypeData childTypeData3 = clType.getChildClTypeData(2);

@@ -9,14 +9,37 @@
                "access": "Public",
                "args": [
                   {
-                     "cl_type": "U512",
-                     "name": "amount"
+                     "name": "amount",
+                     "cl_type": "U512"
                   },
                   {
+                     "name": "testList",
+                     "cl_type": {
+                        "List": "I32"
+                     }
+                  },
+                  {
+                     "name": "testMap",
+                     "cl_type": {
+                        "Map": {
+                           "key": "String",
+                           "value": "I32"
+                        }
+                     }
+                  },
+                  {
+                     "name": "testComplex",
+                     "cl_type": {
+                        "Tuple3" : [ {
+                          "Tuple1" : [ "Bool" ]
+                        }, "String", "Bool" ]
+                      }
+                  },
+                  {
+                     "name": "account",
                      "cl_type": {
                         "ByteArray": 32
-                     },
-                     "name": "account"
+                     }
                   }
                ],
                "entry_point_type": "Contract",
@@ -36,15 +59,17 @@
                "entry_point_type": "Contract",
                "name": "get_refund_purse",
                "ret": {
-                  "Option": "URef"
+                  "Option": [
+                     "URef"
+                  ]
                }
             },
             {
                "access": "Public",
                "args": [
                   {
-                     "cl_type": "URef",
-                     "name": "purse"
+                     "name": "purse",
+                     "cl_type": "URef"
                   }
                ],
                "entry_point_type": "Contract",

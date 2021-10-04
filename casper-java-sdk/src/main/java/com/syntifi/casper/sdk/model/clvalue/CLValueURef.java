@@ -2,8 +2,8 @@ package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
@@ -34,9 +34,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CLValueURef extends CLValue<URef, CLTypeURef> {
-    @JsonProperty("cl_type")
-    @JsonUnwrapped
     private CLTypeURef clType = new CLTypeURef();
+
+    @JsonSetter("cl_type")
+    public void setJsonClType(CLTypeURef clType) {
+        this.clType = clType;
+    }
+
+    @JsonGetter("cl_type")
+    public String getJsonClType() {
+        return this.getClType().getTypeName();
+    }
 
     public CLValueURef(URef value) {
         this.setValue(value);

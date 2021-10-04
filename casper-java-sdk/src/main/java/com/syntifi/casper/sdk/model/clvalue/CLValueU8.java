@@ -2,8 +2,8 @@ package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
@@ -27,9 +27,17 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true, of = "clType")
 @NoArgsConstructor
 public class CLValueU8 extends CLValue<Byte, CLTypeU8> {
-    @JsonProperty("cl_type")
-    @JsonUnwrapped
     private CLTypeU8 clType = new CLTypeU8();
+
+    @JsonSetter("cl_type")
+    public void setJsonClType(CLTypeU8 clType) {
+        this.clType = clType;
+    }
+
+    @JsonGetter("cl_type")
+    public String getJsonClType() {
+        return this.getClType().getTypeName();
+    }
 
     public CLValueU8(Byte value) {
         this.setValue(value);

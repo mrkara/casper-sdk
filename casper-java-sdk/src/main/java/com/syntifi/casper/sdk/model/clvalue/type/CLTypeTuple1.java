@@ -2,7 +2,6 @@ package com.syntifi.casper.sdk.model.clvalue.type;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.EqualsAndHashCode;
@@ -19,7 +18,6 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = true, of = { "typeName" })
 public class CLTypeTuple1 extends CLTypeChildren {
-    @JsonIgnore
     private final String typeName = CLType.TUPLE1;
 
     @JsonProperty(CLType.TUPLE1)

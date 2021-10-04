@@ -65,16 +65,15 @@ public class CLTypeDeserializer extends AsPropertyTypeDeserializer {
         }
     }
 
-    protected Class<?> findSubType(JsonNode node) throws NoSuchTypeException {
+    protected Class<?> findSubType(JsonNode clType) throws NoSuchTypeException {
         Class<?> subType;
-        JsonNode clType = node.get("cl_type");
 
         if (clType.isObject()) {
             Map.Entry<String, JsonNode> parentCLType = clType.fields().next();
-            subType = CLTypeData.getClassByName(parentCLType.getKey());
+            subType = CLTypeData.getCLTypeClassByName(parentCLType.getKey());
         } else {
             String type = clType.asText();
-            subType = CLTypeData.getClassByName(type);
+            subType = CLTypeData.getCLTypeClassByName(type);
         }
         return subType;
     }

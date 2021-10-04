@@ -43,7 +43,8 @@ public class CLValueTuple1 extends CLValueChildren<Unit<? extends CLValue<?, ?>>
     }
 
     @Override
-    public void encode(CLValueEncoder clve) throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
+    public void encode(CLValueEncoder clve)
+            throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         setChildTypes();
 
         getValue().getValue0().encode(clve);
@@ -52,7 +53,8 @@ public class CLValueTuple1 extends CLValueChildren<Unit<? extends CLValue<?, ?>>
     }
 
     @Override
-    public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+    public void decode(CLValueDecoder clvd)
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         CLTypeData childTypeData1 = clType.getChildClTypeData(0);
 
         CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);

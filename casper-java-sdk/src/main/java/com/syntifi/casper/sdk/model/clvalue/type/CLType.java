@@ -1,7 +1,10 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.syntifi.casper.sdk.jackson.CLTypeResolver;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +19,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
+@JsonTypeResolver(CLTypeResolver.class)
 public abstract class CLType {
     /**
      * String constants for all CLTypes as defined by the api spec
@@ -50,6 +55,7 @@ public abstract class CLType {
      * 
      * @return the CLType name
      */
+    @JsonIgnore
     public abstract String getTypeName();
 
     /**

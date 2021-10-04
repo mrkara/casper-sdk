@@ -21,6 +21,7 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.DecodableValue;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.EncodableValue;
 import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -68,6 +69,7 @@ public abstract class CLValue<T, P extends CLType> implements EncodableValue, De
         return this.bytes;
     }
 
+    @JsonIgnore
     public abstract P getClType();
 
     public abstract void setClType(P value);

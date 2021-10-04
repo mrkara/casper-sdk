@@ -3,8 +3,8 @@ package com.syntifi.casper.sdk.model.clvalue;
 import java.io.IOException;
 import java.math.BigInteger;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
@@ -29,9 +29,17 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValueU256 extends CLValue<BigInteger, CLTypeU256> {
-    @JsonProperty("cl_type")
-    @JsonUnwrapped
     private CLTypeU256 clType = new CLTypeU256();
+
+    @JsonSetter("cl_type")
+    public void setJsonClType(CLTypeU256 clType) {
+        this.clType = clType;
+    }
+
+    @JsonGetter("cl_type")
+    public String getJsonClType() {
+        return this.getClType().getTypeName();
+    }
 
     public CLValueU256(BigInteger value) {
         this.setValue(value);

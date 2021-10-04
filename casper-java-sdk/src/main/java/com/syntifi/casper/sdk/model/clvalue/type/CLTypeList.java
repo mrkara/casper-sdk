@@ -19,8 +19,7 @@ import lombok.Setter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "listTypeName" })
-public class CLTypeList extends CLTypeBasic {
-    @JsonIgnore
+public class CLTypeList extends CLType {
     private final String typeName = CLType.LIST;
 
     @Setter
