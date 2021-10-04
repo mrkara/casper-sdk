@@ -2,8 +2,12 @@ package com.syntifi.casper.sdk.model.contract;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -62,6 +66,20 @@ public class EntryPoint {
     /**
      * ret({@link CLType})
      */
-    @JsonProperty("ret")
+    @JsonIgnore
     private CLType ret;
+
+    @JsonSetter("ret")
+    public void setJsonRet(CLType clType) {
+        this.ret = clType;
+    }
+
+    @JsonGetter("ret")
+    public Object getJsonRet() {
+        if (this.ret instanceof CLTypeBasic) {
+            return this.ret.getTypeName();
+        } else {
+            return this.ret;
+        }
+    }
 }
