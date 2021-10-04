@@ -21,7 +21,7 @@ public class CLTypeI64 extends CLTypeBasic {
     private final String typeName = CLType.I64;
 
     @JsonCreator
-    public CLTypeI64(String typeName) {
+    protected CLTypeI64(String typeName) {
         if (!this.typeName.equals(typeName)) {
             throw new IllegalArgumentException(
                     String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));

@@ -22,7 +22,7 @@ public class CLTypeU128 extends CLTypeBasic {
     private final String typeName = CLType.U128;
 
     @JsonCreator
-    public CLTypeU128(String typeName) {
+    protected CLTypeU128(String typeName) {
         if (!this.typeName.equals(typeName)) {
             throw new IllegalArgumentException(
                     String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));

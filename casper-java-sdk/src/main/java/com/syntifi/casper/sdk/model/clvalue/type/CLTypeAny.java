@@ -21,7 +21,7 @@ public class CLTypeAny extends CLTypeBasic {
     private final String typeName = CLType.ANY;
 
     @JsonCreator
-    public CLTypeAny(String typeName) {
+    protected CLTypeAny(String typeName) {
         if (!this.typeName.equals(typeName)) {
             throw new IllegalArgumentException(
                     String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));

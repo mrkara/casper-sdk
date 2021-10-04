@@ -21,7 +21,7 @@ public class CLTypePublicKey extends CLTypeBasic {
     private final String typeName = CLType.PUBLIC_KEY;
 
     @JsonCreator
-    public CLTypePublicKey(String typeName) {
+    protected CLTypePublicKey(String typeName) {
         if (!this.typeName.equals(typeName)) {
             throw new IllegalArgumentException(
                     String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));
