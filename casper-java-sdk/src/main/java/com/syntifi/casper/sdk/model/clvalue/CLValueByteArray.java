@@ -53,17 +53,17 @@ public class CLValueByteArray extends CLValue<byte[], CLTypeByteArray> {
         final CLValueByteArray other = (CLValueByteArray) o;
         if (!other.canEqual((Object) this))
             return false;
-        final Object this$bytes = this.getBytes();
-        final Object other$bytes = other.getBytes();
-        if (this$bytes == null ? other$bytes != null : !this$bytes.equals(other$bytes))
+        final Object thisBytes = this.getBytes();
+        final Object otherBytes = other.getBytes();
+        if (thisBytes == null ? otherBytes != null : !thisBytes.equals(otherBytes))
             return false;
-        final byte[] this$value = this.getValue();
-        final byte[] other$value = other.getValue();
-        if (this$value == null ? other$value != null : !Arrays.equals(this$value, other$value))
+        final byte[] thisValue = this.getValue();
+        final byte[] otherValue = other.getValue();
+        if (thisValue == null ? otherValue != null : !Arrays.equals(thisValue, otherValue))
             return false;
-        final Object this$clType = this.getClType();
-        final Object other$clType = other.getClType();
-        if (this$clType == null ? other$clType != null : !this$clType.equals(other$clType))
+        final Object thisClType = this.getClType();
+        final Object otherClType = other.getClType();
+        if (thisClType == null ? otherClType != null : !thisClType.equals(otherClType))
             return false;
         return true;
     }
@@ -79,8 +79,8 @@ public class CLValueByteArray extends CLValue<byte[], CLTypeByteArray> {
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        final Object $clType = this.getClType();
-        result = result * PRIME + ($clType == null ? 43 : $clType.hashCode());
+        final Object thisClType = this.getClType();
+        result = result * PRIME + (thisClType == null ? 43 : thisClType.hashCode());
         return result;
     }
 }

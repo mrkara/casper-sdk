@@ -13,6 +13,7 @@ import com.syntifi.casper.sdk.model.clvalue.type.CLTypeURef;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -71,6 +72,7 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
         setValue(uref);
     }
 
+    @Generated
     @Override
     public boolean equals(final Object o) {
         if (o == this)
@@ -78,33 +80,36 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
         if (!(o instanceof CLValueURef))
             return false;
         final CLValueURef other = (CLValueURef) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this))
             return false;
-        final Object this$bytes = this.getBytes();
-        final Object other$bytes = other.getBytes();
-        if (this$bytes == null ? other$bytes != null : !this$bytes.equals(other$bytes))
+        final Object thisBytes = this.getBytes();
+        final Object otherBytes = other.getBytes();
+        if (thisBytes == null ? otherBytes != null : !thisBytes.equals(otherBytes))
             return false;
-        final URef this$value = this.getValue();
-        final URef other$value = other.getValue();
-        if (this$value == null ? other$value != null : !(this$value.equals(other$value)))
+        final URef thisValue = this.getValue();
+        final URef otherValue = other.getValue();
+        if (thisValue == null ? otherValue != null : !(thisValue.equals(otherValue)))
             return false;
-        final Object this$clType = this.getClType();
-        final Object other$clType = other.getClType();
-        if (this$clType == null ? other$clType != null : !this$clType.equals(other$clType))
+        final Object thisClType = this.getClType();
+        final Object otherClType = other.getClType();
+        if (thisClType == null ? otherClType != null : !thisClType.equals(otherClType))
             return false;
         return true;
     }
 
+    @Generated
+    @Override
     protected boolean canEqual(final Object other) {
         return other instanceof CLValueURef;
     }
 
+    @Generated
     @Override
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        final Object $clType = this.getClType();
-        result = result * PRIME + ($clType == null ? 43 : $clType.hashCode());
+        final Object thisClType = this.getClType();
+        result = result * PRIME + (thisClType == null ? 43 : thisClType.hashCode());
         return result;
     }
 }
