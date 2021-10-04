@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
 import com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.model.clvalue.CLValue;
+import com.syntifi.casper.sdk.model.storedvalue.StoredValue;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueTypeData;
 
 /**
@@ -17,7 +17,7 @@ import com.syntifi.casper.sdk.model.storedvalue.StoredValueTypeData;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see CLValue
+ * @see StoredValue
  */
 public class StoredValueDeserializer extends AbstractAnyOfDeserializer {
 

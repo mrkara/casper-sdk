@@ -22,9 +22,6 @@ public class CLTypeI32 extends CLTypeBasic {
 
     @JsonCreator
     protected CLTypeI32(String typeName) {
-        if (!this.typeName.equals(typeName)) {
-            throw new IllegalArgumentException(
-                    String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));
-        }
+        super(typeName);
     }
 }

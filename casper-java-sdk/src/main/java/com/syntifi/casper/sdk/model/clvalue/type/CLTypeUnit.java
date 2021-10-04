@@ -23,9 +23,6 @@ public class CLTypeUnit extends CLTypeBasic {
 
     @JsonCreator
     protected CLTypeUnit(String typeName) {
-        if (!this.typeName.equals(typeName)) {
-            throw new IllegalArgumentException(
-                    String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));
-        }
+        super(typeName);
     }
 }

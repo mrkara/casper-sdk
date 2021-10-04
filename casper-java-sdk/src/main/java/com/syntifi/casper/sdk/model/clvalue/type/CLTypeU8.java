@@ -22,9 +22,6 @@ public class CLTypeU8 extends CLTypeBasic {
 
     @JsonCreator
     protected CLTypeU8(String typeName) {
-        if (!this.typeName.equals(typeName)) {
-            throw new IllegalArgumentException(
-                    String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));
-        }
+        super(typeName);
     }
 }

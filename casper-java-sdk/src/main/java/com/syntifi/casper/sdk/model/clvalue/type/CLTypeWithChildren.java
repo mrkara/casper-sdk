@@ -29,30 +29,18 @@ public abstract class CLTypeWithChildren extends CLType {
     private List<CLType> childTypes = new ArrayList<>();
 
     @JsonIgnore
-    public CLTypeData getChildClTypeData(int index) {
-        try {
-            return CLTypeData.getTypeByName(getChildTypes().get(index).getTypeName());
-        } catch (NoSuchTypeException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return null;
+    public CLTypeData getChildClTypeData(int index) throws NoSuchTypeException {
+        return CLTypeData.getTypeByName(getChildTypes().get(index).getTypeName());
     }
 
-    public void loadCLTypes(List<Object> childTypeObjects) {
+    public void loadCLTypes(List<Object> childTypeObjects)
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+            NoSuchMethodException, SecurityException, NoSuchTypeException {
         childTypes.clear();
 
         if (childTypeObjects != null) {
             for (Object childTypeObject : childTypeObjects) {
-                try {
-                    addChildType(childTypeObject, childTypes);
-                } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                        | InvocationTargetException | NoSuchMethodException | SecurityException
-                        | NoSuchTypeException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                addChildType(childTypeObject, childTypes);
             }
         }
     }
