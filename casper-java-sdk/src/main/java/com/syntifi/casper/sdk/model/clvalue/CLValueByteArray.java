@@ -9,6 +9,7 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeByteArray;
 
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,6 +44,7 @@ public class CLValueByteArray extends CLValue<byte[], CLTypeByteArray> {
     }
 
     @Override
+    @Generated
     public boolean equals(final Object o) {
         if (o == this)
             return true;
@@ -66,11 +68,14 @@ public class CLValueByteArray extends CLValue<byte[], CLTypeByteArray> {
         return true;
     }
 
+    @Generated
+    @Override
     protected boolean canEqual(final Object other) {
         return other instanceof CLValueByteArray;
     }
 
     @Override
+    @Generated
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
