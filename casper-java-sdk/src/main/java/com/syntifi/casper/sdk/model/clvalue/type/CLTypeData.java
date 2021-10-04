@@ -165,7 +165,6 @@ public enum CLTypeData {
 
         try {
             return (CLValue<?, ?>) clazz.getConstructor().newInstance();
-
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             throw new DynamicInstanceException(String.format("Error while instantiating %s", clazz.getName()), e);
@@ -197,7 +196,6 @@ public enum CLTypeData {
 
         try {
             return (CLType) clazz.getConstructor().newInstance();
-
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             throw new DynamicInstanceException(String.format("Error while instantiating %s", clazz.getName()), e);

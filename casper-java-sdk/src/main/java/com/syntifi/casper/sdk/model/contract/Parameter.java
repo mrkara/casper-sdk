@@ -19,13 +19,13 @@ import lombok.Data;
 @Data
 public class Parameter {
     /**
-     * The value of the entry: a casper `Key` type.
+     * cl_type(CLType) The value of the entry: a casper `Key` type.
      */
     @JsonIgnore
     private CLType clType;
 
     /**
-     * The name of the entry.
+     * name(String) The name of the entry.
      */
     @JsonProperty("name")
     private String name;
