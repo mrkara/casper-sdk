@@ -109,6 +109,22 @@ public enum CLTypeData {
     }
 
     /**
+     * Retrieve CLType class from CLType name
+     * 
+     * @param name
+     * @return
+     * @throws NoSuchTypeException
+     */
+    public static Class<?> getCLTypeClassByName(String name) throws NoSuchTypeException {
+        for (CLTypeData clType : values()) {
+            if (clType.clTypeName.equals(name)) {
+                return clType.getClTypeClass();
+            }
+        }
+        throw new NoSuchTypeException();
+    }
+
+    /**
      * Retrieve CLType from its name
      * 
      * @param name

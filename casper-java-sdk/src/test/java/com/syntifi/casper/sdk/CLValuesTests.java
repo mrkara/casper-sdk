@@ -41,6 +41,7 @@ import com.syntifi.casper.sdk.model.clvalue.Result;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
+import com.syntifi.casper.sdk.model.account.Account;
 import com.syntifi.casper.sdk.model.contract.Contract;
 import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
@@ -578,26 +579,39 @@ public class CLValuesTests {
         assertEquals(inputJson, reserializedJson);
     }
 
-    // @Test
-    // void test_contract_mapping() throws JsonMappingException,
-    // JsonProcessingException, IOException {
-    // String inputJson =
-    // getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
+    @Test
+    void test_account_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-account.json"));
 
-    // LOGGER.debug("Original JSON: {}", inputJson);
+        LOGGER.debug("Original JSON: {}", inputJson);
 
-    // StoredValueData sv = OBJECT_MAPPER.readValue(inputJson,
-    // StoredValueData.class);
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
 
-    // assertTrue(sv.getStoredValue().getValue() instanceof Contract);
+        assertTrue(sv.getStoredValue().getValue() instanceof Account);
 
-    // String reserializedJson = getPrettyJson(sv);
+        String reserializedJson = getPrettyJson(sv);
 
-    // LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
-    // assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, reserializedJson);
+    }
 
-    // }
+    @Test
+    void test_contract_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+
+        assertTrue(sv.getStoredValue().getValue() instanceof Contract);
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
 
     @Test
     void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {

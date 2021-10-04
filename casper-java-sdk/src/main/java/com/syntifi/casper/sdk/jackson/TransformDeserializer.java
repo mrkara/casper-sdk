@@ -18,7 +18,7 @@ import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.deploy.transform.TypeData;
 
 /**
- * Core Deserializer for the CLValue property. This deserializer is used by the {@link CLTypeResolver} 
+ * Core Deserializer for the CLValue property. This deserializer is used by the {@link CLValueResolver} 
  * to return the correct CLType object in Java depending on the cl_type sent over json
  * 
  * @author Alexandre Carvalho

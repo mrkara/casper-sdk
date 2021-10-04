@@ -19,6 +19,7 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum StoredValueTypeData {
     STORED_VALUE_CLVALUE("CLValue", StoredValueCLValue.class),
+    STORED_VALUE_ACCOUNT("Account", StoredValueAccount.class),
     STORED_VALUE_CONTRACT("Contract", StoredValueContract.class);
 
     private final String name;

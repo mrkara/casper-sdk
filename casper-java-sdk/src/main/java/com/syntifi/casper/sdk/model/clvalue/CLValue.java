@@ -15,7 +15,7 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.jackson.CLTypeResolver;
+import com.syntifi.casper.sdk.jackson.CLValueResolver;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.DecodableValue;
@@ -38,7 +38,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(of = { "bytes", "value" })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
-@JsonTypeResolver(CLTypeResolver.class)
+@JsonTypeResolver(CLValueResolver.class)
 @JsonPropertyOrder({ "cl_type", "bytes", "parsed" }) // TODO: Just for testing
 public abstract class CLValue<T, P extends CLType> implements EncodableValue, DecodableValue {
     private String bytes;
