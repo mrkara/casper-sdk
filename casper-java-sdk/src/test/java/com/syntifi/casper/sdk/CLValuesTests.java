@@ -49,6 +49,7 @@ import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
+import com.syntifi.casper.sdk.service.CasperObjectMapper;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
@@ -69,7 +70,7 @@ public class CLValuesTests {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CLValuesTests.class);
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new CasperObjectMapper();
 
     @BeforeAll
     public static void init() {
