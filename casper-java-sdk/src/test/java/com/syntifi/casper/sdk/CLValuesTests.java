@@ -512,7 +512,7 @@ public class CLValuesTests {
             expected.encode(clve);
         }
         // TODO: FIX EQUALS
-        // assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 

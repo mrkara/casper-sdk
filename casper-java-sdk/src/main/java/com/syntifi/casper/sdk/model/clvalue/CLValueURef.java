@@ -1,7 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -9,11 +8,11 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
+import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeURef;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,7 +48,7 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
         byte[] urefByte = new byte[uref.getAddress().length + 1];
         System.arraycopy(uref.getAddress(), 0, urefByte, 0, uref.getAddress().length);
         urefByte[32] = uref.getAccessRight().serializationTag; 
-        clve.write(urefByte);
+        setBytes(StringByteHelper.convertBytesToHex(urefByte));
     }
 
     @Override
@@ -89,7 +88,7 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
     }
 
     protected boolean canEqual(final Object other) {
-        return other instanceof CLValueByteArray;
+        return other instanceof CLValueURef;
     }
 
     @Override
