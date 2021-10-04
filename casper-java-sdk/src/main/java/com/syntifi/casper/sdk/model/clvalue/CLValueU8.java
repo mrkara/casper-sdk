@@ -30,7 +30,7 @@ public class CLValueU8 extends CLValue<Byte, CLTypeU8> {
     private CLTypeU8 clType = new CLTypeU8();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeU8 clType) {
+    protected void setJsonClType(CLTypeU8 clType) {
         this.clType = clType;
     }
 

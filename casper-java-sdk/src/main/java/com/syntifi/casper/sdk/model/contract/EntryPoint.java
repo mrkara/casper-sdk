@@ -70,12 +70,12 @@ public class EntryPoint {
     private CLType ret;
 
     @JsonSetter("ret")
-    public void setJsonRet(CLType clType) {
+    protected void setJsonRet(CLType clType) {
         this.ret = clType;
     }
 
     @JsonGetter("ret")
-    public Object getJsonRet() {
+    protected Object getJsonRet() {
         if (this.ret instanceof CLTypeBasic) {
             return this.ret.getTypeName();
         } else {

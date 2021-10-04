@@ -32,12 +32,12 @@ public class CLValuePublicKey extends CLValue<PublicKey, CLTypePublicKey> {
     private CLTypePublicKey clType = new CLTypePublicKey();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypePublicKey clType) {
+    protected void setJsonClType(CLTypePublicKey clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    public String getJsonClType() {
+    protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

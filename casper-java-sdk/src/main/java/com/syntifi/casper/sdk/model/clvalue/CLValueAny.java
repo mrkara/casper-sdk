@@ -30,12 +30,12 @@ public class CLValueAny extends CLValue<Object, CLTypeAny> {
     private CLTypeAny clType = new CLTypeAny();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeAny clType) {
+    protected void setJsonClType(CLTypeAny clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    public String getJsonClType() {
+    protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

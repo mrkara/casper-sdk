@@ -32,12 +32,12 @@ public class CLValueU256 extends CLValue<BigInteger, CLTypeU256> {
     private CLTypeU256 clType = new CLTypeU256();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeU256 clType) {
+    protected void setJsonClType(CLTypeU256 clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    public String getJsonClType() {
+    protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

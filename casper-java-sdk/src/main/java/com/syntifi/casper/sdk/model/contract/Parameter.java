@@ -31,7 +31,7 @@ public class Parameter {
     private String name;
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLType clType) {
+    protected void setJsonClType(CLType clType) {
         this.clType = clType;
     }
 

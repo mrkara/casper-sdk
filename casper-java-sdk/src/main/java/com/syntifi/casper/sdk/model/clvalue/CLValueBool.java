@@ -30,12 +30,12 @@ public class CLValueBool extends CLValue<Boolean, CLTypeBool> {
     private CLTypeBool clType = new CLTypeBool();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeBool clType) {
+    protected void setJsonClType(CLTypeBool clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    public String getJsonClType() {
+    protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

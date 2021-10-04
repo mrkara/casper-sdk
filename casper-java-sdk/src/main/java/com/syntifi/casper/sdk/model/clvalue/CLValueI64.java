@@ -30,12 +30,12 @@ public class CLValueI64 extends CLValue<Long, CLTypeI64> {
     private CLTypeI64 clType = new CLTypeI64();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeI64 clType) {
+    protected void setJsonClType(CLTypeI64 clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    public String getJsonClType() {
+    protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

@@ -37,12 +37,12 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
     private CLTypeURef clType = new CLTypeURef();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeURef clType) {
+    protected void setJsonClType(CLTypeURef clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    public String getJsonClType() {
+    protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

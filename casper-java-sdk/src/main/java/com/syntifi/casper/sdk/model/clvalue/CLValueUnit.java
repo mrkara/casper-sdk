@@ -33,7 +33,7 @@ public class CLValueUnit extends CLValue<Object, CLTypeUnit> {
     private CLTypeUnit clType = new CLTypeUnit();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeUnit clType) {
+    protected void setJsonClType(CLTypeUnit clType) {
         this.clType = clType;
     }
 
