@@ -254,8 +254,13 @@ public class CLValueEncoder extends ByteArrayOutputStream {
 
         //Removing leading zeroes
         int i = 0;
-        while(byteArray[i] == 0)
-            i++;
+        boolean both = false;
+        while(byteArray[i] == 0){
+            if (both) {
+                i++;
+            }
+            both = !both;
+        }
         
         byte[] valueByteArray = Arrays.copyOfRange(byteArray, i, bigIntegerLength+i);
 

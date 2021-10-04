@@ -3,6 +3,7 @@ package com.syntifi.casper.sdk.model.deploy.transform;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.syntifi.casper.sdk.model.contract.NamedKey;
 
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
+@JsonTypeName("AddKeys")
 public class AddKeys implements Transform {
    
     /**

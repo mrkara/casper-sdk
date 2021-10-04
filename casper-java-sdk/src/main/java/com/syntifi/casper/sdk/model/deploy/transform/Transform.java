@@ -28,7 +28,8 @@ import com.syntifi.casper.sdk.jackson.TransformResolver;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
+//@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(TransformResolver.class)
 public interface Transform {
 }

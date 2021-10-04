@@ -3,10 +3,15 @@ package com.syntifi.casper.sdk.model.deploy;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
 import lombok.Data;
@@ -39,14 +44,24 @@ public class Bid {
      */
     //@JsonDeserialize(as= HashMap.class, keyAs = PublicKey.class, contentAs = Delegator.class)
     @JsonIgnore
-    private Map<PublicKey, Delegator> delegators = new HashMap<>();
-    @JsonProperty("delegators")
-    private void unpackNested(Map<String, Delegator> node) throws NoSuchAlgorithmException{
+    private Map<PublicKey, Delegator> delegators = new LinkedHashMap<>();
+    
+    @JsonSetter("delegators")
+    private void setJsonDelegators(Map<String, Delegator> node) throws NoSuchAlgorithmException{
         for (Map.Entry<String, Delegator> entry : node.entrySet()){
             PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
             Delegator delegator = entry.getValue();
             this.delegators.put(publicKey, delegator);
         }
+    }
+   
+    @JsonGetter("delegators")
+    private Map<String, Delegator> getJsonDelegators() {
+        Map<String, Delegator> out = new LinkedHashMap<>();
+        for (Map.Entry<PublicKey, Delegator> entry : this.delegators.entrySet()){
+            out.put(entry.getKey().toTaggedHexString(), entry.getValue());
+        }
+        return out;
     }
 
     /**

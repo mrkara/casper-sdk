@@ -1,6 +1,7 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -32,7 +33,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValueURef extends CLValue<URef, CLTypeURef> {
     @JsonProperty("cl_type")
@@ -45,7 +45,11 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
 
     @Override
     public void encode(CLValueEncoder clve) throws IOException {
-        // TODO: Encode
+        URef uref = this.getValue();
+        byte[] urefByte = new byte[uref.getAddress().length + 1];
+        System.arraycopy(uref.getAddress(), 0, urefByte, 0, uref.getAddress().length);
+        urefByte[32] = uref.getAccessRight().serializationTag; 
+        clve.write(urefByte);
     }
 
     @Override
@@ -58,5 +62,42 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
         clvd.readU8(serializationTag);
         uref.setAccessRight(URefAccessRight.getTypeBySerializationTag(serializationTag.getValue()));
         setValue(uref);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof CLValueURef))
+            return false;
+        final CLValueURef other = (CLValueURef) o;
+        if (!other.canEqual((Object) this))
+            return false;
+        final Object this$bytes = this.getBytes();
+        final Object other$bytes = other.getBytes();
+        if (this$bytes == null ? other$bytes != null : !this$bytes.equals(other$bytes))
+            return false;
+        final URef this$value = this.getValue();
+        final URef other$value = other.getValue();
+        if (this$value == null ? other$value != null : !(this$value.equals(other$value)))
+            return false;
+        final Object this$clType = this.getClType();
+        final Object other$clType = other.getClType();
+        if (this$clType == null ? other$clType != null : !this$clType.equals(other$clType))
+            return false;
+        return true;
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof CLValueByteArray;
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = super.hashCode();
+        final Object $clType = this.getClType();
+        result = result * PRIME + ($clType == null ? 43 : $clType.hashCode());
+        return result;
     }
 }

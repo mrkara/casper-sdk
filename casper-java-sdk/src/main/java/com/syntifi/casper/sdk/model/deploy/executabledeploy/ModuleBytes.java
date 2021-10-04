@@ -19,15 +19,16 @@ import lombok.Data;
 @Data
 @JsonTypeName("ModuleBytes")
 public class ModuleBytes implements ExecutableDeployItem {
-   
-    /**
-     * @see NamedArg 
-     */
-    private List<NamedArg<?, ?>> args;
-
     /**
      * Module bytes 
      */
     @JsonProperty("module_bytes")
     private String bytes;
+
+    /**
+     * @see NamedArg 
+     */
+    private List<NamedArg<?, ?>> args;
+
+
 }

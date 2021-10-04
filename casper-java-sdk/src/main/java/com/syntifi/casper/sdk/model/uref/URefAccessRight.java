@@ -18,16 +18,16 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum URefAccessRight {
-    NONE(0x0),
-    READ(0x1),
-    WRITE(0x2),
-    READ_WRITE(0x3),
-    ADD(0x4),
-    READ_ADD(0x5),
-    ADD_WRITE(0x6),
-    READ_ADD_WRITE(0x7);
+    NONE((byte)0x0),
+    READ((byte)0x1),
+    WRITE((byte)0x2),
+    READ_WRITE((byte)0x3),
+    ADD((byte)0x4),
+    READ_ADD((byte)0x5),
+    ADD_WRITE((byte)0x6),
+    READ_ADD_WRITE((byte)0x7);
 
-    public final int serializationTag;
+    public final byte serializationTag;
 
     public static URefAccessRight getTypeBySerializationTag(byte serializationTag) throws DynamicInstanceException {
         for (URefAccessRight accessRight: values()) {

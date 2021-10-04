@@ -1,7 +1,8 @@
 package com.syntifi.casper.sdk.model.deploy.transform;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 /**
  * An implmentation of Transform that specifies any of the enum values
@@ -16,24 +17,19 @@ import com.syntifi.casper.sdk.exception.NoSuchTypeException;
  * @author Andre Bertolace
  * @since 0.0.1
  */
+@JsonTypeName("WriteContract")
 public enum WriteContract implements Transform {
-    IDENTITY("Identity"), 
-    WRITE_CONTRACT_WASM("WriteContractWasm"), 
-    WRITE_CONTRACT("WriteContract"), 
-    WRITE_CONTRACT_PACKAGE("WriteContractPackage");
-    
-    private final String tag;
-
-    private WriteContract(String tag) {
-        this.tag = tag;
-    }
-
-    @JsonCreator
-    public static WriteContract getByTag(String tag) throws NoSuchTypeException {
-        for (WriteContract a : values()) {
-            if (a.tag.equals(tag))
-                return a;
-        }
-        throw new NoSuchTypeException("WriteContract not valid");
-    }
+    @JsonProperty("Identity")
+    @JsonUnwrapped
+    IDENTITY, 
+    @JsonProperty("WriteContractWasm")
+    @JsonUnwrapped
+    WRITE_CONTRACT_WASM, 
+    @JsonProperty("WriteContract")
+    @JsonUnwrapped
+    WRITE_CONTRACT, 
+    @JsonProperty("WriteContractPackage")
+    @JsonUnwrapped
+    WRITE_CONTRACT_PACKAGE;
+   
 }

@@ -16,6 +16,17 @@ import lombok.Data;
  */
 @Data
 public class Delegator {
+    /**
+     * @see PublicKey
+     */
+    @JsonProperty("validator_public_key")
+    private PublicKey validatorPublicKey;
+
+    /**
+     * @see VestingSchedule
+     */
+    @JsonProperty("vesting_schedule")
+    private VestingSchedule vestingSchedule;
 
     /**
      * @see Uref
@@ -34,16 +45,4 @@ public class Delegator {
      */
     @JsonProperty("staked_amount")
     private BigInteger stakedAmount;
-
-    /**
-     * @see PublicKey
-     */
-    @JsonProperty("validator_public_key")
-    private PublicKey validatorPublicKey;
-
-    /**
-     * @see VestingSchedule
-     */
-    @JsonProperty("vesting_schedule")
-    private VestingSchedule vestingSchedule;
 }
