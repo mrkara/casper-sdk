@@ -245,6 +245,8 @@ class CasperSdkApplicationTests {
 				.getTransform() instanceof WriteCLValue);
 		assertTrue(deployData.getDeploy().getPayment() instanceof ModuleBytes);
 		assertTrue(deployData.getDeploy().getSession() instanceof StoredContractByHash);
+		String tmp = ((StoredContractByHash) deployData.getDeploy().getSession()).getHash();
+		assertEquals("ccb576d6ce6dec84a551e48f0d0b7af89ddba44c7390b690036257a04a3ae9ea", tmp);
 	}
 
 }
