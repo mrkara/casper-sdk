@@ -13,7 +13,8 @@ import lombok.Data;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-@Data@JsonTypeName("AddInt32")
+@Data
+@JsonTypeName("AddInt32")
 public class AddInt32 implements Transform {
    
     /**
