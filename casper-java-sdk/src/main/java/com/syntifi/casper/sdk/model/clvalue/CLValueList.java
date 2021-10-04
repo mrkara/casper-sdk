@@ -11,7 +11,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeList;
 
@@ -52,9 +52,9 @@ public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeLi
         setBytes(length.getBytes());
 
         for (CLValue<?, ?> child : getValue()) {
-            if (child.getClType() instanceof CLTypeChildren) {
-                ((CLTypeChildren) child.getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getListType()).getChildTypes());
+            if (child.getClType() instanceof CLTypeWithChildren) {
+                ((CLTypeWithChildren) child.getClType()).getChildTypes()
+                        .addAll(((CLTypeWithChildren) clType.getListType()).getChildTypes());
             }
             child.encode(clve);
             setBytes(getBytes() + child.getBytes());

@@ -10,7 +10,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeTuple2;
 
@@ -34,7 +34,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValueTuple2
-        extends CLValueChildren<Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeTuple2> {
+        extends CLValueWithChildren<Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeTuple2> {
     @JsonProperty("cl_type")
     private CLTypeTuple2 clType = new CLTypeTuple2();
 
@@ -61,16 +61,16 @@ public class CLValueTuple2
         CLTypeData childTypeData2 = clType.getChildClTypeData(1);
 
         CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
-        if (child1.getClType() instanceof CLTypeChildren) {
-            ((CLTypeChildren) child1.getClType()).getChildTypes()
-                    .addAll(((CLTypeChildren) clType.getChildTypes().get(0)).getChildTypes());
+        if (child1.getClType() instanceof CLTypeWithChildren) {
+            ((CLTypeWithChildren) child1.getClType()).getChildTypes()
+                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
         }
         child1.decode(clvd);
 
         CLValue<?, ?> child2 = CLTypeData.createCLValueFromCLTypeData(childTypeData2);
-        if (child2.getClType() instanceof CLTypeChildren) {
-            ((CLTypeChildren) child2.getClType()).getChildTypes()
-                    .addAll(((CLTypeChildren) clType.getChildTypes().get(1)).getChildTypes());
+        if (child2.getClType() instanceof CLTypeWithChildren) {
+            ((CLTypeWithChildren) child2.getClType()).getChildTypes()
+                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(1)).getChildTypes());
         }
         child2.decode(clvd);
 

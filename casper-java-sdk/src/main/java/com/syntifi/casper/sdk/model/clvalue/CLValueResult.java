@@ -9,7 +9,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeResult;
 
@@ -30,7 +30,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
+public class CLValueResult extends CLValueWithChildren<Result, CLTypeResult> {
     @JsonProperty("cl_type")
     private CLTypeResult clType = new CLTypeResult();
 
@@ -66,9 +66,9 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
         bool.decode(clvd);
         CLTypeData typeOk = clType.getOkErrTypes().getOkType().getClTypeData();
         CLValue<?, ?> clValueOk = CLTypeData.createCLValueFromCLTypeData(typeOk);
-        if (clValueOk.getClType() instanceof CLTypeChildren) {
-            ((CLTypeChildren) clValueOk.getClType()).getChildTypes()
-                    .addAll(((CLTypeChildren) clType.getOkErrTypes().getOkType()).getChildTypes());
+        if (clValueOk.getClType() instanceof CLTypeWithChildren) {
+            ((CLTypeWithChildren) clValueOk.getClType()).getChildTypes()
+                    .addAll(((CLTypeWithChildren) clType.getOkErrTypes().getOkType()).getChildTypes());
         }
         clValueOk.decode(clvd);
         result.setOk(clValueOk);
@@ -77,9 +77,9 @@ public class CLValueResult extends CLValueChildren<Result, CLTypeResult> {
         bool.decode(clvd);
         CLTypeData typeErr = clType.getOkErrTypes().getErrType().getClTypeData();
         CLValue<?, ?> clValueErr = CLTypeData.createCLValueFromCLTypeData(typeErr);
-        if (clValueErr.getClType() instanceof CLTypeChildren) {
-            ((CLTypeChildren) clValueErr.getClType()).getChildTypes()
-                    .addAll(((CLTypeChildren) clType.getOkErrTypes().getErrType()).getChildTypes());
+        if (clValueErr.getClType() instanceof CLTypeWithChildren) {
+            ((CLTypeWithChildren) clValueErr.getClType()).getChildTypes()
+                    .addAll(((CLTypeWithChildren) clType.getOkErrTypes().getErrType()).getChildTypes());
         }
         clValueErr.decode(clvd);
         result.setErr(clValueErr);

@@ -19,13 +19,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor  
 @EqualsAndHashCode(callSuper = true, of = { "typeName" })
-public class CLTypeOption extends CLTypeChildren {
-    public CLTypeOption(List<Object> value) {
-        if (!this.childTypeObjects.equals(value)){
-            int i = 1;
-        }
-    }
-
+public class CLTypeOption extends CLTypeWithChildren {
     private final String typeName = CLType.OPTION;
 
     @JsonProperty(CLType.OPTION)

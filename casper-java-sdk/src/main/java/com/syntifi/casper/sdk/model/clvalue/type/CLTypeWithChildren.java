@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "childTypes" })
-public abstract class CLTypeChildren extends CLType {
+public abstract class CLTypeWithChildren extends CLType {
 
     @JsonIgnore
     private List<CLType> childTypes = new ArrayList<>();
@@ -66,10 +66,10 @@ public abstract class CLTypeChildren extends CLType {
 
         if (childTypes != null) {
             for (CLType childCLType : childTypes) {
-                if (childCLType instanceof CLTypeChildren) {
+                if (childCLType instanceof CLTypeWithChildren) {
                     LinkedHashMap<String, List<String>> typeWithChildren = new LinkedHashMap<>();
                     List<String> subChildren = new ArrayList<>();
-                    for (CLType subChild : ((CLTypeChildren) childCLType).getChildTypes()) {
+                    for (CLType subChild : ((CLTypeWithChildren) childCLType).getChildTypes()) {
                         subChildren.add(subChild.getTypeName());
                     }
                     typeWithChildren.put(childCLType.getTypeName(), subChildren);
@@ -100,7 +100,7 @@ public abstract class CLTypeChildren extends CLType {
                 CLType nextParent = CLTypeData.getTypeByName(entry.getKey().toString()).getClTypeClass()
                         .getConstructor().newInstance();
                 parent.add(nextParent);
-                addChildType(entry.getValue(), ((CLTypeChildren) nextParent).getChildTypes());
+                addChildType(entry.getValue(), ((CLTypeWithChildren) nextParent).getChildTypes());
             }
         }
     }

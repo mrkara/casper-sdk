@@ -12,7 +12,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeMap;
 
@@ -33,7 +33,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueMap extends CLValueChildren<Map<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeMap> {
+public class CLValueMap extends CLValueWithChildren<Map<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeMap> {
     @JsonProperty("cl_type")
     private CLTypeMap clType = new CLTypeMap();
 
@@ -70,16 +70,16 @@ public class CLValueMap extends CLValueChildren<Map<? extends CLValue<?, ?>, ? e
 
         for (int i = 0; i < mapLength.getValue(); i++) {
             CLValue<?, ?> key = CLTypeData.createCLValueFromCLTypeData(keyType);
-            if (key.getClType() instanceof CLTypeChildren) {
-                ((CLTypeChildren) key.getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getKeyValueTypes().getKeyType()).getChildTypes());
+            if (key.getClType() instanceof CLTypeWithChildren) {
+                ((CLTypeWithChildren) key.getClType()).getChildTypes()
+                        .addAll(((CLTypeWithChildren) clType.getKeyValueTypes().getKeyType()).getChildTypes());
             }
             key.decode(clvd);
 
             CLValue<?, ?> val = CLTypeData.createCLValueFromCLTypeData(valType);
-            if (val.getClType() instanceof CLTypeChildren) {
-                ((CLTypeChildren) val.getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getKeyValueTypes().getValueType()).getChildTypes());
+            if (val.getClType() instanceof CLTypeWithChildren) {
+                ((CLTypeWithChildren) val.getClType()).getChildTypes()
+                        .addAll(((CLTypeWithChildren) clType.getKeyValueTypes().getValueType()).getChildTypes());
             }
             val.decode(clvd);
 

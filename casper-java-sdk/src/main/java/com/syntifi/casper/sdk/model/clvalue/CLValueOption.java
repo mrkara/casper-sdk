@@ -12,7 +12,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeOption;
 
@@ -31,7 +31,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CLValueOption extends CLValueChildren<Optional<? extends CLValue<?, ?>>, CLTypeOption> {
+public class CLValueOption extends CLValueWithChildren<Optional<? extends CLValue<?, ?>>, CLTypeOption> {
     @JsonProperty("cl_type")
     private CLTypeOption clType = new CLTypeOption();
 
@@ -55,9 +55,9 @@ public class CLValueOption extends CLValueChildren<Optional<? extends CLValue<?,
 
         Optional<? extends CLValue<?, ?>> child = getValue();
         if (child.isPresent()) {
-            if (child.get().getClType() instanceof CLTypeChildren) {
-                ((CLTypeChildren) child.get().getClType()).getChildTypes()
-                        .addAll(((CLTypeChildren) clType.getChildTypes().get(0)).getChildTypes());
+            if (child.get().getClType() instanceof CLTypeWithChildren) {
+                ((CLTypeWithChildren) child.get().getClType()).getChildTypes()
+                        .addAll(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
             }
             child.get().encode(clve);
             setBytes(getBytes() + child.get().getBytes());

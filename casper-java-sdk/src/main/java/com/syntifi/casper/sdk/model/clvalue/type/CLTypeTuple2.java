@@ -17,7 +17,7 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true, of = { "typeName" })
-public class CLTypeTuple2 extends CLTypeChildren {
+public class CLTypeTuple2 extends CLTypeWithChildren {
     private final String typeName = CLType.TUPLE2;
 
     @JsonProperty(CLType.TUPLE2)

@@ -1,5 +1,7 @@
 package com.syntifi.casper.sdk.model.contract;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 /**
@@ -15,5 +17,6 @@ public class ContractWasm {
     /**
      * ContractWasm(object/string) A contract's Wasm.
      */
+    @JsonProperty("ContractWasm")
     private String wasm;
 }
