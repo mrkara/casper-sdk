@@ -18,6 +18,7 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.syntifi.casper.sdk.model.clvalue.CLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
@@ -37,6 +38,8 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.clvalue.Result;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
+import com.syntifi.casper.sdk.model.contract.Contract;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
@@ -68,25 +71,24 @@ public class CLValuesTests {
     public static void init() {
     }
 
-    // @Test
-    // void test_instance_types() throws DynamicInstanceException,
-    // NoSuchTypeException {
-    // for (CLTypeData clTypeData : CLTypeData.values()) {
-    // // Warn if there are any missing implementation
-    // if (clTypeData.getClazz() == null) {
-    // LOGGER.warn("CLType {} does not have an implementation!", clTypeData);
-    // continue;
-    // }
+    @Test
+    void test_instance_types_mapping() throws DynamicInstanceException, NoSuchTypeException {
+        for (CLTypeData clTypeData : CLTypeData.values()) {
+            // Warn if there are any missing implementation
+            if (clTypeData.getClazz() == null) {
+                LOGGER.warn("CLType {} does not have an implementation!", clTypeData);
+                continue;
+            }
 
-    // CLValue<?, ?> clValue = CLTypeData.createCLValueFromCLTypeData(clTypeData);
+            CLValue<?, ?> clValue = CLTypeData.createCLValueFromCLTypeData(clTypeData);
 
-    // // Correct instance type
-    // assertEquals(clTypeData.getClazz(), clValue.getClass());
+            // Correct instance type
+            assertEquals(clTypeData.getClazz(), clValue.getClass());
 
-    // // Check if the correct CLType is set
-    // assertEquals(clTypeData, clValue.getClType().getClTypeData());
-    // }
-    // }
+            // Check if the correct CLType is set
+            assertEquals(clTypeData, clValue.getClType().getClTypeData());
+        }
+    }
 
     @Test
     void test_u8_clvalue_mapping()
@@ -96,10 +98,6 @@ public class CLValuesTests {
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-        // try (CLValueDecoder clvd = new CLValueDecoder(
-        // ((StoredValueCLValue) sv.getStoredValue()).getValue().getBytes())) {
-        // ((StoredValueCLValue) sv.getStoredValue()).getValue().decode(clvd);
-        // }
         // Should be CLValueU8
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU8);
         CLValueU8 expected = new CLValueU8((byte) 1);
@@ -572,24 +570,21 @@ public class CLValuesTests {
         assertEquals(inputJson, reserializedJson);
     }
 
-    // @Test
-    // void test_contract_mapping() throws JsonMappingException,
-    // JsonProcessingException, IOException {
-    // String inputJson =
-    // getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
+    @Test
+    // void test_contract_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+    //     String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
 
-    // LOGGER.debug("Original JSON: {}", inputJson);
+    //     LOGGER.debug("Original JSON: {}", inputJson);
 
-    // StoredValueData sv = OBJECT_MAPPER.readValue(inputJson,
-    // StoredValueData.class);
+    //     StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
 
-    // assertTrue(sv.getStoredValue().getValue() instanceof Contract);
+    //     assertTrue(sv.getStoredValue().getValue() instanceof Contract);
 
-    // String reserializedJson = getPrettyJson(sv);
+    //     String reserializedJson = getPrettyJson(sv);
 
-    // LOGGER.debug("Serialized JSON: {}", reserializedJson);
+    //     LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
-    // assertEquals(inputJson, reserializedJson);
+    //     assertEquals(inputJson, reserializedJson);
 
     // }
 
