@@ -17,6 +17,7 @@ import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
 import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
+import com.syntifi.casper.sdk.model.deploy.executabledeploy.ModuleBytes;
 import com.syntifi.casper.sdk.model.deploy.executabledeploy.StoredContractByHash;
 import com.syntifi.casper.sdk.model.deploy.executionresult.Success;
 import com.syntifi.casper.sdk.model.deploy.transform.WriteCLValue;
@@ -242,6 +243,8 @@ class CasperSdkApplicationTests {
 		assertTrue(deployData.getExecutionResults().get(0).getResult() instanceof Success);
 		assertTrue(((Success) deployData.getExecutionResults().get(0).getResult()).getEffect().getTransforms().get(0)
 				.getTransform() instanceof WriteCLValue);
+		assertTrue(deployData.getDeploy().getPayment() instanceof ModuleBytes);
+		assertTrue(deployData.getDeploy().getSession() instanceof StoredContractByHash);
 	}
 
 }
