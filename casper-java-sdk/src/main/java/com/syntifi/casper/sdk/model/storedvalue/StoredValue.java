@@ -13,7 +13,7 @@ import com.syntifi.casper.sdk.jackson.StoredValueResolver;
  * @see StoredValueContract
  * @since 0.0.1
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(StoredValueResolver.class)
 public interface StoredValue<T> {
     public T getValue();

@@ -1,10 +1,9 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
@@ -13,7 +12,6 @@ import com.syntifi.casper.sdk.model.clvalue.type.CLTypeURef;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,9 +33,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CLValueURef extends CLValue<URef, CLTypeURef> {
-    @JsonProperty("cl_type")
-    @JsonUnwrapped
     private CLTypeURef clType = new CLTypeURef();
+
+    @JsonSetter("cl_type")
+    public void setJsonClType(CLTypeURef clType) {
+        this.clType = clType;
+    }
+
+    @JsonGetter("cl_type")
+    public String getJsonClType() {
+        return this.getClType().getTypeName();
+    }
 
     public CLValueURef(URef value) {
         this.setValue(value);
@@ -48,7 +54,7 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
         URef uref = this.getValue();
         byte[] urefByte = new byte[uref.getAddress().length + 1];
         System.arraycopy(uref.getAddress(), 0, urefByte, 0, uref.getAddress().length);
-        urefByte[32] = uref.getAccessRight().serializationTag; 
+        urefByte[32] = uref.getAccessRight().serializationTag;
         clve.write(urefByte);
     }
 

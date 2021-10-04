@@ -22,7 +22,7 @@ import lombok.Setter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "okErrTypes" })
-public class CLTypeResult extends CLTypeBasic {
+public class CLTypeResult extends CLType {
 
     /**
      * Support class for {@link CLType.RESULT} ok/err types
@@ -62,7 +62,6 @@ public class CLTypeResult extends CLTypeBasic {
         }
     }
 
-    @JsonIgnore
     private final String typeName = CLType.RESULT;
 
     @Setter

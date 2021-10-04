@@ -21,8 +21,6 @@ public class Parameter {
      * The value of the entry: a casper `Key` type.
      */
     @JsonProperty("cl_type")
-    @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
-    @JsonTypeResolver(CLTypeResolver.class)
     private CLType clType;
 
     /**

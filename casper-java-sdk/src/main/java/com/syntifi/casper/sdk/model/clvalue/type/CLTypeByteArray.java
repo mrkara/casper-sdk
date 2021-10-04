@@ -1,11 +1,11 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+
 /**
  * CLType for {@link CLType.BYTE_ARRAY}
  * 
@@ -16,8 +16,7 @@ import lombok.Setter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "length" })
-public class CLTypeByteArray extends CLTypeBasic {
-    @JsonIgnore
+public class CLTypeByteArray extends CLType {
     private final String typeName = CLType.BYTE_ARRAY;
 
     @Setter

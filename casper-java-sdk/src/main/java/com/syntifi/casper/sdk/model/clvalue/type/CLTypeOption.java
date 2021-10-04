@@ -2,11 +2,11 @@ package com.syntifi.casper.sdk.model.clvalue.type;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * CLType for {@link CLType.OPTION}
@@ -17,9 +17,15 @@ import lombok.Getter;
  * @since 0.0.1
  */
 @Getter
+@NoArgsConstructor  
 @EqualsAndHashCode(callSuper = true, of = { "typeName" })
 public class CLTypeOption extends CLTypeChildren {
-    @JsonIgnore
+    public CLTypeOption(List<Object> value) {
+        if (!this.childTypeObjects.equals(value)){
+            int i = 1;
+        }
+    }
+
     private final String typeName = CLType.OPTION;
 
     @JsonProperty(CLType.OPTION)

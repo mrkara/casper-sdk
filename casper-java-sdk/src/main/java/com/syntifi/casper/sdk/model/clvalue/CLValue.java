@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
@@ -21,6 +22,7 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.DecodableValue;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.EncodableValue;
 import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -68,6 +70,7 @@ public abstract class CLValue<T, P extends CLType> implements EncodableValue, De
         return this.bytes;
     }
 
+    @JsonIgnore
     public abstract P getClType();
 
     public abstract void setClType(P value);

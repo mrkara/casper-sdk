@@ -3,6 +3,7 @@ package com.syntifi.casper.sdk.model.contract;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.model.clvalue.type.CLType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -59,8 +60,8 @@ public class EntryPoint {
     private String name;
 
     /**
-     * ret(CLValue)
+     * ret({@link CLType})
      */
     @JsonProperty("ret")
-    private String ret;
+    private CLType ret;
 }

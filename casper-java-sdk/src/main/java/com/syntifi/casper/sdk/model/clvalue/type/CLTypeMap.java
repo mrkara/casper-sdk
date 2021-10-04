@@ -22,7 +22,7 @@ import lombok.Setter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "keyValueTypes" })
-public class CLTypeMap extends CLTypeBasic {
+public class CLTypeMap extends CLType {
     /**
      * Support class for {@link CLType.MAP} entry types
      * 
@@ -61,7 +61,6 @@ public class CLTypeMap extends CLTypeBasic {
         }
     }
 
-    @JsonIgnore
     private final String typeName = CLType.MAP;
 
     @Setter
