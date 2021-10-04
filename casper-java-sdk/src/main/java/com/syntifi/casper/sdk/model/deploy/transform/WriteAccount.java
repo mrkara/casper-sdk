@@ -1,6 +1,7 @@
 package com.syntifi.casper.sdk.model.deploy.transform;
     
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
+@JsonTypeName("WriteAccount")
 public class WriteAccount implements Transform {
    
     /**

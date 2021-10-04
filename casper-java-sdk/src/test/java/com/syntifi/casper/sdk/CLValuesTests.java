@@ -13,7 +13,9 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
@@ -69,6 +71,8 @@ public class CLValuesTests {
 
     @BeforeAll
     public static void init() {
+        //OBJECT_MAPPER.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
+        //OBJECT_MAPPER.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true); 
     }
 
     // @Test
@@ -507,8 +511,8 @@ public class CLValuesTests {
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expected.encode(clve);
         }
-        // FIXME: Encoding of UREF!
-        // assertEquals(expected, sv.getStoredValue().getValue());
+        //TODO: FIX EQUALS
+        //assertEquals(expected, sv.getStoredValue().getValue());
 
         String reserializedJson = getPrettyJson(sv);
 

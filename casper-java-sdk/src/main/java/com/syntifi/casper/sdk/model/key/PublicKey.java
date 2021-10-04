@@ -33,4 +33,11 @@ public class PublicKey extends AlgoTaggedHex {
         return object;
     }
 
+    public String toTaggedHexString(){
+        byte[] algo = new byte[1];
+        algo[0] = this.getAlgorithm().getTag();
+        return StringByteHelper.convertBytesToHex(algo) + 
+            StringByteHelper.convertBytesToHex(this.getKey()); 
+    }
+
 }

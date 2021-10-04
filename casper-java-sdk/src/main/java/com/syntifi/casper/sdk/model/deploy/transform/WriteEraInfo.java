@@ -1,6 +1,7 @@
 package com.syntifi.casper.sdk.model.deploy.transform;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.syntifi.casper.sdk.model.deploy.EraInfo;
 
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
+@JsonTypeName("WriteEraInfo")
 public class WriteEraInfo implements Transform {
    
     /**
