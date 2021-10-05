@@ -7,6 +7,9 @@ import lombok.Data;
 /**
  * Thresholds that have to be met when executing an action of a certain type.
  * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @since 0.0.1
  */
 @Data
 public class ActionThresholds {

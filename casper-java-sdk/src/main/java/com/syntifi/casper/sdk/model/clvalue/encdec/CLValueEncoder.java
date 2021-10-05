@@ -2,13 +2,13 @@ package com.syntifi.casper.sdk.model.clvalue.encdec;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.exception.NotImplementedException;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
@@ -25,7 +25,6 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
-import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,9 +103,9 @@ public class CLValueEncoder extends ByteArrayOutputStream {
                 clValue.getValue());
 
         this.write(clValue.getValue());
-        
+
         clValue.getClType().setLength(clValue.getValue().length);
-        clValue.setBytes(StringByteHelper.convertBytesToHex(clValue.getValue()));        
+        clValue.setBytes(StringByteHelper.convertBytesToHex(clValue.getValue()));
     }
 
     /**
@@ -250,19 +249,19 @@ public class CLValueEncoder extends ByteArrayOutputStream {
 
         this.write(bigIntegerLength);
 
-        byte[] byteArray = clValue.getValue().toByteArray(); 
+        byte[] byteArray = clValue.getValue().toByteArray();
 
-        //Removing leading zeroes
+        // Removing leading zeroes
         int i = 0;
         boolean both = false;
-        while(byteArray[i] == 0){
+        while (byteArray[i] == 0) {
             if (both) {
                 i++;
             }
             both = !both;
         }
-        
-        byte[] valueByteArray = Arrays.copyOfRange(byteArray, i, bigIntegerLength+i);
+
+        byte[] valueByteArray = Arrays.copyOfRange(byteArray, i, bigIntegerLength + i);
 
         StringByteHelper.reverse(valueByteArray);
 
@@ -308,12 +307,16 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @param clValue {@link CLValuePublicKey} value to encode
      */
     public void writePublicKey(CLValuePublicKey clValue) {
-        clValue.setBytes(new String(Hex.encodeHex(new byte[] { clValue.getValue().getAlgorithm().getTag() }, true))
-                + new String(Hex.encodeHex(clValue.getValue().getKey(), true)));
+        clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { clValue.getValue().getAlgorithm().getTag() })
+                + StringByteHelper.convertBytesToHex(clValue.getValue().getKey()));
     }
 
     public void writeAny(CLValueAny object) throws IOException {
-        throw new NotImplementedException();
+        try (ObjectOutputStream oos = new ObjectOutputStream(this)) {
+            oos.writeObject(object.getValue());
+        }
+
+        object.setBytes(StringByteHelper.convertBytesToHex(this.toByteArray()));
     }
 
     /**

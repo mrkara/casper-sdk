@@ -3,12 +3,11 @@ package com.syntifi.casper.sdk.model.clvalue.encdec;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
-import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
@@ -24,6 +23,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
+import com.syntifi.casper.sdk.model.key.PublicKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -210,10 +210,11 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, buf);
 
-        long longNumber = 0;
-        for (int i = 0; i < numberByteLength; i++) {
-            longNumber += (buf[i] & 0xFF) << (8 * i);
-        }
+        StringByteHelper.reverse(buf);
+
+        String longStringHex = StringByteHelper.convertBytesToHex(buf);
+
+        Long longNumber = Long.parseLong(longStringHex, 16);
 
         LOGGER.debug(LOG_DECODED_VALUE_MESSAGE_STRING, Long.class.getSimpleName(), longNumber);
         clValue.setValue(longNumber);
@@ -334,7 +335,7 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, buf);
 
-        //BigInteger bigInt = new BigInteger(buf);
+        // BigInteger bigInt = new BigInteger(buf);
         BigInteger bigInt = new BigInteger(StringByteHelper.convertBytesToHex(buf), 16);
 
         LOGGER.debug(LOG_DECODED_VALUE_MESSAGE_STRING, BigInteger.class.getSimpleName(), bigInt);
@@ -394,11 +395,17 @@ public class CLValueDecoder extends ByteArrayInputStream {
      * Reads all bytes as a generic {@link Object}
      * 
      * @return the generic Object
+     * @throws IOException
+     * @throws CLValueDecodeException
+     * @throws ClassNotFoundException
      */
-    public void readAny(CLValueAny clValue) {
-        byte[] any = this.readAllBytes();
-        clValue.setBytes(Arrays.toString(any));
-        clValue.setValue(any);
+    public void readAny(CLValueAny clValue) throws IOException, CLValueDecodeException {
+        try (ObjectInputStream ois = new ObjectInputStream(this)) {
+            Object obj = ois.readObject();
+            clValue.setValue(obj);
+        } catch (ClassNotFoundException e) {
+            throw new CLValueDecodeException("Class not found", e);
+        }
     }
 
     /**

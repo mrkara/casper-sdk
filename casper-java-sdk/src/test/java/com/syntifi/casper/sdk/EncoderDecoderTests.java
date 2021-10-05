@@ -73,16 +73,18 @@ public class EncoderDecoderTests {
             new TestData<Integer>(AbstractCLType.I32, Integer.valueOf(7), "07000000", null),
             new TestData<Long>(AbstractCLType.I64, Long.valueOf(7), "0700000000000000", null),
             new TestData<BigInteger>(AbstractCLType.U64, new BigInteger("1024", 10), "0004000000000000", null),
-            new TestData<BigInteger>(AbstractCLType.U64, new BigInteger("18446744073709551615", 10), "ffffffffffffffff", null),
+            new TestData<BigInteger>(AbstractCLType.U64, new BigInteger("18446744073709551615", 10), "ffffffffffffffff",
+                    null),
             new TestData<BigInteger>(AbstractCLType.U512, new BigInteger("7", 10), "0107", null),
             new TestData<BigInteger>(AbstractCLType.U512, new BigInteger("1024", 10), "020004", null),
-            new TestData<BigInteger>(AbstractCLType.U512, new BigInteger("123456789101112131415", 10), "0957ff1ada959f4eb106",
-                    null),
+            new TestData<BigInteger>(AbstractCLType.U512, new BigInteger("123456789101112131415", 10),
+                    "0957ff1ada959f4eb106", null),
             new TestData<BigInteger>(AbstractCLType.U512, new BigInteger("2500010000", 10), "0410200395", null),
             new TestData<String>(AbstractCLType.STRING, "the string", "0a00000074686520737472696e67", null),
             new TestData<String>(AbstractCLType.STRING, "Hello, World!", "0d00000048656c6c6f2c20576f726c6421", null),
             new TestData<Optional<?>>(AbstractCLType.OPTION, Optional.ofNullable(null), "00", new Class<?>[] {}),
-            new TestData<Optional<Boolean>>(AbstractCLType.OPTION, Optional.of(true), "0101", new Class<?>[] { Boolean.class }),
+            new TestData<Optional<Boolean>>(AbstractCLType.OPTION, Optional.of(true), "0101",
+                    new Class<?>[] { Boolean.class }),
             new TestData<Optional<Integer>>(AbstractCLType.OPTION, Optional.of(10), "010a000000",
                     new Class<?>[] { Integer.class }));
 
@@ -256,21 +258,29 @@ public class EncoderDecoderTests {
             try (CLValueEncoder encoder = new CLValueEncoder()) {
                 switch (testData.getName()) {
                     case AbstractCLType.U64:
+                        LOGGER.debug("Testing last valid number (value: {}) for {}", testData.getValue(),
+                                AbstractCLType.U64);
                         CLValueU64 clValueU64 = new CLValueU64((BigInteger) testData.getValue());
                         encoder.writeU64(clValueU64);
                         assertNotNull(clValueU64.getBytes());
                         break;
                     case AbstractCLType.U128:
+                        LOGGER.debug("Testing last valid number (value: {}) for {}", testData.getValue(),
+                                AbstractCLType.U128);
                         CLValueU128 clValueU128 = new CLValueU128((BigInteger) testData.getValue());
                         encoder.writeU128(clValueU128);
                         assertNotNull(clValueU128.getBytes());
                         break;
                     case AbstractCLType.U256:
+                        LOGGER.debug("Testing last valid number (value: {}) for {}", testData.getValue(),
+                                AbstractCLType.U256);
                         CLValueU256 clValueU256 = new CLValueU256((BigInteger) testData.getValue());
                         encoder.writeU256(clValueU256);
                         assertNotNull(clValueU256.getBytes());
                         break;
                     case AbstractCLType.U512:
+                        LOGGER.debug("Testing last valid number (value: {}) for {}", testData.getValue(),
+                                AbstractCLType.U512);
                         CLValueU512 clValueU512 = new CLValueU512((BigInteger) testData.getValue());
                         encoder.writeU512(clValueU512);
                         assertNotNull(clValueU512.getBytes());
