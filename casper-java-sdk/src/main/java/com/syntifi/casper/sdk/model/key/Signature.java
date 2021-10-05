@@ -17,6 +17,6 @@ import lombok.NoArgsConstructor;
 @JsonSerialize(using = AlgoTaggedHexSerializer.class)
 @JsonDeserialize(using = SignatureDeserializer.class)
 @NoArgsConstructor
-public class Signature extends AlgoTaggedHex {
+public class Signature extends AbstractAlgoTaggedHex {
 
 }

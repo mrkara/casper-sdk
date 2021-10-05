@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.syntifi.casper.sdk.model.key.AlgoTaggedHex;
+import com.syntifi.casper.sdk.model.key.AbstractAlgoTaggedHex;
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -17,10 +17,10 @@ import org.apache.commons.codec.binary.Hex;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class AlgoTaggedHexSerializer extends JsonSerializer<AlgoTaggedHex> {
+public class AlgoTaggedHexSerializer extends JsonSerializer<AbstractAlgoTaggedHex> {
     
     @Override
-    public void serialize(AlgoTaggedHex key, JsonGenerator jgen, SerializerProvider provider) 
+    public void serialize(AbstractAlgoTaggedHex key, JsonGenerator jgen, SerializerProvider provider) 
         throws IOException{
         jgen.writeString(new String(Hex.encodeHex(new byte[] {key.getAlgorithm().getTag()}, true)) + 
                         new String(Hex.encodeHex(key.getKey(), true)));

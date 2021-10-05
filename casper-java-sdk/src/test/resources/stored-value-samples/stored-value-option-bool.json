@@ -3,7 +3,7 @@
   "stored_value" : {
     "CLValue" : {
       "cl_type" : {
-        "Option" : [ "Bool" ]
+        "Option" : "Bool"
       },
       "bytes" : "0101"
     }

@@ -1,7 +1,5 @@
 package com.syntifi.casper.sdk.model.transfer;
 
-import com.syntifi.casper.sdk.model.uref.URef;
-
 import lombok.Data;
 
 /**

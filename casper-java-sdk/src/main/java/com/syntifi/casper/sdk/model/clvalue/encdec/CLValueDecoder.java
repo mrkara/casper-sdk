@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.key.PublicKey;
-import com.syntifi.casper.sdk.model.clvalue.CLValue;
+import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
@@ -23,7 +23,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 public class CLValueDecoder extends ByteArrayInputStream {
@@ -307,7 +307,7 @@ public class CLValueDecoder extends ByteArrayInputStream {
      * @throws IOException
      * @throws CLValueDecodeException
      */
-    protected void readBigInteger(CLValue<BigInteger, ?> clValue) throws IOException, CLValueDecodeException {
+    protected void readBigInteger(AbstractCLValue<BigInteger, ?> clValue) throws IOException, CLValueDecodeException {
         byte[] buf = new byte[1];
 
         int readBytes = 0;

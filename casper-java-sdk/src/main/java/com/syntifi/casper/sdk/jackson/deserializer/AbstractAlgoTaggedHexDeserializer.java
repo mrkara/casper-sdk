@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.syntifi.casper.sdk.exception.DeserializationException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
-import com.syntifi.casper.sdk.model.key.AlgoTaggedHex;
+import com.syntifi.casper.sdk.model.key.AbstractAlgoTaggedHex;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 
 /**
@@ -21,7 +21,7 @@ import com.syntifi.casper.sdk.model.key.Algorithm;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public abstract class AbstractAlgoTaggedHexDeserializer<T extends AlgoTaggedHex> extends JsonDeserializer<T> {
+public abstract class AbstractAlgoTaggedHexDeserializer<T extends AbstractAlgoTaggedHex> extends JsonDeserializer<T> {
 
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {

@@ -20,13 +20,19 @@ import lombok.Getter;
 public enum StoredValueTypeData {
     STORED_VALUE_CLVALUE("CLValue", StoredValueCLValue.class),
     STORED_VALUE_ACCOUNT("Account", StoredValueAccount.class),
-    STORED_VALUE_CONTRACT("Contract", StoredValueContract.class);
+    STORED_VALUE_CONTRACT_PACKAGE("ContractPackage", StoredValueContractPackage.class),
+    STORED_VALUE_CONTRACT("Contract", StoredValueContract.class),
+    STORED_VALUE_TRANSFER("Transfer", StoredValueTransfer.class),
+    STORED_VALUE_DEPLOY_INFO("DeployInfo", StoredValueDeployInfo.class),
+    STORED_VALUE_ERA_INFO("EraInfo", StoredValueEraInfo.class),
+    STORED_VALUE_BID("Bid", StoredValueBid.class),
+    STORED_VALUE_WITHDRAW("Withdraw", StoredValueWithdraw.class);
 
     private final String name;
     private final Class<?> clazz;
 
     /**
-     * Retrieve Transform implementation class from Transform name 
+     * Retrieve Transform implementation class from Transform name
      * 
      * @param name
      * @return

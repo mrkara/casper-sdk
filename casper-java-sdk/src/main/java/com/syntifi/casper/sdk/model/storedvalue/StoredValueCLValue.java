@@ -2,13 +2,13 @@ package com.syntifi.casper.sdk.model.storedvalue;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.syntifi.casper.sdk.model.clvalue.CLValue;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
 
 import lombok.Data;
 
 /**
- * Stored Value for {@link CLType}
+ * Stored Value for {@link AbstractCLType}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -17,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @JsonTypeName("CLValue")
-public class StoredValueCLValue implements StoredValue<CLValue<?, ?>> {
+public class StoredValueCLValue implements StoredValue<AbstractCLValue<?, ?>> {
     @JsonProperty("CLValue")
-    private CLValue<?, ?> value;
+    private AbstractCLValue<?, ?> value;
 }

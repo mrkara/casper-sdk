@@ -14,13 +14,13 @@ import lombok.Data;
 @Data
 public class NamedKey {
     /**
-     * The value of the entry: a casper `Key` type.
+     * key(String) The value of the entry: a casper `Key` type.
      */
     @JsonProperty("key")
     private String key;
 
     /**
-     * The name of the entry.
+     * name(String) The name of the entry.
      */
     @JsonProperty("name")
     private String name;

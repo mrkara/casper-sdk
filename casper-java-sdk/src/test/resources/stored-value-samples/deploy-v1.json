@@ -148,11 +148,11 @@
                               "id": 0,
                               "to": "account-hash-6174cf2e6f8fed1715c9a3bace9c50bfe572eecb763b0ed3f644532616452008",
                               "from": "account-hash-2d264ab6b8a343911e25bec39997effd82535cba0a5846f88f98de4c248ea03c",
-                              "amount": 797050000000000,
                               "deploy_hash": "614030ac705ed2067fed57d30545b3a4974ffc40a1c32f72e3b7b7442d6c83a3",
                               "source": "uref-62dc825306ea8cb8609df6665b0c4ee4bb9b62814b851ca64bb7c74bb6f9b444-007",
                               "target": "uref-5639a7cbaf29b6ad116687461b0c4e1d9b78ef56728595a03be546b4647929d5-007",
-                              "gas": 0
+                              "amount": "797050000000000",
+                              "gas": "0"
                            }
                         }
                      },

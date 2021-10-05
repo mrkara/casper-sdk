@@ -6,16 +6,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLTypeBasic;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 /**
- * A contract struct that can be serialized as JSON object.
+ * No description available
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -23,27 +20,22 @@ import lombok.Getter;
  */
 @Data
 public class EntryPoint {
-    @Getter
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public enum Access {
-        PUBLIC("Public");
-
-        private String value;
+    public enum EntryPointAccess {
+        @JsonProperty("Public")
+        PUBLIC;
     }
 
-    @Getter
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public enum Type {
-        SESSION("Session"), CONTRACT("Contract");
-
-        private String value;
+    public enum EntryPointType {
+        @JsonProperty("Session")
+        SESSION, @JsonProperty("Contract")
+        CONTRACT;
     }
 
     /**
-     * access(enum/String) - Groups ?
+     * access(enum/String) - 
      */
     @JsonProperty("access")
-    private String access; // TODO: Change to enum
+    private EntryPointAccess access; // TODO: Check object/Groups on spec
 
     /**
      * args(Array/Object) - Parameter to a method
@@ -55,7 +47,7 @@ public class EntryPoint {
      * entry_point_type(enum/String) - Context of method execution
      */
     @JsonProperty("entry_point_type")
-    private String type; // TODO: Change to enum
+    private EntryPointType type;
 
     /**
      * name(String)
@@ -64,19 +56,24 @@ public class EntryPoint {
     private String name;
 
     /**
-     * ret({@link CLType})
+     * ret({@link AbstractCLType})
      */
     @JsonIgnore
-    private CLType ret;
+    private AbstractCLType ret;
 
     @JsonSetter("ret")
-    public void setJsonRet(CLType clType) {
+    protected void setJsonRet(AbstractCLType clType) {
         this.ret = clType;
     }
 
+    /**
+     * The accessor for jackson serialization
+     * 
+     * @return String if cl_type is basic type, CLType object if not.
+     */
     @JsonGetter("ret")
-    public Object getJsonRet() {
-        if (this.ret instanceof CLTypeBasic) {
+    protected Object getJsonRet() {
+        if (this.ret instanceof AbstractCLTypeBasic) {
             return this.ret.getTypeName();
         } else {
             return this.ret;

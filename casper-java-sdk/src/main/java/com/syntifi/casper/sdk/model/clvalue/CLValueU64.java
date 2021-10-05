@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeU64;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeU64;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,23 +21,23 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueU64 extends CLValue<BigInteger, CLTypeU64> {
+public class CLValueU64 extends AbstractCLValue<BigInteger, CLTypeU64> {
     private CLTypeU64 clType = new CLTypeU64();
 
     @JsonSetter("cl_type")
-    public void setJsonClType(CLTypeU64 clType) {
+    protected void setJsonClType(CLTypeU64 clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    public String getJsonClType() {
+    protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.exception.NotImplementedException;
-import com.syntifi.casper.sdk.model.clvalue.CLValue;
+import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
@@ -23,7 +23,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
 import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 public class CLValueEncoder extends ByteArrayOutputStream {
@@ -234,12 +234,12 @@ public class CLValueEncoder extends ByteArrayOutputStream {
     /**
      * Writes a BigInteger/U128-U256-U512 to the CLValue byte buffer
      * 
-     * @param clValue {@link CLValue} value to encode
+     * @param clValue {@link AbstractCLValue} value to encode
      * @param clValue {@link CLTypeData} CLTypeData of BigInteger
      * @throws IOException
      * @throws CLValueEncodeException
      */
-    protected void writeBigInteger(CLValue<BigInteger, ?> clValue, CLTypeData type)
+    protected void writeBigInteger(AbstractCLValue<BigInteger, ?> clValue, CLTypeData type)
             throws IOException, CLValueEncodeException {
         checkBoundsFor(clValue.getValue(), type);
 

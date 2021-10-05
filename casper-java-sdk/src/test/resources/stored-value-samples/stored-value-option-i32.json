@@ -3,7 +3,7 @@
   "stored_value" : {
     "CLValue" : {
       "cl_type" : {
-        "Option" : [ "I32" ]
+        "Option" : "I32"
       },
       "bytes" : "010a000000"
     }

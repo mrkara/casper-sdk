@@ -1,8 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,11 +8,11 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLTypeWithChildren;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeOption;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeOption;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,40 +23,39 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CLValueOption extends CLValueWithChildren<Optional<? extends CLValue<?, ?>>, CLTypeOption> {
+public class CLValueOption extends AbstractCLValue<Optional<AbstractCLValue<?, ?>>, CLTypeOption> {
     @JsonProperty("cl_type")
     private CLTypeOption clType = new CLTypeOption();
 
     public CLValueOption() {
-        this(Optional.ofNullable(null));
+        this(Optional.of(new CLValueAny(null)));
     }
 
-    public CLValueOption(Optional<? extends CLValue<?, ?>> value) {
+    public CLValueOption(Optional<AbstractCLValue<?, ?>> value) {
         this.setValue(value);
-        setChildTypes();
+        this.clType.setChildType(value.isPresent() ? value.get().getClType() : null);
     }
 
     @Override
     public void encode(CLValueEncoder clve)
             throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
-        setChildTypes();
-
-        CLValueBool isPresent = new CLValueBool(getValue().isPresent());
-        clve.writeBool(isPresent);
+        CLValueBool isPresent = new CLValueBool(getValue().isPresent() && getValue().get().getValue() != null);
+        isPresent.encode(clve);
         setBytes(isPresent.getBytes());
 
-        Optional<? extends CLValue<?, ?>> child = getValue();
-        if (child.isPresent()) {
-            if (child.get().getClType() instanceof CLTypeWithChildren) {
-                ((CLTypeWithChildren) child.get().getClType()).getChildTypes()
-                        .addAll(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
-            }
+        Optional<AbstractCLValue<?, ?>> child = getValue();
+
+        if (child.isPresent() && child.get().getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) child.get().getClType())
+                    .setChildTypes(((AbstractCLTypeWithChildren) clType.getChildType()).getChildTypes());
+        }
+        if (child.isPresent() && isPresent.getValue().equals(Boolean.TRUE)) {
             child.get().encode(clve);
             setBytes(getBytes() + child.get().getBytes());
         }
@@ -71,24 +68,21 @@ public class CLValueOption extends CLValueWithChildren<Optional<? extends CLValu
         isPresent.decode(clvd);
         setBytes(isPresent.getBytes());
 
-        if (Boolean.TRUE.equals(isPresent.getValue())) {
-            CLTypeData childTypeData = getClType().getChildClTypeData(0);
+        CLTypeData childTypeData = clType.getChildType().getClTypeData();
 
-            CLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childTypeData);
-            child.decode(clvd);
+        AbstractCLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childTypeData);
 
-            setValue(Optional.of(child));
-            setBytes(getBytes() + child.getBytes());
-        } else {
-            setValue(Optional.ofNullable(null));
+        if (child.getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) child.getClType())
+                    .setChildTypes(((AbstractCLTypeWithChildren) clType.getChildType()).getChildTypes());
         }
 
-        setChildTypes();
-    }
+        setValue(Optional.of(child));
 
-    @Override
-    protected void setChildTypes() {
-        getValue().ifPresent(value -> clType
-                .setChildTypes(value == null ? new ArrayList<>() : Arrays.asList(getValue().get().getClType())));
+        if (isPresent.getValue().equals(Boolean.TRUE)) {
+            child.decode(clvd);
+
+            setBytes(getBytes() + child.getBytes());
+        }
     }
 }

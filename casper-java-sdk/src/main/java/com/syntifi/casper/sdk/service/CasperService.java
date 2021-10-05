@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
 import com.googlecode.jsonrpc4j.JsonRpcParam;
@@ -65,7 +62,7 @@ public interface CasperService {
     public JsonBlockData getBlock(@JsonRpcParam("block_identifier") BlockIdentifierByHeight height);
 
     /**
-     * Retrieve last block's transfers 
+     * Retrieve last block's transfers
      * 
      * @param heightFilter Block's height
      * @return Object holding the api version and block
@@ -92,7 +89,7 @@ public interface CasperService {
     public TransferData getBlockTransfers(@JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
 
     /**
-     * Returns a state root hash at the last Block 
+     * Returns a state root hash at the last Block
      * 
      * @param heightFilter Block's height
      * @return Object holding the api version and block
@@ -122,8 +119,8 @@ public interface CasperService {
      * Returns a stored value from the network
      * 
      * @param stateRootHash Hash of the state root
-     * @param key `casper_types::Key` as formatted string
-     * @param path The path components starting from the key as base
+     * @param key           `casper_types::Key` as formatted string
+     * @param path          The path components starting from the key as base
      * @return Object holding the api version, the merkle proof and the stored_value
      */
     @JsonRpcMethod("state_get_item")
@@ -134,7 +131,8 @@ public interface CasperService {
      * Returns a Deploy from the network
      * 
      * @param deployHash The deploy hash
-     * @return Object holding the api version, the deploy and the map of block hash to execution result
+     * @return Object holding the api version, the deploy and the map of block hash
+     *         to execution result
      */
     @JsonRpcMethod("info_get_deploy")
     public DeployData getDeploy(@JsonRpcParam("deploy_hash") String deployHash);

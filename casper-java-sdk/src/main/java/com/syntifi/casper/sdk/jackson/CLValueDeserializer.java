@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
 /**
  * Core Deserializer for the CLValue property. This deserializer is used by the {@link CLValueResolver} 
