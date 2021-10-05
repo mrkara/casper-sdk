@@ -6,7 +6,7 @@ import java.sql.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
-import com.syntifi.casper.sdk.model.peer.PeerEntry;
+import com.syntifi.casper.sdk.model.peer.PeerData;
 
 import lombok.Data;
 
