@@ -25,7 +25,6 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
-import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -308,8 +307,8 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @param clValue {@link CLValuePublicKey} value to encode
      */
     public void writePublicKey(CLValuePublicKey clValue) {
-        clValue.setBytes(new String(Hex.encodeHex(new byte[] { clValue.getValue().getAlgorithm().getTag() }, true))
-                + new String(Hex.encodeHex(clValue.getValue().getKey(), true)));
+        clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { clValue.getValue().getAlgorithm().getTag() })
+                + StringByteHelper.convertBytesToHex(clValue.getValue().getKey()));
     }
 
     public void writeAny(CLValueAny object) throws IOException {

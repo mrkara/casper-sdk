@@ -16,6 +16,7 @@ import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.model.block.JsonBlock;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
+import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.deploy.executabledeploy.ModuleBytes;
@@ -35,7 +36,6 @@ import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 import com.syntifi.casper.sdk.service.CasperService;
 
-import org.apache.commons.codec.binary.Hex;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -113,7 +113,7 @@ class CasperSdkApplicationTests {
 
 		assertEquals(Algorithm.ED25519, key.getAlgorithm());
 		assertEquals("2bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-				new String(Hex.encodeHex(key.getKey(), true)));
+				StringByteHelper.convertBytesToHex(key.getKey()));
 	}
 
 	/**
