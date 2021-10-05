@@ -9,6 +9,10 @@ import lombok.Data;
 
 /**
  * Structure representing a user's account, stored in global state.
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @since 0.0.1
  */
 @Data
 public class Account {

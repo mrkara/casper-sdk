@@ -9,8 +9,6 @@ import com.syntifi.casper.sdk.jackson.StoredValueResolver;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see StoredValueCLValue
- * @see StoredValueContract
  * @since 0.0.1
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
