@@ -17,9 +17,11 @@ import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.account.Account;
+import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
+import com.syntifi.casper.sdk.model.clvalue.CLValueI64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueList;
 import com.syntifi.casper.sdk.model.clvalue.CLValueMap;
 import com.syntifi.casper.sdk.model.clvalue.CLValueOption;
@@ -29,7 +31,11 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueString;
 import com.syntifi.casper.sdk.model.clvalue.CLValueTuple1;
 import com.syntifi.casper.sdk.model.clvalue.CLValueTuple2;
 import com.syntifi.casper.sdk.model.clvalue.CLValueTuple3;
+import com.syntifi.casper.sdk.model.clvalue.CLValueU128;
+import com.syntifi.casper.sdk.model.clvalue.CLValueU256;
+import com.syntifi.casper.sdk.model.clvalue.CLValueU32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
+import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.CLValueURef;
 import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
@@ -70,6 +76,31 @@ public class StoredValueTests extends AbstractJsonTests {
     }
 
     @Test
+    void test_any_clvalue_mapping()
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-any.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueAny
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueAny);
+        CLValueAny expected = new CLValueAny("Any Object Test");
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
     void test_u8_clvalue_mapping()
             throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-u8.json"));
@@ -80,6 +111,133 @@ public class StoredValueTests extends AbstractJsonTests {
         // Should be CLValueU8
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU8);
         CLValueU8 expected = new CLValueU8((byte) 1);
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_u32_clvalue_mapping() throws IOException, CLValueDecodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueEncodeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-u32.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueU32
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueU32);
+        CLValueU32 expected = new CLValueU32(4294967295L);
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_u64_clvalue_mapping() throws IOException, CLValueDecodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueEncodeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-u64.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueU64
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueU64);
+        CLValueU64 expected = new CLValueU64(new BigInteger("18446744073709551615", 10));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_u128_clvalue_mapping() throws IOException, CLValueDecodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueEncodeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-u128.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueU128
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueU128);
+        CLValueU128 expected = new CLValueU128(new BigInteger("340282366920938463463374607431768211455", 10));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_u256_clvalue_mapping() throws IOException, CLValueDecodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueEncodeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-u256.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueU256
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueU256);
+        CLValueU256 expected = new CLValueU256(
+                new BigInteger("115792089237316195423570985008687907853269984665640564039457584007913129639935", 10));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_i64_clvalue_mapping() throws IOException, CLValueDecodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueEncodeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-i64.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueI64
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueI64);
+        CLValueI64 expected = new CLValueI64(9223372036854775807L);
+        expected.setParsed(expected.getValue().toString());
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
