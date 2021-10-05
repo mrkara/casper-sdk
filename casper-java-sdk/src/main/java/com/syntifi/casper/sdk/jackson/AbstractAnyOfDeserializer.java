@@ -42,8 +42,9 @@ public abstract class AbstractAnyOfDeserializer extends AsPropertyTypeDeserializ
             throws IOException {
         JsonNode node = jp.readValueAsTree();
         Class<?> subType;
+        JsonNode subTypeNode = getTypeNode(node);
         try {
-            String anyOfType = node.isObject() ? node.fieldNames().next() : node.asText();
+            String anyOfType = subTypeNode.isObject() ? subTypeNode.fieldNames().next() : subTypeNode.asText();
             subType = getClassByName(anyOfType);
         } catch (NoSuchTypeException e) {
             throw new IOException("Parse error", e);
@@ -60,5 +61,24 @@ public abstract class AbstractAnyOfDeserializer extends AsPropertyTypeDeserializ
         }
     }
 
-    protected abstract Class<?> getClassByName(String anyOfType) throws NoSuchTypeException;
+    /**
+     * Returns the node which contains the type key.
+     * 
+     * Override if you have a child node which holds the type information.
+     * 
+     * @param currentNode the current deserialization node
+     * @return node which contains the type key.
+     */
+    protected JsonNode getTypeNode(JsonNode currentNode) {
+        return currentNode;
+    }
+
+    /**
+     * Method that returns the instance of the found type
+     * 
+     * @param classType the name of the class type
+     * @return {@link Class} of the type
+     * @throws NoSuchTypeException
+     */
+    protected abstract Class<?> getClassByName(String classType) throws NoSuchTypeException;
 }

@@ -1,21 +1,13 @@
 package com.syntifi.casper.sdk.jackson;
 
-import java.io.IOException;
-import java.util.Map;
-
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.BeanProperty;
-import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
 import com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer;
-import com.fasterxml.jackson.databind.node.TreeTraversingParser;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
 /**
@@ -25,9 +17,9 @@ import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see CLValue
+ * @see AbstractCLValue
  */
-public class CLValueDeserializer extends AsPropertyTypeDeserializer {
+public class CLValueDeserializer extends AbstractAnyOfDeserializer {
 
     public CLValueDeserializer(final JavaType bt, final TypeIdResolver idRes, final String typePropertyName,
             final boolean typeIdVisible, JavaType defaultImpl) {
@@ -44,38 +36,12 @@ public class CLValueDeserializer extends AsPropertyTypeDeserializer {
     }
 
     @Override
-    public Object deserializeTypedFromObject(final JsonParser jp, final DeserializationContext ctxt)
-            throws IOException {
-        JsonNode node = jp.readValueAsTree();
-        Class<?> subType;
-        try {
-            subType = findSubType(node);
-        } catch (NoSuchTypeException e) {
-            throw new IOException("Parse error", e);
-        }
-        TypeFactory factory = new ObjectMapper().getTypeFactory();
-        JavaType type = factory.constructType(subType);
-
-        try (JsonParser jsonParser = new TreeTraversingParser(node, jp.getCodec())) {
-            if (jsonParser.getCurrentToken() == null) {
-                jsonParser.nextToken();
-            }
-            JsonDeserializer<Object> deser = ctxt.findContextualValueDeserializer(type, _property);
-            return deser.deserialize(jsonParser, ctxt);
-        }
+    protected JsonNode getTypeNode(JsonNode currentNode) {
+        return currentNode.get("cl_type");
     }
 
-    protected Class<?> findSubType(JsonNode node) throws NoSuchTypeException {
-        Class<?> subType;
-        JsonNode clType = node.get("cl_type");
-
-        if (clType.isObject()) {
-            Map.Entry<String, JsonNode> parentCLType = clType.fields().next();
-            subType = CLTypeData.getClassByName(parentCLType.getKey());
-        } else {
-            String type = clType.asText();
-            subType = CLTypeData.getClassByName(type);
-        }
-        return subType;
+    @Override
+    protected Class<?> getClassByName(String anyOfType) throws NoSuchTypeException {
+        return CLTypeData.getClassByName(anyOfType);
     }
 }
