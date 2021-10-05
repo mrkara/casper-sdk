@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * A contract's Wasm.
+ * Methods and type signatures supported by a contract.
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace

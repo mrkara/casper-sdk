@@ -10,7 +10,7 @@ import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
 import lombok.Data;
 
 /**
- * A named key.
+ * Parameter to a method
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -35,8 +35,13 @@ public class Parameter {
         this.clType = clType;
     }
 
+    /**
+     * The accessor for jackson serialization
+     * 
+     * @return String if cl_type is basic type, CLType object if not.
+     */
     @JsonGetter("cl_type")
-    public Object getJsonClType() {
+    protected Object getJsonClType() {
         if (this.clType instanceof CLTypeBasic) {
             return this.clType.getTypeName();
         } else {
