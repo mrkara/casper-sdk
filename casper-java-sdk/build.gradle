@@ -33,7 +33,9 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:${jupiterVersion}"	
 }
 
-test {
+test {    
+	finalizedBy jacocoTestReport
+
     useJUnitPlatform()
     testLogging {
         //showStandardStreams true
@@ -68,5 +70,15 @@ test {
                 println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
             }
         }
+    }
+}
+
+jacocoTestReport {    
+	dependsOn test
+
+    afterEvaluate {
+        getClassDirectories().setFrom(classDirectories.files.collect {
+            fileTree(dir: it, exclude: '**/exception/**')
+        })
     }
 }
