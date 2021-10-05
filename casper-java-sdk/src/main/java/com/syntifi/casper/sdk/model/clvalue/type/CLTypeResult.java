@@ -1,9 +1,10 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.exception.DynamicInstanceException;
-import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,30 +36,39 @@ public class CLTypeResult extends CLType {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @JsonPropertyOrder({ "ok", "err" })
     public class CLTypeResultOkErrTypes {
-        @JsonProperty("ok")
-        private String ok;
-        @JsonProperty("err")
-        private String err;
-
         @JsonIgnore
-        public CLType getOkType() throws DynamicInstanceException, NoSuchTypeException {
-            return CLTypeData.createCLTypeFromCLTypeName(this.ok);
+        private CLType okClType;
+        @JsonIgnore
+        private CLType errClType;
+
+        @JsonSetter("ok")
+        protected void setJsonKey(CLType clType) {
+            this.okClType = clType;
         }
 
-        @JsonIgnore
-        public void setOkType(CLType okType) {
-            this.ok = okType.getTypeName();
+        @JsonGetter("ok")
+        protected Object getJsonKey() {
+            if (this.okClType instanceof CLTypeBasic) {
+                return this.okClType.getTypeName();
+            } else {
+                return this.okClType;
+            }
         }
 
-        @JsonIgnore
-        public CLType getErrType() throws DynamicInstanceException, NoSuchTypeException {
-            return CLTypeData.createCLTypeFromCLTypeName(this.err);
+        @JsonSetter("err")
+        protected void setJsonValue(CLType clType) {
+            this.errClType = clType;
         }
 
-        @JsonIgnore
-        public void setErrType(CLType errType) {
-            this.ok = errType.getTypeName();
+        @JsonGetter("err")
+        protected Object getJsonValue() {
+            if (this.errClType instanceof CLTypeBasic) {
+                return this.errClType.getTypeName();
+            } else {
+                return this.errClType;
+            }
         }
     }
 

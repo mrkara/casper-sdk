@@ -451,6 +451,34 @@ public class StoredValueTests extends AbstractJsonTests {
     }
 
     @Test
+    void test_result_i32_tuple1_string_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-result-i32-tuple1-string.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueResult
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
+        Result result = new Result();
+        result.setOk(new CLValueI32(10));
+        result.setErr(new CLValueTuple1(new Unit<>(new CLValueString("Uh oh"))));
+        CLValueResult expected = new CLValueResult(result);
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
     void test_option_empty_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
             NoSuchTypeException, CLValueDecodeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-option-empty.json"));
