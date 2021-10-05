@@ -16,6 +16,7 @@ import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
+import com.syntifi.casper.sdk.model.status.Status;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 
@@ -137,8 +138,12 @@ public interface CasperService {
     @JsonRpcMethod("info_get_deploy")
     public DeployData getDeploy(@JsonRpcParam("deploy_hash") String deployHash);
 
-    // @JsonRpcMethod("info_get_status")
-    // public CasperStatus getStatus();
+    /**
+     *  
+     * @return
+     */
+    @JsonRpcMethod("info_get_status")
+    public Status getStatus();
 
     // @JsonRpcMethod("state_get_auction_info")
     // public CasperStatus getValidatorsInfo();
