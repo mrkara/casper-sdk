@@ -38,10 +38,15 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.contract.Contract;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
+import com.syntifi.casper.sdk.model.status.MinimalBlockInfo;
+import com.syntifi.casper.sdk.model.status.Status;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
+import com.syntifi.casper.sdk.model.deploy.Deploy;
+import com.syntifi.casper.sdk.model.deploy.DeployData;
+import com.syntifi.casper.sdk.model.deploy.JsonExecutionResult;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
@@ -58,9 +63,9 @@ import org.slf4j.LoggerFactory;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class StoredValueTests extends AbstractJsonTests {
+public class SerializationDeserializationTests extends AbstractJsonTests {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StoredValueTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SerializationDeserializationTests.class);
 
     @BeforeAll
     public static void init() {
@@ -732,6 +737,58 @@ public class StoredValueTests extends AbstractJsonTests {
         assertTrue(sv.getStoredValue().getValue() instanceof Transfer);
 
         String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/deploy-v1.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
+
+        assertTrue(dd.getDeploy() instanceof Deploy);
+        assertTrue(dd.getExecutionResults().get(0) instanceof JsonExecutionResult);
+
+        String reserializedJson = getPrettyJson(dd);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_deploy_mapping_2() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/deploy-v2.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
+
+        assertTrue(dd.getDeploy() instanceof Deploy);
+
+        String reserializedJson = getPrettyJson(dd);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_status() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/status-info.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        Status st = OBJECT_MAPPER.readValue(inputJson, Status.class);
+
+        assertTrue(st.getLastAddedBlockInfo() instanceof MinimalBlockInfo);
+
+        String reserializedJson = getPrettyJson(st);
 
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
