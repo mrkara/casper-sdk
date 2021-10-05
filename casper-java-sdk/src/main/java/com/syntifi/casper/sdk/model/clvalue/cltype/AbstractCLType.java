@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.clvalue.type;
+package com.syntifi.casper.sdk.model.clvalue.cltype;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

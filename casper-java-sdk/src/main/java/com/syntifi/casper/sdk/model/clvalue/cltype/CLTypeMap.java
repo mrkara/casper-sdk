@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.clvalue.type;
+package com.syntifi.casper.sdk.model.clvalue.cltype;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * CLType for {@link AbstractCLType.RESULT}
+ * CLType for {@link AbstractCLType.MAP}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -22,11 +22,10 @@ import lombok.Setter;
  * @since 0.0.1
  */
 @Getter
-@EqualsAndHashCode(callSuper = false, of = { "typeName", "okErrTypes" })
-public class CLTypeResult extends AbstractCLType {
-
+@EqualsAndHashCode(callSuper = false, of = { "typeName", "keyValueTypes" })
+public class CLTypeMap extends AbstractCLType {
     /**
-     * Support class for {@link AbstractCLType.RESULT} ok/err types
+     * Support class for {@link AbstractCLType.MAP} entry types
      * 
      * @author Alexandre Carvalho
      * @author Andre Bertolace
@@ -36,45 +35,45 @@ public class CLTypeResult extends AbstractCLType {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @JsonPropertyOrder({ "ok", "err" })
-    public class CLTypeResultOkErrTypes {
+    @JsonPropertyOrder({ "key", "value" })
+    public class CLTypeMapEntryType {
         @JsonIgnore
-        private AbstractCLType okClType;
+        private AbstractCLType keyType;
         @JsonIgnore
-        private AbstractCLType errClType;
+        private AbstractCLType valueType;
 
-        @JsonSetter("ok")
+        @JsonSetter("key")
         protected void setJsonKey(AbstractCLType clType) {
-            this.okClType = clType;
+            this.keyType = clType;
         }
 
-        @JsonGetter("ok")
+        @JsonGetter("key")
         protected Object getJsonKey() {
-            if (this.okClType instanceof AbstractCLTypeBasic) {
-                return this.okClType.getTypeName();
+            if (this.keyType instanceof AbstractCLTypeBasic) {
+                return this.keyType.getTypeName();
             } else {
-                return this.okClType;
+                return this.keyType;
             }
         }
 
-        @JsonSetter("err")
+        @JsonSetter("value")
         protected void setJsonValue(AbstractCLType clType) {
-            this.errClType = clType;
+            this.valueType = clType;
         }
 
-        @JsonGetter("err")
+        @JsonGetter("value")
         protected Object getJsonValue() {
-            if (this.errClType instanceof AbstractCLTypeBasic) {
-                return this.errClType.getTypeName();
+            if (this.valueType instanceof AbstractCLTypeBasic) {
+                return this.valueType.getTypeName();
             } else {
-                return this.errClType;
+                return this.valueType;
             }
         }
     }
 
-    private final String typeName = AbstractCLType.RESULT;
+    private final String typeName = AbstractCLType.MAP;
 
     @Setter
-    @JsonProperty(AbstractCLType.RESULT)
-    private CLTypeResultOkErrTypes okErrTypes;
+    @JsonProperty(AbstractCLType.MAP)
+    private CLTypeMapEntryType keyValueTypes;
 }

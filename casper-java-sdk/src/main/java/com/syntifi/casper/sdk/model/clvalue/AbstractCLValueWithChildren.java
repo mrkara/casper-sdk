@@ -1,6 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
-import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
 
 import lombok.EqualsAndHashCode;
 

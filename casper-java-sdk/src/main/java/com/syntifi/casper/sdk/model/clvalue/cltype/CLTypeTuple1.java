@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.clvalue.type;
+package com.syntifi.casper.sdk.model.clvalue.cltype;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * CLType for {@link AbstractCLType.TUPLE3}
+ * CLType for {@link AbstractCLType.TUPLE1}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -19,10 +19,10 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true, of = { "typeName" })
-public class CLTypeTuple3 extends AbstractCLTypeWithChildren {
-    private final String typeName = AbstractCLType.TUPLE3;
+public class CLTypeTuple1 extends AbstractCLTypeWithChildren {
+    private final String typeName = AbstractCLType.TUPLE1;
 
-    @JsonProperty(AbstractCLType.TUPLE3)
+    @JsonProperty(AbstractCLType.TUPLE1)
     private List<Object> childTypeObjects;
 
     protected void setChildTypeObjects(List<Object> childTypeObjects)

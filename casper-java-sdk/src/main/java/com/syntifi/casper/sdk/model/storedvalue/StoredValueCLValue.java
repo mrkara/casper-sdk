@@ -3,7 +3,7 @@ package com.syntifi.casper.sdk.model.storedvalue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
-import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
 
 import lombok.Data;
 

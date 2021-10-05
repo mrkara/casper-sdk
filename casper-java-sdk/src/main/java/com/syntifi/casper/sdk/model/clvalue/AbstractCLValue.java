@@ -16,12 +16,12 @@ import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.jackson.CLValueResolver;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.DecodableValue;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.EncodableValue;
-import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

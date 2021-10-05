@@ -23,7 +23,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
 import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;

@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeURef;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeURef;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 

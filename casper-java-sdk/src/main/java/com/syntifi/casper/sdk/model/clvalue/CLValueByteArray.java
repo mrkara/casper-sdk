@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeByteArray;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeByteArray;
 
 import lombok.Generated;
 import lombok.Getter;

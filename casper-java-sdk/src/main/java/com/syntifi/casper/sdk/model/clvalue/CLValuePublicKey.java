@@ -6,9 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypePublicKey;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypePublicKey;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
 import lombok.EqualsAndHashCode;

@@ -8,11 +8,11 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLTypeWithChildren;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeTuple1;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeWithChildren;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeTuple1;
 
 import org.javatuples.Unit;
 

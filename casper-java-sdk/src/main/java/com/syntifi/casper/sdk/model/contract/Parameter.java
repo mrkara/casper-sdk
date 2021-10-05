@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
-import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
+import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLTypeBasic;
 
 import lombok.Data;
 

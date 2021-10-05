@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

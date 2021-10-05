@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.clvalue.type;
+package com.syntifi.casper.sdk.model.clvalue.cltype;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
@@ -7,22 +7,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * CLType for {@link AbstractCLType.U64}
+ * CLType for {@link AbstractCLType.STRING}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @see AbstractCLType
  * @since 0.0.1
  */
-
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "typeName" })
-public class CLTypeU64 extends AbstractCLTypeBasic {
-    private final String typeName = AbstractCLType.U64;
+public class CLTypeString extends AbstractCLTypeBasic {
+    private final String typeName = AbstractCLType.STRING;
 
     @JsonCreator
-    protected CLTypeU64(String typeName) {
+    protected CLTypeString(String typeName) {
         super(typeName);
     }
 }

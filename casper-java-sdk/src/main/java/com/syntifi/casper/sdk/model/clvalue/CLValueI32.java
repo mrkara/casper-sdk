@@ -5,9 +5,9 @@ import java.io.IOException;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeI32;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeI32;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
