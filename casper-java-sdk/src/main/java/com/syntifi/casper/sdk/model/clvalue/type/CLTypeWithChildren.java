@@ -45,32 +45,6 @@ public abstract class CLTypeWithChildren extends CLType {
         }
     }
 
-    protected List<Object> loadChildTypeObjects(List<Object> childTypeObjects) {
-        if (childTypeObjects == null) {
-            childTypeObjects = new ArrayList<>();
-        }
-
-        childTypeObjects.clear();
-
-        if (childTypes != null) {
-            for (CLType childCLType : childTypes) {
-                if (childCLType instanceof CLTypeWithChildren) {
-                    LinkedHashMap<String, List<String>> typeWithChildren = new LinkedHashMap<>();
-                    List<String> subChildren = new ArrayList<>();
-                    for (CLType subChild : ((CLTypeWithChildren) childCLType).getChildTypes()) {
-                        subChildren.add(subChild.getTypeName());
-                    }
-                    typeWithChildren.put(childCLType.getTypeName(), subChildren);
-                    childTypeObjects.add(typeWithChildren);
-                } else {
-                    childTypeObjects.add(childCLType.getTypeName());
-                }
-            }
-        }
-
-        return childTypeObjects;
-    }
-
     private void addChildType(Object childTypeObject, List<CLType> parent)
             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
             NoSuchMethodException, SecurityException, NoSuchTypeException {

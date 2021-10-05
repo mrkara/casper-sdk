@@ -25,11 +25,6 @@ public class CLTypeTuple2 extends CLTypeWithChildren {
     @JsonProperty(CLType.TUPLE2)
     private List<Object> childTypeObjects;
 
-    protected List<Object> getChildTypeObjects() {
-        super.loadChildTypeObjects(childTypeObjects);
-        return this.childTypeObjects;
-    }
-
     protected void setChildTypeObjects(List<Object> childTypeObjects)
             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
             NoSuchMethodException, SecurityException, NoSuchTypeException {

@@ -17,7 +17,7 @@ import lombok.Setter;
  * @since 0.0.1
  */
 @Getter
-@EqualsAndHashCode(callSuper = false, of = { "typeName", "listTypeName" })
+@EqualsAndHashCode(callSuper = false, of = { "typeName", "listType" })
 public class CLTypeList extends CLType {
     private final String typeName = CLType.LIST;
 
