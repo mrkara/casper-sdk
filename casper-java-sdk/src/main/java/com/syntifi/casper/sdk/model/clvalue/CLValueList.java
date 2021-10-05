@@ -11,7 +11,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeList;
 
@@ -25,18 +25,18 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeList> {
+public class CLValueList extends AbstractCLValue<List<? extends AbstractCLValue<?, ?>>, CLTypeList> {
     @JsonProperty("cl_type")
     private CLTypeList clType = new CLTypeList();
 
-    public CLValueList(List<? extends CLValue<?, ?>> value) {
+    public CLValueList(List<? extends AbstractCLValue<?, ?>> value) {
         this.setValue(value);
         setListType();
     }
@@ -51,7 +51,7 @@ public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeLi
         length.encode(clve);
         setBytes(length.getBytes());
 
-        for (CLValue<?, ?> child : getValue()) {
+        for (AbstractCLValue<?, ?> child : getValue()) {
             child.encode(clve);
             setBytes(getBytes() + child.getBytes());
         }
@@ -67,12 +67,12 @@ public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeLi
         length.decode(clvd);
         setBytes(length.getBytes());
 
-        List<CLValue<?, ?>> list = new LinkedList<>();
+        List<AbstractCLValue<?, ?>> list = new LinkedList<>();
         for (int i = 0; i < length.getValue(); i++) {
-            CLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childrenType);
-            if (child.getClType() instanceof CLTypeWithChildren) {
-                ((CLTypeWithChildren) child.getClType())
-                        .setChildTypes(((CLTypeWithChildren) clType.getListType()).getChildTypes());
+            AbstractCLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childrenType);
+            if (child.getClType() instanceof AbstractCLTypeWithChildren) {
+                ((AbstractCLTypeWithChildren) child.getClType())
+                        .setChildTypes(((AbstractCLTypeWithChildren) clType.getListType()).getChildTypes());
             }
             child.decode(clvd);
             setBytes(getBytes() + child.getBytes());

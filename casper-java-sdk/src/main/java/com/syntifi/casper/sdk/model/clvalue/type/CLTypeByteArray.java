@@ -7,19 +7,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * CLType for {@link CLType.BYTE_ARRAY}
+ * CLType for {@link AbstractCLType.BYTE_ARRAY}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "length" })
-public class CLTypeByteArray extends CLType {
-    private final String typeName = CLType.BYTE_ARRAY;
+public class CLTypeByteArray extends AbstractCLType {
+    private final String typeName = AbstractCLType.BYTE_ARRAY;
 
     @Setter
-    @JsonProperty(CLType.BYTE_ARRAY)
+    @JsonProperty(AbstractCLType.BYTE_ARRAY)
     private int length;
 }

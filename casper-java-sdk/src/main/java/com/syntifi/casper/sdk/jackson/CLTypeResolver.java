@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
 
 /**
  * Specification of the Custom Type Resolver for CLType subtype identification.
@@ -16,7 +16,7 @@ import com.syntifi.casper.sdk.model.clvalue.type.CLType;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see CLType
+ * @see AbstractCLType
  */
 public class CLTypeResolver extends StdTypeResolverBuilder {
     @Override

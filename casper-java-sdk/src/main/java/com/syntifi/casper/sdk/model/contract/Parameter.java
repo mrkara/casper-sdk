@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeBasic;
 
 import lombok.Data;
 
@@ -22,7 +22,7 @@ public class Parameter {
      * cl_type(CLType) The value of the entry: a casper `Key` type.
      */
     @JsonIgnore
-    private CLType clType;
+    private AbstractCLType clType;
 
     /**
      * name(String) The name of the entry.
@@ -31,7 +31,7 @@ public class Parameter {
     private String name;
 
     @JsonSetter("cl_type")
-    protected void setJsonClType(CLType clType) {
+    protected void setJsonClType(AbstractCLType clType) {
         this.clType = clType;
     }
 
@@ -42,7 +42,7 @@ public class Parameter {
      */
     @JsonGetter("cl_type")
     protected Object getJsonClType() {
-        if (this.clType instanceof CLTypeBasic) {
+        if (this.clType instanceof AbstractCLTypeBasic) {
             return this.clType.getTypeName();
         } else {
             return this.clType;

@@ -14,14 +14,14 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 @Getter
 @Setter
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(CLTypeResolver.class)
-public abstract class CLType {
+public abstract class AbstractCLType {
     /**
      * String constants for all CLTypes as defined by the api spec
      */

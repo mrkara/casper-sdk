@@ -1,6 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
 
 import lombok.EqualsAndHashCode;
 
@@ -9,10 +9,10 @@ import lombok.EqualsAndHashCode;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
-public abstract class CLValueWithChildren<T, P extends CLType> extends CLValue<T, P> {
+public abstract class AbstractCLValueWithChildren<T, P extends AbstractCLType> extends AbstractCLValue<T, P> {
     protected abstract void setChildTypes();
 }

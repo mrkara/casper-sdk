@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.model.clvalue.CLValue;
+import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class CLValueTests {
                 continue;
             }
 
-            CLValue<?, ?> clValue = CLTypeData.createCLValueFromCLTypeData(clTypeData);
+            AbstractCLValue<?, ?> clValue = CLTypeData.createCLValueFromCLTypeData(clTypeData);
 
             // Correct instance type
             assertEquals(clTypeData.getClazz(), clValue.getClass());

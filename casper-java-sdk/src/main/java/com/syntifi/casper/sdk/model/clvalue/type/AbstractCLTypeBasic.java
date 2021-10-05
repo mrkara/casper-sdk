@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
  * @since 0.0.1
  */
 @NoArgsConstructor
-public abstract class CLTypeBasic extends CLType {
-    protected CLTypeBasic(String typeName) {        
+public abstract class AbstractCLTypeBasic extends AbstractCLType {
+    protected AbstractCLTypeBasic(String typeName) {        
         if (!this.getTypeName().equals(typeName)) {
             throw new IllegalArgumentException(
                     String.format("%s is an invalid type for %s", getClass().getSimpleName(), typeName));

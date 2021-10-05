@@ -7,19 +7,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * CLType for {@link CLType.UNIT}
+ * CLType for {@link AbstractCLType.UNIT}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "typeName" })
-public class CLTypeUnit extends CLTypeBasic {
-    private final String typeName = CLType.UNIT;
+public class CLTypeUnit extends AbstractCLTypeBasic {
+    private final String typeName = AbstractCLType.UNIT;
 
     @JsonCreator
     protected CLTypeUnit(String typeName) {

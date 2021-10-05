@@ -27,14 +27,14 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @see URef
  * @since 0.0.1
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class CLValueURef extends CLValue<URef, CLTypeURef> {
+public class CLValueURef extends AbstractCLValue<URef, CLTypeURef> {
     private CLTypeURef clType = new CLTypeURef();
 
     @JsonSetter("cl_type")

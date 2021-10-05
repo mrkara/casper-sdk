@@ -20,7 +20,7 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.DecodableValue;
 import com.syntifi.casper.sdk.model.clvalue.interfaces.EncodableValue;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 
 import lombok.EqualsAndHashCode;
@@ -41,7 +41,7 @@ import lombok.Setter;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(CLValueResolver.class)
 @JsonPropertyOrder({ "cl_type", "bytes", "parsed" })
-public abstract class CLValue<T, P extends CLType> implements EncodableValue, DecodableValue {
+public abstract class AbstractCLValue<T, P extends AbstractCLType> implements EncodableValue, DecodableValue {
     private String bytes;
     @JsonProperty("parsed")
     @JsonInclude(Include.NON_NULL)

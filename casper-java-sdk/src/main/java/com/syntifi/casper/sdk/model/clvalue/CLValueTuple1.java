@@ -10,7 +10,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeTuple1;
 
@@ -26,18 +26,18 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueTuple1 extends CLValueWithChildren<Unit<? extends CLValue<?, ?>>, CLTypeTuple1> {
+public class CLValueTuple1 extends AbstractCLValueWithChildren<Unit<? extends AbstractCLValue<?, ?>>, CLTypeTuple1> {
     @JsonProperty("cl_type")
     private CLTypeTuple1 clType = new CLTypeTuple1();
 
-    public CLValueTuple1(Unit<? extends CLValue<?, ?>> value) {
+    public CLValueTuple1(Unit<? extends AbstractCLValue<?, ?>> value) {
         this.setValue(value);
         setChildTypes();
     }
@@ -57,10 +57,10 @@ public class CLValueTuple1 extends CLValueWithChildren<Unit<? extends CLValue<?,
             throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         CLTypeData childTypeData1 = clType.getChildClTypeData(0);
 
-        CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
-        if (child1.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child1.getClType())
-                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
+        AbstractCLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
+        if (child1.getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) child1.getClType())
+                    .setChildTypes(((AbstractCLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
         }
         child1.decode(clvd);
 

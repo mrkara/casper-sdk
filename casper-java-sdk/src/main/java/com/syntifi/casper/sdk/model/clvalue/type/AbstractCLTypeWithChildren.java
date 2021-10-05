@@ -23,10 +23,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "childTypes" })
-public abstract class CLTypeWithChildren extends CLType {
+public abstract class AbstractCLTypeWithChildren extends AbstractCLType {
 
     @JsonIgnore
-    private List<CLType> childTypes = new ArrayList<>();
+    private List<AbstractCLType> childTypes = new ArrayList<>();
 
     @JsonIgnore
     public CLTypeData getChildClTypeData(int index) throws NoSuchTypeException {
@@ -45,7 +45,7 @@ public abstract class CLTypeWithChildren extends CLType {
         }
     }
 
-    private void addChildType(Object childTypeObject, List<CLType> parent)
+    private void addChildType(Object childTypeObject, List<AbstractCLType> parent)
             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
             NoSuchMethodException, SecurityException, NoSuchTypeException {
         if (childTypeObject instanceof String) {
@@ -59,10 +59,10 @@ public abstract class CLTypeWithChildren extends CLType {
             LinkedHashMap<?, ?> subChildTypes = (LinkedHashMap<?, ?>) childTypeObject;
 
             for (Entry<?, ?> entry : subChildTypes.entrySet()) {
-                CLType nextParent = CLTypeData.getTypeByName(entry.getKey().toString()).getClTypeClass()
+                AbstractCLType nextParent = CLTypeData.getTypeByName(entry.getKey().toString()).getClTypeClass()
                         .getConstructor().newInstance();
                 parent.add(nextParent);
-                addChildType(entry.getValue(), ((CLTypeWithChildren) nextParent).getChildTypes());
+                addChildType(entry.getValue(), ((AbstractCLTypeWithChildren) nextParent).getChildTypes());
             }
         }
     }

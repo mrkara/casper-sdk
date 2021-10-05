@@ -9,10 +9,13 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeResult;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,19 +26,36 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueResult extends CLValue<Result, CLTypeResult> {
+public class CLValueResult extends AbstractCLValue<CLValueResult.Result, CLTypeResult> {
+    /**
+     * `Result` with `Ok` and `Err` variants of `CLType`s.
+     * 
+     * @author Alexandre Carvalho
+     * @author Andre Bertolace
+     * @see CLTypeData
+     * @since 0.0.1
+     */
+    @Data
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
+    protected class Result {
+        private AbstractCLValue<?, ?> ok;
+
+        private AbstractCLValue<?, ?> err;
+    }
+
     @JsonProperty("cl_type")
     private CLTypeResult clType = new CLTypeResult();
 
-    public CLValueResult(Result value) {
-        this.setValue(value);
+    public CLValueResult(AbstractCLValue<?,?> ok, AbstractCLValue<?,?> err) {
+        this.setValue(this.new Result(ok, err));
         setChildTypes();
     }
 
@@ -65,10 +85,10 @@ public class CLValueResult extends CLValue<Result, CLTypeResult> {
         CLValueBool bool = new CLValueBool();
         bool.decode(clvd);
         CLTypeData typeOk = clType.getOkErrTypes().getOkClType().getClTypeData();
-        CLValue<?, ?> clValueOk = CLTypeData.createCLValueFromCLTypeData(typeOk);
-        if (clValueOk.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) clValueOk.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getOkErrTypes().getOkClType()).getChildTypes());
+        AbstractCLValue<?, ?> clValueOk = CLTypeData.createCLValueFromCLTypeData(typeOk);
+        if (clValueOk.getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) clValueOk.getClType()).getChildTypes()
+                    .addAll(((AbstractCLTypeWithChildren) clType.getOkErrTypes().getOkClType()).getChildTypes());
         }
         clValueOk.decode(clvd);
         result.setOk(clValueOk);
@@ -76,10 +96,10 @@ public class CLValueResult extends CLValue<Result, CLTypeResult> {
         bool = new CLValueBool();
         bool.decode(clvd);
         CLTypeData typeErr = clType.getOkErrTypes().getErrClType().getClTypeData();
-        CLValue<?, ?> clValueErr = CLTypeData.createCLValueFromCLTypeData(typeErr);
-        if (clValueErr.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) clValueErr.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getOkErrTypes().getErrClType()).getChildTypes());
+        AbstractCLValue<?, ?> clValueErr = CLTypeData.createCLValueFromCLTypeData(typeErr);
+        if (clValueErr.getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) clValueErr.getClType()).getChildTypes()
+                    .addAll(((AbstractCLTypeWithChildren) clType.getOkErrTypes().getErrClType()).getChildTypes());
         }
         clValueErr.decode(clvd);
         result.setErr(clValueErr);

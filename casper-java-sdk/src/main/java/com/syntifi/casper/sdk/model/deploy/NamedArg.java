@@ -2,8 +2,8 @@ package com.syntifi.casper.sdk.model.deploy;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.syntifi.casper.sdk.model.clvalue.CLValue;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
+import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @JsonPropertyOrder({ "type", "clValue" })
-public class NamedArg<T, P extends CLType> {
+public class NamedArg<T, P extends AbstractCLType> {
 
   /**
    * The first value in the array is the type of the arg
@@ -27,5 +27,5 @@ public class NamedArg<T, P extends CLType> {
   /**
    * The second value in the array is a CLValue type
    */
-  private CLValue<T, P> clValue;
+  private AbstractCLValue<T, P> clValue;
 }

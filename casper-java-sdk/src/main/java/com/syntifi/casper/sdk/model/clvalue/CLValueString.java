@@ -19,14 +19,14 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueString extends CLValue<String, CLTypeString> {
+public class CLValueString extends AbstractCLValue<String, CLTypeString> {
     private CLTypeString clType = new CLTypeString();
 
     @JsonSetter("cl_type")

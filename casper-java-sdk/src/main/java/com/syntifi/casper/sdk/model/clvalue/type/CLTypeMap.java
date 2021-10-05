@@ -14,22 +14,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * CLType for {@link CLType.MAP}
+ * CLType for {@link AbstractCLType.MAP}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "keyValueTypes" })
-public class CLTypeMap extends CLType {
+public class CLTypeMap extends AbstractCLType {
     /**
-     * Support class for {@link CLType.MAP} entry types
+     * Support class for {@link AbstractCLType.MAP} entry types
      * 
      * @author Alexandre Carvalho
      * @author Andre Bertolace
-     * @see CLType
+     * @see AbstractCLType
      * @since 0.0.1
      */
     @Data
@@ -38,18 +38,18 @@ public class CLTypeMap extends CLType {
     @JsonPropertyOrder({ "key", "value" })
     public class CLTypeMapEntryType {
         @JsonIgnore
-        private CLType keyType;
+        private AbstractCLType keyType;
         @JsonIgnore
-        private CLType valueType;
+        private AbstractCLType valueType;
 
         @JsonSetter("key")
-        protected void setJsonKey(CLType clType) {
+        protected void setJsonKey(AbstractCLType clType) {
             this.keyType = clType;
         }
 
         @JsonGetter("key")
         protected Object getJsonKey() {
-            if (this.keyType instanceof CLTypeBasic) {
+            if (this.keyType instanceof AbstractCLTypeBasic) {
                 return this.keyType.getTypeName();
             } else {
                 return this.keyType;
@@ -57,13 +57,13 @@ public class CLTypeMap extends CLType {
         }
 
         @JsonSetter("value")
-        protected void setJsonValue(CLType clType) {
+        protected void setJsonValue(AbstractCLType clType) {
             this.valueType = clType;
         }
 
         @JsonGetter("value")
         protected Object getJsonValue() {
-            if (this.valueType instanceof CLTypeBasic) {
+            if (this.valueType instanceof AbstractCLTypeBasic) {
                 return this.valueType.getTypeName();
             } else {
                 return this.valueType;
@@ -71,9 +71,9 @@ public class CLTypeMap extends CLType {
         }
     }
 
-    private final String typeName = CLType.MAP;
+    private final String typeName = AbstractCLType.MAP;
 
     @Setter
-    @JsonProperty(CLType.MAP)
+    @JsonProperty(AbstractCLType.MAP)
     private CLTypeMapEntryType keyValueTypes;
 }

@@ -19,13 +19,13 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class CLValueByteArray extends CLValue<byte[], CLTypeByteArray> {
+public class CLValueByteArray extends AbstractCLValue<byte[], CLTypeByteArray> {
     @JsonProperty("cl_type")
     private CLTypeByteArray clType = new CLTypeByteArray();
 

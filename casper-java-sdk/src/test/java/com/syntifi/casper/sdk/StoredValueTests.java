@@ -33,7 +33,6 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.CLValueURef;
 import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
-import com.syntifi.casper.sdk.model.clvalue.Result;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.contract.Contract;
@@ -432,10 +431,7 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueResult
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
-        Result result = new Result();
-        result.setOk(new CLValueI32(10));
-        result.setErr(new CLValueString("Uh oh"));
-        CLValueResult expected = new CLValueResult(result);
+        CLValueResult expected = new CLValueResult(new CLValueI32(10), new CLValueString("Uh oh"));
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
@@ -451,19 +447,18 @@ public class StoredValueTests extends AbstractJsonTests {
     }
 
     @Test
-    void test_result_i32_tuple1_string_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
-            NoSuchTypeException, CLValueDecodeException {
-        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-result-i32-tuple1-string.json"));
+    void test_result_i32_tuple1_string_clvalue_mapping() throws IOException, CLValueEncodeException,
+            DynamicInstanceException, NoSuchTypeException, CLValueDecodeException {
+        String inputJson = getPrettyJson(
+                loadJsonFromFile("stored-value-samples/stored-value-result-i32-tuple1-string.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueResult
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
-        Result result = new Result();
-        result.setOk(new CLValueI32(10));
-        result.setErr(new CLValueTuple1(new Unit<>(new CLValueString("Uh oh"))));
-        CLValueResult expected = new CLValueResult(result);
+        CLValueResult expected = new CLValueResult(new CLValueI32(10),
+                new CLValueTuple1(new Unit<>(new CLValueString("Uh oh"))));
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {

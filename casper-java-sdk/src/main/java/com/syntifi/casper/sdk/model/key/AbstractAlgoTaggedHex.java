@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public abstract class AlgoTaggedHex {
+public abstract class AbstractAlgoTaggedHex {
     /**
      * @see Algorithm
      */

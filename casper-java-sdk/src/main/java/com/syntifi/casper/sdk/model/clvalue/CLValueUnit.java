@@ -21,13 +21,13 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CLValueUnit extends CLValue<Object, CLTypeUnit> {
+public class CLValueUnit extends AbstractCLValue<Object, CLTypeUnit> {
     private static final String UNITY_EMPTY_VALUE = "";
 
     private CLTypeUnit clType = new CLTypeUnit();

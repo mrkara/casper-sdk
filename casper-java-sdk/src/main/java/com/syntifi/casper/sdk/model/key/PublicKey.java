@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @JsonSerialize(using = AlgoTaggedHexSerializer.class)
 @JsonDeserialize(using = PublicKeyDeserializer.class)
 @NoArgsConstructor
-public class PublicKey extends AlgoTaggedHex {
+public class PublicKey extends AbstractAlgoTaggedHex {
 
     @JsonCreator
     public static PublicKey fromTaggedHexString(String hex) throws NoSuchAlgorithmException{

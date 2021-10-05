@@ -14,23 +14,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * CLType for {@link CLType.RESULT}
+ * CLType for {@link AbstractCLType.RESULT}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "okErrTypes" })
-public class CLTypeResult extends CLType {
+public class CLTypeResult extends AbstractCLType {
 
     /**
-     * Support class for {@link CLType.RESULT} ok/err types
+     * Support class for {@link AbstractCLType.RESULT} ok/err types
      * 
      * @author Alexandre Carvalho
      * @author Andre Bertolace
-     * @see CLType
+     * @see AbstractCLType
      * @since 0.0.1
      */
     @Data
@@ -39,18 +39,18 @@ public class CLTypeResult extends CLType {
     @JsonPropertyOrder({ "ok", "err" })
     public class CLTypeResultOkErrTypes {
         @JsonIgnore
-        private CLType okClType;
+        private AbstractCLType okClType;
         @JsonIgnore
-        private CLType errClType;
+        private AbstractCLType errClType;
 
         @JsonSetter("ok")
-        protected void setJsonKey(CLType clType) {
+        protected void setJsonKey(AbstractCLType clType) {
             this.okClType = clType;
         }
 
         @JsonGetter("ok")
         protected Object getJsonKey() {
-            if (this.okClType instanceof CLTypeBasic) {
+            if (this.okClType instanceof AbstractCLTypeBasic) {
                 return this.okClType.getTypeName();
             } else {
                 return this.okClType;
@@ -58,13 +58,13 @@ public class CLTypeResult extends CLType {
         }
 
         @JsonSetter("err")
-        protected void setJsonValue(CLType clType) {
+        protected void setJsonValue(AbstractCLType clType) {
             this.errClType = clType;
         }
 
         @JsonGetter("err")
         protected Object getJsonValue() {
-            if (this.errClType instanceof CLTypeBasic) {
+            if (this.errClType instanceof AbstractCLTypeBasic) {
                 return this.errClType.getTypeName();
             } else {
                 return this.errClType;
@@ -72,9 +72,9 @@ public class CLTypeResult extends CLType {
         }
     }
 
-    private final String typeName = CLType.RESULT;
+    private final String typeName = AbstractCLType.RESULT;
 
     @Setter
-    @JsonProperty(CLType.RESULT)
+    @JsonProperty(AbstractCLType.RESULT)
     private CLTypeResultOkErrTypes okErrTypes;
 }

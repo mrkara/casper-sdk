@@ -21,14 +21,14 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CLValueU512 extends CLValue<BigInteger, CLTypeU512> {
+public class CLValueU512 extends AbstractCLValue<BigInteger, CLTypeU512> {
     private CLTypeU512 clType = new CLTypeU512();
 
     @JsonSetter("cl_type")

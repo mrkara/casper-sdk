@@ -25,7 +25,7 @@ import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see CLType
+ * @see AbstractCLType
  */
 public class CLTypeDeserializer extends AsPropertyTypeDeserializer {
 

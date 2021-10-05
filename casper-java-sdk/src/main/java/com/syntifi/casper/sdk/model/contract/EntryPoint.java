@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.syntifi.casper.sdk.model.clvalue.type.CLType;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeBasic;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLType;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeBasic;
 
 import lombok.Data;
 
@@ -56,13 +56,13 @@ public class EntryPoint {
     private String name;
 
     /**
-     * ret({@link CLType})
+     * ret({@link AbstractCLType})
      */
     @JsonIgnore
-    private CLType ret;
+    private AbstractCLType ret;
 
     @JsonSetter("ret")
-    protected void setJsonRet(CLType clType) {
+    protected void setJsonRet(AbstractCLType clType) {
         this.ret = clType;
     }
 
@@ -73,7 +73,7 @@ public class EntryPoint {
      */
     @JsonGetter("ret")
     protected Object getJsonRet() {
-        if (this.ret instanceof CLTypeBasic) {
+        if (this.ret instanceof AbstractCLTypeBasic) {
             return this.ret.getTypeName();
         } else {
             return this.ret;

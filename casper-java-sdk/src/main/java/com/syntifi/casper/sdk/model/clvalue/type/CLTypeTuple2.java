@@ -10,19 +10,19 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * CLType for {@link CLType.TUPLE2}
+ * CLType for {@link AbstractCLType.TUPLE2}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 @Getter
 @EqualsAndHashCode(callSuper = true, of = { "typeName" })
-public class CLTypeTuple2 extends CLTypeWithChildren {
-    private final String typeName = CLType.TUPLE2;
+public class CLTypeTuple2 extends AbstractCLTypeWithChildren {
+    private final String typeName = AbstractCLType.TUPLE2;
 
-    @JsonProperty(CLType.TUPLE2)
+    @JsonProperty(AbstractCLType.TUPLE2)
     private List<Object> childTypeObjects;
 
     protected void setChildTypeObjects(List<Object> childTypeObjects)

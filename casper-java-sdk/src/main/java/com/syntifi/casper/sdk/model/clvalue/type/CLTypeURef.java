@@ -7,19 +7,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * CLType for {@link CLType.UREF}
+ * CLType for {@link AbstractCLType.UREF}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "typeName" })
-public class CLTypeURef extends CLTypeBasic {
-    private final String typeName = CLType.UREF;
+public class CLTypeURef extends AbstractCLTypeBasic {
+    private final String typeName = AbstractCLType.UREF;
 
     @JsonCreator
     protected CLTypeURef(String typeName) {

@@ -10,31 +10,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * CLType for {@link CLType.OPTION}
+ * CLType for {@link AbstractCLType.OPTION}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "typeName" })
-public class CLTypeOption extends CLType {
-    private final String typeName = CLType.OPTION;
+public class CLTypeOption extends AbstractCLType {
+    private final String typeName = AbstractCLType.OPTION;
 
     @Setter
     @JsonIgnore
-    private CLType childType;
+    private AbstractCLType childType;
 
-    @JsonSetter(CLType.OPTION)
-    protected void setJsonClType(CLType clType) {
+    @JsonSetter(AbstractCLType.OPTION)
+    protected void setJsonClType(AbstractCLType clType) {
         this.childType = clType;
     }
 
-    @JsonGetter(CLType.OPTION)
+    @JsonGetter(AbstractCLType.OPTION)
     protected Object getJsonClType() {
-        if (this.childType instanceof CLTypeBasic) {
+        if (this.childType instanceof AbstractCLTypeBasic) {
             return this.childType.getTypeName();
         } else {
             return this.childType;

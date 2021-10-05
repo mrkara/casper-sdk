@@ -10,7 +10,7 @@ import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeWithChildren;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeTuple2;
 
@@ -26,7 +26,7 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
@@ -34,11 +34,11 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CLValueTuple2
-        extends CLValueWithChildren<Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>>, CLTypeTuple2> {
+        extends AbstractCLValueWithChildren<Pair<? extends AbstractCLValue<?, ?>, ? extends AbstractCLValue<?, ?>>, CLTypeTuple2> {
     @JsonProperty("cl_type")
     private CLTypeTuple2 clType = new CLTypeTuple2();
 
-    public CLValueTuple2(Pair<? extends CLValue<?, ?>, ? extends CLValue<?, ?>> value) {
+    public CLValueTuple2(Pair<? extends AbstractCLValue<?, ?>, ? extends AbstractCLValue<?, ?>> value) {
         this.setValue(value);
         setChildTypes();
     }
@@ -60,17 +60,17 @@ public class CLValueTuple2
         CLTypeData childTypeData1 = clType.getChildClTypeData(0);
         CLTypeData childTypeData2 = clType.getChildClTypeData(1);
 
-        CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
-        if (child1.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child1.getClType())
-                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
+        AbstractCLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
+        if (child1.getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) child1.getClType())
+                    .setChildTypes(((AbstractCLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
         }
         child1.decode(clvd);
 
-        CLValue<?, ?> child2 = CLTypeData.createCLValueFromCLTypeData(childTypeData2);
-        if (child2.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child2.getClType())
-                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(1)).getChildTypes());
+        AbstractCLValue<?, ?> child2 = CLTypeData.createCLValueFromCLTypeData(childTypeData2);
+        if (child2.getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) child2.getClType())
+                    .setChildTypes(((AbstractCLTypeWithChildren) clType.getChildTypes().get(1)).getChildTypes());
         }
         child2.decode(clvd);
 

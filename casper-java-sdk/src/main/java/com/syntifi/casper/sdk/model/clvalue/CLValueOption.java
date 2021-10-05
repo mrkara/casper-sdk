@@ -12,7 +12,7 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.type.CLTypeOption;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeWithChildren;
+import com.syntifi.casper.sdk.model.clvalue.type.AbstractCLTypeWithChildren;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,13 +23,13 @@ import lombok.Setter;
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLValue
+ * @see AbstractCLValue
  * @since 0.0.1
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CLValueOption extends CLValue<Optional<CLValue<?, ?>>, CLTypeOption> {
+public class CLValueOption extends AbstractCLValue<Optional<AbstractCLValue<?, ?>>, CLTypeOption> {
     @JsonProperty("cl_type")
     private CLTypeOption clType = new CLTypeOption();
 
@@ -37,7 +37,7 @@ public class CLValueOption extends CLValue<Optional<CLValue<?, ?>>, CLTypeOption
         this(Optional.of(new CLValueAny(null)));
     }
 
-    public CLValueOption(Optional<CLValue<?, ?>> value) {
+    public CLValueOption(Optional<AbstractCLValue<?, ?>> value) {
         this.setValue(value);
         this.clType.setChildType(value.isPresent() ? value.get().getClType() : null);
     }
@@ -49,11 +49,11 @@ public class CLValueOption extends CLValue<Optional<CLValue<?, ?>>, CLTypeOption
         isPresent.encode(clve);
         setBytes(isPresent.getBytes());
 
-        Optional<CLValue<?, ?>> child = getValue();
+        Optional<AbstractCLValue<?, ?>> child = getValue();
 
-        if (child.isPresent() && child.get().getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child.get().getClType())
-                    .setChildTypes(((CLTypeWithChildren) clType.getChildType()).getChildTypes());
+        if (child.isPresent() && child.get().getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) child.get().getClType())
+                    .setChildTypes(((AbstractCLTypeWithChildren) clType.getChildType()).getChildTypes());
         }
         if (child.isPresent() && isPresent.getValue().equals(Boolean.TRUE)) {
             child.get().encode(clve);
@@ -70,11 +70,11 @@ public class CLValueOption extends CLValue<Optional<CLValue<?, ?>>, CLTypeOption
 
         CLTypeData childTypeData = clType.getChildType().getClTypeData();
 
-        CLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childTypeData);
+        AbstractCLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childTypeData);
 
-        if (child.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child.getClType())
-                    .setChildTypes(((CLTypeWithChildren) clType.getChildType()).getChildTypes());
+        if (child.getClType() instanceof AbstractCLTypeWithChildren) {
+            ((AbstractCLTypeWithChildren) child.getClType())
+                    .setChildTypes(((AbstractCLTypeWithChildren) clType.getChildType()).getChildTypes());
         }
 
         setValue(Optional.of(child));

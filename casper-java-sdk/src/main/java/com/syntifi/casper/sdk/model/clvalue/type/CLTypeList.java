@@ -9,30 +9,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * CLType for {@link CLType.LIST}
+ * CLType for {@link AbstractCLType.LIST}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
- * @see CLType
+ * @see AbstractCLType
  * @since 0.0.1
  */
 @Getter
 @EqualsAndHashCode(callSuper = false, of = { "typeName", "listType" })
-public class CLTypeList extends CLType {
-    private final String typeName = CLType.LIST;
+public class CLTypeList extends AbstractCLType {
+    private final String typeName = AbstractCLType.LIST;
 
     @Setter
     @JsonIgnore
-    private CLType listType;
+    private AbstractCLType listType;
 
-    @JsonSetter(CLType.LIST)
-    protected void setJsonValue(CLType clType) {
+    @JsonSetter(AbstractCLType.LIST)
+    protected void setJsonValue(AbstractCLType clType) {
         this.listType = clType;
     }
 
-    @JsonGetter(CLType.LIST)
+    @JsonGetter(AbstractCLType.LIST)
     protected Object getJsonValue() {
-        if (this.listType instanceof CLTypeBasic) {
+        if (this.listType instanceof AbstractCLTypeBasic) {
             return this.listType.getTypeName();
         } else {
             return this.listType;
