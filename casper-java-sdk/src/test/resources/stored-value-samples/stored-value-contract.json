@@ -30,10 +30,16 @@
                   {
                      "name": "testComplex",
                      "cl_type": {
-                        "Tuple3" : [ {
-                          "Tuple1" : [ "Bool" ]
-                        }, "String", "Bool" ]
-                      }
+                        "Tuple3": [
+                           {
+                              "Tuple1": [
+                                 "Bool"
+                              ]
+                           },
+                           "String",
+                           "Bool"
+                        ]
+                     }
                   },
                   {
                      "name": "account",
@@ -59,9 +65,7 @@
                "entry_point_type": "Contract",
                "name": "get_refund_purse",
                "ret": {
-                  "Option": [
-                     "URef"
-                  ]
+                  "Option": "URef"
                }
             },
             {

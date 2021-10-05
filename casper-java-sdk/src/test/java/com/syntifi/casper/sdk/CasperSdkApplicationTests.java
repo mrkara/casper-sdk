@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +26,8 @@ import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
+import com.syntifi.casper.sdk.model.storedvalue.StoredValueAccount;
+import com.syntifi.casper.sdk.model.storedvalue.StoredValueContract;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
@@ -249,4 +252,21 @@ class CasperSdkApplicationTests {
 		assertEquals("ccb576d6ce6dec84a551e48f0d0b7af89ddba44c7390b690036257a04a3ae9ea", tmp);
 	}
 
+	@Test
+	void state_get_item_account() {
+		StoredValueData storedValueData = casperServiceMainnet.getStateItem(
+				"09ac52260e370ed56bba5283a79b03d524b4f420bf964d7e629b0819dd1be09d",
+				"account-hash-e1431ecb9f20f2a6e6571886b1e2f9dec49ebc6b2d3d640a53530abafba9bfa1", new ArrayList<>());
+
+		assertTrue(storedValueData.getStoredValue() instanceof StoredValueAccount);
+	}
+
+	@Test
+	void state_get_item_contract() {
+		StoredValueData storedValueData = casperServiceMainnet.getStateItem(
+				"09ac52260e370ed56bba5283a79b03d524b4f420bf964d7e629b0819dd1be09d",
+				"hash-d2469afeb99130f0be7c9ce230a84149e6d756e306ef8cf5b8a49d5182e41676", new ArrayList<>());
+
+		assertTrue(storedValueData.getStoredValue() instanceof StoredValueContract);
+	}
 }

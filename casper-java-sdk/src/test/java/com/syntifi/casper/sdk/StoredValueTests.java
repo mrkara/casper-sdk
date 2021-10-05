@@ -373,7 +373,7 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
-        CLValueOption expected = new CLValueOption(Optional.ofNullable(null));
+        CLValueOption expected = new CLValueOption(Optional.of(new CLValueBool(null)));
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
@@ -424,6 +424,33 @@ public class StoredValueTests extends AbstractJsonTests {
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
         CLValueOption expected = new CLValueOption(Optional.of(new CLValueI32(10)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_option_tuple2_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
+        String inputJson = getPrettyJson(
+                loadJsonFromFile("stored-value-samples/stored-value-option-tuple2-i32-string.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueOption
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
+        CLValueOption expected = new CLValueOption(
+                Optional.of(new CLValueTuple2(new Pair<>(new CLValueI32(1), new CLValueString("Hello, World!")))));
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {

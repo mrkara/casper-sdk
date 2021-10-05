@@ -3,9 +3,11 @@
   "stored_value" : {
     "CLValue" : {
       "cl_type" : {
-        "Option" : "Bool"
+        "Option" : {
+          "Tuple2" : [ "I32", "String" ]
+        }
       },
-      "bytes" : "0101"
+      "bytes" : "01010000000d00000048656c6c6f2c20576f726c6421"
     }
   },
   "merkle_proof" : "-- erased --"

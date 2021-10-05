@@ -1,14 +1,13 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * CLType for {@link CLType.OPTION}
@@ -20,26 +19,25 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true, of = { "typeName" })
-public class CLTypeOption extends CLTypeWithChildren {
+@EqualsAndHashCode(callSuper = false, of = { "typeName" })
+public class CLTypeOption extends CLType {
     private final String typeName = CLType.OPTION;
 
-    @JsonProperty(CLType.OPTION)
-    private List<Object> childTypeObjects;
+    @Setter
+    @JsonIgnore
+    private CLType childType;
 
-    public List<Object> getChildTypeObjects() {
-        super.loadChildTypeObjects(childTypeObjects);
-        return this.childTypeObjects;
+    @JsonSetter(CLType.OPTION)
+    protected void setJsonClType(CLType clType) {
+        this.childType = clType;
     }
 
-    public void setChildTypeObjects(List<Object> childTypeObjects)
-            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-            NoSuchMethodException, SecurityException, NoSuchTypeException {
-        this.childTypeObjects = childTypeObjects;
-        super.loadCLTypes(childTypeObjects);
-    }
-
-    public List<Object> loadChildTypeObjects() {
-        return this.childTypeObjects;
+    @JsonGetter(CLType.OPTION)
+    protected Object getJsonClType() {
+        if (this.childType instanceof CLTypeBasic) {
+            return this.childType.getTypeName();
+        } else {
+            return this.childType;
+        }
     }
 }
