@@ -2,6 +2,7 @@ package com.syntifi.casper.sdk.model.transfer;
 
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -33,7 +34,7 @@ public class Transfer {
     /**
      * Amount transfered
      */
-    @JsonProperty("amount")
+    @JsonIgnore
     private BigInteger amount;
 
     /**
@@ -57,6 +58,26 @@ public class Transfer {
     /**
      * Decimal representation of a 512-bit integer.
      */
-    @JsonProperty("gas")
+    @JsonIgnore
     private BigInteger gas;
+
+    @JsonProperty("amount")
+    protected String getJsonAmount() {
+        return this.amount.toString(10);
+    }
+
+    @JsonProperty("gas")
+    protected String getJsonGas() {
+        return this.gas.toString(10);
+    }
+
+    @JsonProperty("amount")
+    protected void setJsonAmount(String value) {
+        this.amount = new BigInteger(value, 10);
+    }
+
+    @JsonProperty("gas")
+    protected void setJsonGas(String value) {
+        this.gas = new BigInteger(value, 10);
+    }
 }
