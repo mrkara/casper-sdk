@@ -47,6 +47,7 @@ import com.syntifi.casper.sdk.model.deploy.JsonExecutionResult;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
+import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 import com.syntifi.casper.sdk.service.CasperObjectMapper;
@@ -604,6 +605,23 @@ public class CLValuesTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
 
         assertTrue(sv.getStoredValue().getValue() instanceof Contract);
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_transfer_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-transfer.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+
+        assertTrue(sv.getStoredValue().getValue() instanceof Transfer);
 
         String reserializedJson = getPrettyJson(sv);
 

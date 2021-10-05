@@ -1,4 +1,5 @@
 package com.syntifi.casper.sdk.model.transfer;
+
 import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,8 +15,8 @@ import lombok.Data;
  */
 @Data
 public class Transfer {
-    @JsonProperty("id") 
-    private long id;
+    @JsonProperty("id")
+    private Long id;
 
     /**
      * Hex-encoded account hash.
@@ -30,13 +31,13 @@ public class Transfer {
     private String from;
 
     /**
-     * Amount transfered 
+     * Amount transfered
      */
     @JsonProperty("amount")
     private BigInteger amount;
 
     /**
-     * Hex-encoded hash 
+     * Hex-encoded hash
      */
     @JsonProperty("deploy_hash")
     private String deployHash;
@@ -45,7 +46,7 @@ public class Transfer {
      * Hex-encoded, formatted URef
      */
     @JsonProperty("source")
-    private String source; 
+    private String source;
 
     /**
      * Hex-encoded, formatted URef
@@ -59,4 +60,3 @@ public class Transfer {
     @JsonProperty("gas")
     private BigInteger gas;
 }
-
