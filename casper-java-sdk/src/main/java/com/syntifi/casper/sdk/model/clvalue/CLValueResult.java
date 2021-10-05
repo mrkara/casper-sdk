@@ -85,7 +85,6 @@ public class CLValueResult extends CLValueWithChildren<Result, CLTypeResult> {
         result.setErr(clValueErr);
 
         setValue(result);
-        setChildTypes();
     }
 
     @Override

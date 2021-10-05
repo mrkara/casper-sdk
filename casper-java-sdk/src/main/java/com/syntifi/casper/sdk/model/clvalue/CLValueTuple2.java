@@ -62,22 +62,20 @@ public class CLValueTuple2
 
         CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
         if (child1.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child1.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
+            ((CLTypeWithChildren) child1.getClType())
+                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
         }
         child1.decode(clvd);
 
         CLValue<?, ?> child2 = CLTypeData.createCLValueFromCLTypeData(childTypeData2);
         if (child2.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child2.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(1)).getChildTypes());
+            ((CLTypeWithChildren) child2.getClType())
+                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(1)).getChildTypes());
         }
         child2.decode(clvd);
 
         setValue(new Pair<>(child1, child2));
         setBytes(getValue().getValue0().getBytes() + getValue().getValue1().getBytes());
-
-        setChildTypes();
     }
 
     @Override

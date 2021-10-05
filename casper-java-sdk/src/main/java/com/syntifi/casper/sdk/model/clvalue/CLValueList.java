@@ -48,14 +48,10 @@ public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeLi
 
         // List length is written first
         CLValueI32 length = new CLValueI32(getValue().size());
-        clve.writeI32(length);
+        length.encode(clve);
         setBytes(length.getBytes());
 
         for (CLValue<?, ?> child : getValue()) {
-            if (child.getClType() instanceof CLTypeWithChildren) {
-                ((CLTypeWithChildren) child.getClType()).getChildTypes()
-                        .addAll(((CLTypeWithChildren) clType.getListType()).getChildTypes());
-            }
             child.encode(clve);
             setBytes(getBytes() + child.getBytes());
         }
@@ -68,20 +64,22 @@ public class CLValueList extends CLValue<List<? extends CLValue<?, ?>>, CLTypeLi
 
         // List length is sent first
         CLValueI32 length = new CLValueI32();
-        clvd.readI32(length);
+        length.decode(clvd);
         setBytes(length.getBytes());
 
         List<CLValue<?, ?>> list = new LinkedList<>();
         for (int i = 0; i < length.getValue(); i++) {
             CLValue<?, ?> child = CLTypeData.createCLValueFromCLTypeData(childrenType);
+            if (child.getClType() instanceof CLTypeWithChildren) {
+                ((CLTypeWithChildren) child.getClType())
+                        .setChildTypes(((CLTypeWithChildren) clType.getListType()).getChildTypes());
+            }
             child.decode(clvd);
             setBytes(getBytes() + child.getBytes());
             list.add(child);
         }
 
         setValue(list);
-
-        setListType();
     }
 
     protected void setListType() {

@@ -1,9 +1,8 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.exception.DynamicInstanceException;
-import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,16 +22,20 @@ public class CLTypeList extends CLType {
     private final String typeName = CLType.LIST;
 
     @Setter
-    @JsonProperty(CLType.LIST)
-    private String listTypeName;
-
     @JsonIgnore
-    public CLType getListType() throws DynamicInstanceException, NoSuchTypeException {
-        return CLTypeData.createCLTypeFromCLTypeName(listTypeName);
+    private CLType listType;
+
+    @JsonSetter(CLType.LIST)
+    protected void setJsonValue(CLType clType) {
+        this.listType = clType;
     }
 
-    @JsonIgnore
-    public void setListType(CLType listType) {
-        this.listTypeName = listType.getTypeName();
+    @JsonGetter(CLType.LIST)
+    protected Object getJsonValue() {
+        if (this.listType instanceof CLTypeBasic) {
+            return this.listType.getTypeName();
+        } else {
+            return this.listType;
+        }
     }
 }

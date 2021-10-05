@@ -31,6 +31,7 @@ public class CLValueByteArray extends CLValue<byte[], CLTypeByteArray> {
 
     public CLValueByteArray(byte[] value) {
         this.setValue(value);
+        this.clType.setLength(value.length);
     }
 
     @Override

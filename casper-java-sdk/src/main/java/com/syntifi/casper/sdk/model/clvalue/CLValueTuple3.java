@@ -65,30 +65,28 @@ public class CLValueTuple3 extends
 
         CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
         if (child1.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child1.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
+            ((CLTypeWithChildren) child1.getClType())
+                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
         }
         child1.decode(clvd);
 
         CLValue<?, ?> child2 = CLTypeData.createCLValueFromCLTypeData(childTypeData2);
         if (child2.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child2.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(1)).getChildTypes());
+            ((CLTypeWithChildren) child2.getClType())
+                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(1)).getChildTypes());
         }
         child2.decode(clvd);
 
         CLValue<?, ?> child3 = CLTypeData.createCLValueFromCLTypeData(childTypeData3);
         if (child3.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child3.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(2)).getChildTypes());
+            ((CLTypeWithChildren) child3.getClType())
+                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(2)).getChildTypes());
         }
         child3.decode(clvd);
 
         setValue(new Triplet<>(child1, child2, child3));
         setBytes(getValue().getValue0().getBytes() + getValue().getValue1().getBytes()
                 + getValue().getValue2().getBytes());
-
-        setChildTypes();
     }
 
     @Override

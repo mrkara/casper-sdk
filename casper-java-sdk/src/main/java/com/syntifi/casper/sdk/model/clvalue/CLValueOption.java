@@ -46,7 +46,7 @@ public class CLValueOption extends CLValue<Optional<CLValue<?, ?>>, CLTypeOption
     public void encode(CLValueEncoder clve)
             throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         CLValueBool isPresent = new CLValueBool(getValue().isPresent() && getValue().get().getValue() != null);
-        clve.writeBool(isPresent);
+        isPresent.encode(clve);
         setBytes(isPresent.getBytes());
 
         Optional<CLValue<?, ?>> child = getValue();

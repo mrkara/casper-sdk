@@ -63,11 +63,11 @@ public class CLValueURef extends CLValue<URef, CLTypeURef> {
     @Override
     public void decode(CLValueDecoder clvd) throws IOException, CLValueDecodeException, DynamicInstanceException {
         URef uref = new URef();
-        CLValueByteArray clValueByteArray = new CLValueByteArray(new byte[] {});
-        clvd.readByteArray(clValueByteArray, 32);
+        CLValueByteArray clValueByteArray = new CLValueByteArray(new byte[32]);
+        clValueByteArray.decode(clvd);
         uref.setAddress(clValueByteArray.getValue());
         CLValueU8 serializationTag = new CLValueU8((byte) 0);
-        clvd.readU8(serializationTag);
+        serializationTag.decode(clvd);
         uref.setAccessRight(URefAccessRight.getTypeBySerializationTag(serializationTag.getValue()));
         setValue(uref);
     }

@@ -1,7 +1,10 @@
 package com.syntifi.casper.sdk.model.clvalue.type;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 
@@ -34,30 +37,39 @@ public class CLTypeMap extends CLType {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @JsonPropertyOrder({ "key", "value" })
     public class CLTypeMapEntryType {
-        @JsonProperty("key")
-        private String key;
-        @JsonProperty("value")
-        private String value;
-
         @JsonIgnore
-        public CLType getKeyType() throws DynamicInstanceException, NoSuchTypeException {
-            return CLTypeData.createCLTypeFromCLTypeName(this.key);
+        private CLType keyType;
+        @JsonIgnore
+        private CLType valueType;
+
+        @JsonSetter("key")
+        protected void setJsonKey(CLType clType) {
+            this.keyType = clType;
         }
 
-        @JsonIgnore
-        public void setKeyType(CLType keyType) {
-            this.key = keyType.getTypeName();
+        @JsonGetter("key")
+        protected Object getJsonKey() {
+            if (this.keyType instanceof CLTypeBasic) {
+                return this.keyType.getTypeName();
+            } else {
+                return this.keyType;
+            }
         }
 
-        @JsonIgnore
-        public CLType getValueType() throws DynamicInstanceException, NoSuchTypeException {
-            return CLTypeData.createCLTypeFromCLTypeName(this.value);
+        @JsonSetter("value")
+        protected void setJsonValue(CLType clType) {
+            this.valueType = clType;
         }
 
-        @JsonIgnore
-        public void setValueType(CLType valueType) {
-            this.key = valueType.getTypeName();
+        @JsonGetter("value")
+        protected Object getJsonValue() {
+            if (this.valueType instanceof CLTypeBasic) {
+                return this.valueType.getTypeName();
+            } else {
+                return this.valueType;
+            }
         }
     }
 

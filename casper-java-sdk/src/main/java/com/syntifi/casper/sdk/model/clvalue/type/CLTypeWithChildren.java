@@ -33,7 +33,7 @@ public abstract class CLTypeWithChildren extends CLType {
         return CLTypeData.getTypeByName(getChildTypes().get(index).getTypeName());
     }
 
-    public void loadCLTypes(List<Object> childTypeObjects)
+    protected void loadCLTypes(List<Object> childTypeObjects)
             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
             NoSuchMethodException, SecurityException, NoSuchTypeException {
         childTypes.clear();
@@ -45,7 +45,7 @@ public abstract class CLTypeWithChildren extends CLType {
         }
     }
 
-    public List<Object> loadChildTypeObjects(List<Object> childTypeObjects) {
+    protected List<Object> loadChildTypeObjects(List<Object> childTypeObjects) {
         if (childTypeObjects == null) {
             childTypeObjects = new ArrayList<>();
         }

@@ -59,15 +59,13 @@ public class CLValueTuple1 extends CLValueWithChildren<Unit<? extends CLValue<?,
 
         CLValue<?, ?> child1 = CLTypeData.createCLValueFromCLTypeData(childTypeData1);
         if (child1.getClType() instanceof CLTypeWithChildren) {
-            ((CLTypeWithChildren) child1.getClType()).getChildTypes()
-                    .addAll(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
+            ((CLTypeWithChildren) child1.getClType())
+                    .setChildTypes(((CLTypeWithChildren) clType.getChildTypes().get(0)).getChildTypes());
         }
         child1.decode(clvd);
 
         setValue(new Unit<>(child1));
         setBytes(getValue().getValue0().getBytes());
-
-        setChildTypes();
     }
 
     @Override
