@@ -13,6 +13,8 @@ import java.util.List;
 
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
+import com.syntifi.casper.sdk.model.account.Account;
+import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.block.JsonBlock;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
@@ -278,5 +280,29 @@ class CasperSdkApplicationTests {
 				"hash-d2469afeb99130f0be7c9ce230a84149e6d756e306ef8cf5b8a49d5182e41676", new ArrayList<>());
 
 		assertTrue(storedValueData.getStoredValue() instanceof StoredValueContract);
+	}
+
+	@Test
+	void getAccountStateInfoByBlockHash() {
+		AccountData account = casperServiceMainnet.getStateAccountInfo(
+			"012dbde8cac6493c07c5548edc89ab7803c376278ec91757475867324d99f5f4dd",
+			new BlockIdentifierByHash("721767b0bcf867ccab81b3a47b1443bbef38b2ee9e2b791288f6e2a427181931"));
+
+		assertNotNull(account);
+		assertTrue(account.getAccount() instanceof Account);
+		assertEquals("account-hash-f1075fce3b8cd4eab748b8705ca02444a5e35c0248662649013d8a5cb2b1a87c",
+			account.getAccount().getHash());
+	}
+
+	@Test
+	void getAccountStateInfoByBlockHeight() {
+		AccountData account = casperServiceMainnet.getStateAccountInfo(
+			"012dbde8cac6493c07c5548edc89ab7803c376278ec91757475867324d99f5f4dd",
+			new BlockIdentifierByHeight(236509));
+
+		assertNotNull(account);
+		assertTrue(account.getAccount() instanceof Account);
+		assertEquals("account-hash-f1075fce3b8cd4eab748b8705ca02444a5e35c0248662649013d8a5cb2b1a87c",
+			account.getAccount().getHash());
 	}
 }

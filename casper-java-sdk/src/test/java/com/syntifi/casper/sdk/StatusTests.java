@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.model.status.MinimalBlockInfo;
 import com.syntifi.casper.sdk.model.status.Status;
-import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Unit tests for {@link StoredValueData}
+ * Unit tests for {@link Status}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace

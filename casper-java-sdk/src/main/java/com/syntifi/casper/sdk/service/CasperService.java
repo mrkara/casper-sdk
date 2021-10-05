@@ -12,6 +12,7 @@ import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
+import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.peer.PeerData;
@@ -92,7 +93,7 @@ public interface CasperService {
     /**
      * Returns a state root hash at the last Block
      * 
-     * @param heightFilter Block's height
+     * @param height identifier Block's height
      * @return Object holding the api version and block
      */
     @JsonRpcMethod("chain_get_state_root_hash")
@@ -101,7 +102,7 @@ public interface CasperService {
     /**
      * Returns a state root hash at a given Block height
      * 
-     * @param heightFilter Block's height
+     * @param height identifier Block's height
      * @return Object holding the api version and block
      */
     @JsonRpcMethod("chain_get_state_root_hash")
@@ -139,11 +140,35 @@ public interface CasperService {
     public DeployData getDeploy(@JsonRpcParam("deploy_hash") String deployHash);
 
     /**
-     *  
-     * @return
+     * Returns the current status of the node
+     * 
+     * @return Object holding the apiversion, minimal block information, build version 
+     * and other properties 
      */
     @JsonRpcMethod("info_get_status")
     public Status getStatus();
+
+    /**
+     * Returns an Account from the network
+     * 
+     * @param publicKey
+     * @param height identifier Block's height
+     * @return Oject holding the api version, the account and the merkle proof
+     */
+    @JsonRpcMethod("state_get_account_info")
+    public AccountData getStateAccountInfo(@JsonRpcParam("public_key") String publicKey,
+        @JsonRpcParam("block_identifier") BlockIdentifierByHeight height);
+
+    /**
+     * Returns an Account from the network
+     * 
+     * @param publicKey
+     * @param hash identifier Block's height
+     * @return Oject holding the api version, the account and the merkle proof
+     */ 
+    @JsonRpcMethod("state_get_account_info")
+    public AccountData getStateAccountInfo(@JsonRpcParam("public_key") String publicKey,
+        @JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
 
     // @JsonRpcMethod("state_get_auction_info")
     // public CasperStatus getValidatorsInfo();
