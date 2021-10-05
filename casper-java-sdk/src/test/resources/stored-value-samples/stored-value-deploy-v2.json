@@ -57,9 +57,7 @@
                   "id",
                   {
                      "cl_type": {
-                        "Option": [
-                           "U64"
-                        ]
+                        "Option": "U64"
                      },
                      "bytes": "00"
                   }
