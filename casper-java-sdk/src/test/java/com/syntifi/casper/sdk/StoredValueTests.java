@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -13,13 +12,11 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.account.Account;
-import com.syntifi.casper.sdk.model.clvalue.CLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
@@ -39,18 +36,13 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.clvalue.Result;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
-import com.syntifi.casper.sdk.model.clvalue.type.CLTypeData;
 import com.syntifi.casper.sdk.model.contract.Contract;
-import com.syntifi.casper.sdk.model.deploy.Deploy;
-import com.syntifi.casper.sdk.model.deploy.DeployData;
-import com.syntifi.casper.sdk.model.deploy.JsonExecutionResult;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
-import com.syntifi.casper.sdk.service.CasperObjectMapper;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
@@ -67,36 +59,15 @@ import org.slf4j.LoggerFactory;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class CLValuesTests {
+public class StoredValueTests extends AbstractJsonTests {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CLValuesTests.class);
-
-    private static final ObjectMapper OBJECT_MAPPER = new CasperObjectMapper();
+    private static final Logger LOGGER = LoggerFactory.getLogger(StoredValueTests.class);
 
     @BeforeAll
     public static void init() {
         // OBJECT_MAPPER.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
         // OBJECT_MAPPER.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS,
         // true);
-    }
-
-    @Test
-    void test_instance_types_mapping() throws DynamicInstanceException, NoSuchTypeException {
-        for (CLTypeData clTypeData : CLTypeData.values()) {
-            // Warn if there are any missing implementation
-            if (clTypeData.getClazz() == null) {
-                LOGGER.warn("CLType {} does not have an implementation!", clTypeData);
-                continue;
-            }
-
-            CLValue<?, ?> clValue = CLTypeData.createCLValueFromCLTypeData(clTypeData);
-
-            // Correct instance type
-            assertEquals(clTypeData.getClazz(), clValue.getClass());
-
-            // Check if the correct CLType is set
-            assertEquals(clTypeData, clValue.getClType().getClTypeData());
-        }
     }
 
     @Test
@@ -628,80 +599,5 @@ public class CLValuesTests {
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
         assertEquals(inputJson, reserializedJson);
-    }
-
-    @Test
-    void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {
-        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v1.json"));
-
-        LOGGER.debug("Original JSON: {}", inputJson);
-
-        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
-
-        assertTrue(dd.getDeploy() instanceof Deploy);
-        assertTrue(dd.getExecutionResults().get(0) instanceof JsonExecutionResult);
-
-        String reserializedJson = getPrettyJson(dd);
-
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
-
-        assertEquals(inputJson, reserializedJson);
-    }
-
-    @Test
-    void test_deploy_mapping_2() throws JsonMappingException, JsonProcessingException, IOException {
-        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v2.json"));
-
-        LOGGER.debug("Original JSON: {}", inputJson);
-
-        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
-
-        assertTrue(dd.getDeploy() instanceof Deploy);
-
-        String reserializedJson = getPrettyJson(dd);
-
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
-
-        assertEquals(inputJson, reserializedJson);
-    }
-
-    /**
-     * Loads test json from resources
-     * 
-     * @param filename
-     * @return
-     * @throws IOException
-     */
-    String loadJsonFromFile(String filename) throws IOException {
-        String fileJson;
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(filename)) {
-            fileJson = new String(is.readAllBytes());
-        }
-        return fileJson;
-    }
-
-    /**
-     * Prettifies json for assertion consistency
-     * 
-     * @param json json string to prettify
-     * @return prettified json
-     * @throws JsonMappingException
-     * @throws JsonProcessingException
-     */
-    String getPrettyJson(String json) throws JsonMappingException, JsonProcessingException {
-        Object jsonObject = OBJECT_MAPPER.readValue(json, Object.class);
-        return getPrettyJson(jsonObject);
-    }
-
-    /**
-     * Prettifies json for assertion consistency
-     * 
-     * @param jsonObject object to serialize and prettify
-     * @return prettified json
-     * @throws JsonMappingException
-     * @throws JsonProcessingException
-     */
-    String getPrettyJson(Object jsonObject) throws JsonMappingException, JsonProcessingException {
-        return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
     }
 }
