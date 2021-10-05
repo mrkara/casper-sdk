@@ -46,6 +46,7 @@ import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.deploy.JsonExecutionResult;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
+import com.syntifi.casper.sdk.model.status.Status;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
@@ -614,7 +615,7 @@ public class CLValuesTests {
 
     @Test
     void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {
-        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v1.json"));
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/deploy-v1.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
@@ -632,7 +633,7 @@ public class CLValuesTests {
 
     @Test
     void test_deploy_mapping_2() throws JsonMappingException, JsonProcessingException, IOException {
-        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-deploy-v2.json"));
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/deploy-v2.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
@@ -647,6 +648,22 @@ public class CLValuesTests {
         assertEquals(inputJson, reserializedJson);
     }
 
+    @Test
+    void test_status() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/status-info.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        Status st = OBJECT_MAPPER.readValue(inputJson, Status.class);
+
+        assertTrue(st instanceof Status);
+
+        String reserializedJson = getPrettyJson(st);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
     /**
      * Loads test json from resources
      * 

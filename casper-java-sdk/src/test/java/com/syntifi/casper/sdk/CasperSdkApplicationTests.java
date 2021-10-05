@@ -25,6 +25,7 @@ import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
+import com.syntifi.casper.sdk.model.status.Status;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
@@ -249,4 +250,11 @@ class CasperSdkApplicationTests {
 		assertEquals("ccb576d6ce6dec84a551e48f0d0b7af89ddba44c7390b690036257a04a3ae9ea", tmp);
 	}
 
+	@Test
+	void getStatus() {
+		Status status = casperServiceMainnet.getStatus();
+
+		assertNotNull(status);
+		assertTrue(status instanceof Status);
+	}
 }
