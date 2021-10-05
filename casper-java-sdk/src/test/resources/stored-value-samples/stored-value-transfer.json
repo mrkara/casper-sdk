@@ -8,8 +8,8 @@
          "deploy_hash": "c22fab5364c793bb859fd259b808ea4c101be8421b7d638dc8f52490ab3c3539",
          "source": "uref-7bf84ae788429c2853a45f30f0dd02af86926972fe43acecc6c8e3a2cb6de63d-007",
          "target": "uref-7a4ca4244548d2f5842267bb82ed5b9b24c57ec1c1b7602354985e01840196b1-004",
-         "gas": "0",
-         "amount": "597335999990000"
+         "amount": "597335999990000",
+         "gas": "0"
       }
    },
    "merkle_proof": "-- erased --"

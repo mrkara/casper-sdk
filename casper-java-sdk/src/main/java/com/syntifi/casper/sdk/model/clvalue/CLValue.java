@@ -40,7 +40,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = { "bytes", "value" })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(CLValueResolver.class)
-@JsonPropertyOrder({ "cl_type", "bytes", "parsed" }) // TODO: Just for testing
+@JsonPropertyOrder({ "cl_type", "bytes", "parsed" })
 public abstract class CLValue<T, P extends CLType> implements EncodableValue, DecodableValue {
     private String bytes;
     @JsonProperty("parsed")
