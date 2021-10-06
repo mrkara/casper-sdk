@@ -42,7 +42,6 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.contract.Contract;
-import com.syntifi.casper.sdk.model.contract.ContractPackage;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
@@ -848,6 +847,14 @@ public class StoredValueTests extends AbstractJsonTests {
 
     @Test
     void test_account_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        /*
+         * curl -X POST -H 'Content-Type: application/json' -d
+         * '{"jsonrpc":"2.0","id":"1","method":"state_get_item",
+         * "params":{"state_root_hash":
+         * "09ac52260e370ed56bba5283a79b03d524b4f420bf964d7e629b0819dd1be09d", "key":
+         * "account-hash-e1431ecb9f20f2a6e6571886b1e2f9dec49ebc6b2d3d640a53530abafba9bfa1"}
+         * }' http://195.201.142.76:7777/rpc | json_pp
+         */
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-account.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -865,6 +872,14 @@ public class StoredValueTests extends AbstractJsonTests {
 
     @Test
     void test_contract_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        /*
+         * curl -X POST -H 'Content-Type: application/json' -d
+         * '{"jsonrpc":"2.0","id":"1","method":"state_get_item",
+         * "params":{"state_root_hash":
+         * "09ac52260e370ed56bba5283a79b03d524b4f420bf964d7e629b0819dd1be09d", "key":
+         * "hash-d2469afeb99130f0be7c9ce230a84149e6d756e306ef8cf5b8a49d5182e41676"} }'
+         * http://195.201.142.76:7777/rpc | json_pp
+         */
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -878,23 +893,6 @@ public class StoredValueTests extends AbstractJsonTests {
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
         assertEquals(inputJson, reserializedJson);
-    }
-
-    @Test
-    void test_contract_package_mapping() throws JsonMappingException, JsonProcessingException, IOException {
-        // String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
-
-        // LOGGER.debug("Original JSON: {}", inputJson);
-
-        // StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
-
-        // assertTrue(sv.getStoredValue().getValue() instanceof ContractPackage);
-
-        // String reserializedJson = getPrettyJson(sv);
-
-        // LOGGER.debug("Serialized JSON: {}", reserializedJson);
-
-        // assertEquals(inputJson, reserializedJson);
     }
 
     @Test

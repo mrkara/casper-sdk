@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class CasperSdkApplicationTests extends AbstractCasperJsonRpcTests {
+public class CasperSdkApplicationTests extends AbstractJsonRpcTests {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CasperSdkApplicationTests.class);
 

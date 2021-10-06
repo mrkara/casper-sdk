@@ -10,7 +10,14 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public abstract class AbstractCasperJsonRpcTests {
+/**
+ * Abstract class for testing json rpc methods
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @since 0.0.1
+ */
+public abstract class AbstractJsonRpcTests {
 	@Getter
 	@AllArgsConstructor(access = AccessLevel.PRIVATE)
 	public enum CasperNetwork {

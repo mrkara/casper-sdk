@@ -8,6 +8,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syntifi.casper.sdk.service.CasperObjectMapper;
 
+/**
+ * Abstract class for testing json mappings from sample files
+ * 
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @since 0.0.1
+ */
 public abstract class AbstractJsonTests {
 
     protected static final ObjectMapper OBJECT_MAPPER = new CasperObjectMapper();
