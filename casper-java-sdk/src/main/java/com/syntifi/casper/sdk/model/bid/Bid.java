@@ -57,7 +57,7 @@ public class Bid {
     private Map<String, Delegator> getJsonDelegators() {
         Map<String, Delegator> out = new LinkedHashMap<>();
         for (Map.Entry<PublicKey, Delegator> entry : this.delegators.entrySet()) {
-            out.put(entry.getKey().toTaggedHexString(), entry.getValue());
+            out.put(entry.getKey().getAlgoTaggedHex(), entry.getValue());
         }
         return out;
     }

@@ -1,9 +1,7 @@
 package com.syntifi.casper.sdk.model.key;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.syntifi.casper.sdk.jackson.deserializer.SignatureDeserializer;
-import com.syntifi.casper.sdk.jackson.serializer.AlgoTaggedHexSerializer;
 
 import lombok.NoArgsConstructor;
 
@@ -14,7 +12,6 @@ import lombok.NoArgsConstructor;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-@JsonSerialize(using = AlgoTaggedHexSerializer.class)
 @JsonDeserialize(using = SignatureDeserializer.class)
 @NoArgsConstructor
 public class Signature extends AbstractAlgoTaggedHex {
