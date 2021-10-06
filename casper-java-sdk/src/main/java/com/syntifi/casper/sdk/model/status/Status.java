@@ -3,6 +3,7 @@ package com.syntifi.casper.sdk.model.status;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerEntry;
@@ -65,8 +66,18 @@ public class Status {
     /**
      * The next round length if this node is a validator
      */
-    @JsonProperty("round_length")
+    @JsonIgnore
     private BigInteger roundLength;
+
+    @JsonProperty("round_length")
+    protected String getBigInteger() {
+        return this.roundLength.toString(10);
+    }
+
+    @JsonProperty("round_length")
+    protected void setBigInteger(String value) {
+        this.roundLength = new BigInteger(value, 10);
+    }
 
     /**
      *  The state root hash used at the start of the current session

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
@@ -28,8 +29,18 @@ public class MinimalBlockInfo {
     /**
      * Era ID 
      */
-    @JsonProperty("era_id")
+    @JsonIgnore
     private BigInteger eraId;
+
+    @JsonProperty("era_id")
+    protected String getBigInteger() {
+        return this.eraId.toString(10);
+    }
+
+    @JsonProperty("era_id")
+    protected void setBigInteger(String value) {
+        this.eraId = new BigInteger(value, 10);
+    }
 
     /**
      * Block Hash

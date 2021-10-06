@@ -2,6 +2,7 @@ package com.syntifi.casper.sdk.model.deploy;
 
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
@@ -20,8 +21,18 @@ public class UnbondingPurse {
     /**
      * Unbonding amount
      */
-    @JsonProperty("unbonding_amount")
+    @JsonIgnore
     private BigInteger unbondingAmount;
+   
+    @JsonProperty("unbonding_amount")
+    protected String getBigInteger() {
+        return this.unbondingAmount.toString(10);
+    }
+
+    @JsonProperty("unbonding_amount")
+    protected void setBigInteger(String value) {
+        this.unbondingAmount = new BigInteger(value, 10);
+    }
 
     /**
      * @see Uref

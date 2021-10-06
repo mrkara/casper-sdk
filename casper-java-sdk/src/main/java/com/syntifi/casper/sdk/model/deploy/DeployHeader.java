@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
@@ -45,8 +46,19 @@ public class DeployHeader {
     /**
      * Gas price 
      */
+    //@JsonIgnore
     @JsonProperty("gas_price")
     private BigInteger gasPrice; 
+
+    // @JsonProperty("gas_price")
+    // protected String getBigInteger() {
+    //     return this.gasPrice.toString(10);
+    // }
+
+    // @JsonProperty("gas_price")
+    // protected void setBigInteger(String value) {
+    //     this.gasPrice= new BigInteger(value, 10);
+    // }
 
     /**
      * Timestamp formatted as per RFC 3339

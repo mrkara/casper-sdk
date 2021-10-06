@@ -2,6 +2,7 @@ package com.syntifi.casper.sdk.model.bid;
 
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.uref.URef;
@@ -44,6 +45,16 @@ public class Delegator {
     /**
      * ammount
      */
-    @JsonProperty("staked_amount")
+    @JsonIgnore
     private BigInteger stakedAmount;
+
+    @JsonProperty("staked_amount")
+    protected String getBigInteger() {
+        return this.stakedAmount.toString(10);
+    }
+
+    @JsonProperty("staked_amount")
+    protected void setBigInteger(String value) {
+        this.stakedAmount = new BigInteger(value, 10);
+    }
 }

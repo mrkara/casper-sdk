@@ -3,6 +3,7 @@ package com.syntifi.casper.sdk.model.deploy.executionresult;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.syntifi.casper.sdk.model.deploy.ExecutionEffect;
@@ -24,8 +25,18 @@ public class Failure implements ExecutionResult{
     /**
      * The cost of executing the deploy.
      */
+    @JsonIgnore
     private BigInteger cost;
 
+    @JsonProperty("cost")
+    protected String getBigInteger() {
+        return this.cost.toString(10);
+    }
+
+    @JsonProperty("cost")
+    protected void setBigInteger(String value) {
+        this.cost = new BigInteger(value, 10);
+    }
     /**
      * @see ExecutionEffect
      */

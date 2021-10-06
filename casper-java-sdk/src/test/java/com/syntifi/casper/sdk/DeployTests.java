@@ -34,7 +34,9 @@ public class DeployTests extends AbstractJsonTests {
         // true);
     }
 
+    @Test
     void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {
+        //curl -X POST -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":"1","method":"info_get_deploy", "params":{"deploy_hash":"614030ac705ed2067fed57d30545b3a4974ffc40a1c32f72e3b7b7442d6c83a3"} }' http://nodeIP:7777/rpc 
         String inputJson = getPrettyJson(loadJsonFromFile("deploy-samples/deploy-v1.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -54,6 +56,23 @@ public class DeployTests extends AbstractJsonTests {
     @Test
     void test_deploy_mapping_2() throws JsonMappingException, JsonProcessingException, IOException {
         String inputJson = getPrettyJson(loadJsonFromFile("deploy-samples/deploy-v2.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        DeployData dd = OBJECT_MAPPER.readValue(inputJson, DeployData.class);
+
+        assertTrue(dd.getDeploy() instanceof Deploy);
+
+        String reserializedJson = getPrettyJson(dd);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_deploy_mapping_3() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("deploy-samples/deploy-v3.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 

@@ -2,6 +2,7 @@ package com.syntifi.casper.sdk.model.deploy.transform;
 
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -22,9 +23,18 @@ public class AddUInt512 implements Transform {
     /**
      * u512 
      */
-    @JsonProperty("AddUInt512")
-    private BigInteger addUInt512;
+    @JsonIgnore
+    private BigInteger u512;
 
+    @JsonProperty("AddUInt512")
+    protected String getJsonU512() {
+        return this.u512.toString(10);
+    }
+
+    @JsonProperty("AddUInt512")
+    protected void setJsonU512(String value) {
+        this.u512 = new BigInteger(value, 10);
+    }
 }
 
 

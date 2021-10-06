@@ -42,12 +42,12 @@ public class JsonDelegator {
     private BigInteger stakedAmount;
 
     @JsonProperty("staked_amount")
-    protected String getStakedAmount() {
+    protected String getBigInteger() {
         return this.stakedAmount.toString(10);
     }
 
     @JsonProperty("staked_amount")
-    protected void setStakedAmount(String value) {
+    protected void setBigInteger(String value) {
         this.stakedAmount = new BigInteger(value, 10);
     }
 

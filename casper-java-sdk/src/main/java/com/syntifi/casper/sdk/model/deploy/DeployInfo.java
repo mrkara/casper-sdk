@@ -3,6 +3,7 @@ package com.syntifi.casper.sdk.model.deploy;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.uref.URef;
 
@@ -32,14 +33,24 @@ public class DeployInfo {
     /**
      * Gas cost of executing the Deploy.
      */
+    @JsonIgnore
     private BigInteger gas;
+
+    @JsonProperty("gas")
+    protected String getBigInteger() {
+        return this.gas.toString(10);
+    }
+
+    @JsonProperty("gas")
+    protected void setBigInteger(String value) {
+        this.gas = new BigInteger(value, 10);
+    }
 
     /**
      * Source purse used for payment of the Deploy.
      * @see URef
      */
-    //TODO: CHANGE TO URef later
-    private String source;
+    private URef source;
 
     /**
      * Transfers performed by the Deploy.

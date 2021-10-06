@@ -32,12 +32,12 @@ public class JsonValidatorWeight {
     private BigInteger weight;
 
     @JsonProperty("weight")
-    protected String getWeight() {
+    protected String getBigInteger() {
         return this.weight.toString(10);
     }
 
     @JsonProperty("weight")
-    protected void setWeight(String value) {
+    protected void setBigInteger(String value) {
         this.weight = new BigInteger(value, 10);
     }
 
