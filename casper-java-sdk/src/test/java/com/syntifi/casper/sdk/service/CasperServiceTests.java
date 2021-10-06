@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -37,7 +37,6 @@ import com.syntifi.casper.sdk.model.storedvalue.StoredValueContract;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
-import com.syntifi.casper.sdk.service.CasperService;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -50,9 +49,9 @@ import org.slf4j.LoggerFactory;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class CasperSdkApplicationTests extends AbstractJsonRpcTests {
+public class CasperServiceTests extends AbstractJsonRpcTests {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(CasperSdkApplicationTests.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(CasperServiceTests.class);
 
 	/**
 	 * Test if get block matches requested by height

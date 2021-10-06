@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.model.stateroothash;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,7 +6,8 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
+import com.syntifi.casper.sdk.model.AbstractJsonTests;
+import com.syntifi.casper.sdk.model.status.StatusTests;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -25,7 +26,9 @@ public class StateRootHashTest extends AbstractJsonTests {
 
     @Test
     void test_era_end_block() throws JsonMappingException, JsonProcessingException, IOException {
-        //curl -X POST -H 'Content-Type: application/json' -d '{"id":"1132050564","jsonrpc":"2.0","method":"chain_get_state_root_hash","params":{"block_identifier":{"Height":0}}}' http://nodeIP:7777/rpc 
+        // curl -X POST -H 'Content-Type: application/json' -d
+        // '{"id":"1132050564","jsonrpc":"2.0","method":"chain_get_state_root_hash","params":{"block_identifier":{"Height":0}}}'
+        // http://nodeIP:7777/rpc
         String inputJson = getPrettyJson(loadJsonFromFile("block-samples/state-root-hash-block0.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);

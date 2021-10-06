@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.model.clvalue.encdec;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,8 +24,6 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
-import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
-import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

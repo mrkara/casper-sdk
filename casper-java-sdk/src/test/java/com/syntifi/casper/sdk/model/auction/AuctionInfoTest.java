@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.model.auction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,33 +7,33 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.syntifi.casper.sdk.model.account.Account;
-import com.syntifi.casper.sdk.model.account.AccountData;
+import com.syntifi.casper.sdk.model.AbstractJsonTests;
+import com.syntifi.casper.sdk.model.status.StatusTests;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Unit tests for {@link AccountData}
+ * Unit tests for {@link AuctionData}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class AccountInfoTests extends AbstractJsonTests {
+public class AuctionInfoTest extends AbstractJsonTests {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
 
     @Test
     void test_status() throws JsonMappingException, JsonProcessingException, IOException {
-        String inputJson = getPrettyJson(loadJsonFromFile("account-info-samples/account-info.json"));
+        String inputJson = getPrettyJson(loadJsonFromFile("auction-info-samples/auction-info.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
-        AccountData ad = OBJECT_MAPPER.readValue(inputJson, AccountData.class);
+        AuctionData ad = OBJECT_MAPPER.readValue(inputJson, AuctionData.class);
 
-        assertTrue(ad.getAccount() instanceof Account);
+        assertTrue(ad.getAuctionState() instanceof AuctionState);
 
         String reserializedJson = getPrettyJson(ad);
 

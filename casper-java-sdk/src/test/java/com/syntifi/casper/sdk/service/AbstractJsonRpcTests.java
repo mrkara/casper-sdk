@@ -1,8 +1,6 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.service;
 
 import java.net.MalformedURLException;
-
-import com.syntifi.casper.sdk.service.CasperService;
 
 import org.junit.jupiter.api.BeforeAll;
 
@@ -37,5 +35,5 @@ public abstract class AbstractJsonRpcTests {
 		casperServiceTestnet = CasperService.usingPeer(CasperNetwork.TEST_NET.getIp(),
 				CasperNetwork.TEST_NET.getPort());
 	}
-    
+
 }

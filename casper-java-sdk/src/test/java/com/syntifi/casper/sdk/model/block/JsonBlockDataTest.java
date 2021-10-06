@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.model.block;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.syntifi.casper.sdk.model.block.JsonBlock;
-import com.syntifi.casper.sdk.model.block.JsonBlockData;
+import com.syntifi.casper.sdk.model.AbstractJsonTests;
+import com.syntifi.casper.sdk.model.status.StatusTests;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -27,7 +27,9 @@ public class JsonBlockDataTest extends AbstractJsonTests {
 
     @Test
     void test_era_end_block() throws JsonMappingException, JsonProcessingException, IOException {
-        //curl -X POST -H 'Content-Type: application/json' -d '{"id":"0","jsonrpc":"2.0","method":"chain_get_block", "params":{"block_identifier":{"Height":"246762"}}}' http://nodeIP:7777/rpc 
+        // curl -X POST -H 'Content-Type: application/json' -d
+        // '{"id":"0","jsonrpc":"2.0","method":"chain_get_block",
+        // "params":{"block_identifier":{"Height":"246762"}}}' http://nodeIP:7777/rpc
         String inputJson = getPrettyJson(loadJsonFromFile("block-samples/block-end-era.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);

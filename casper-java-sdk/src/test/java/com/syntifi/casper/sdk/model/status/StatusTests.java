@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.model.status;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,8 +7,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.syntifi.casper.sdk.model.status.MinimalBlockInfo;
-import com.syntifi.casper.sdk.model.status.Status;
+import com.syntifi.casper.sdk.model.AbstractJsonTests;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

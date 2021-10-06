@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.model.storedvalue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,6 +16,7 @@ import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
+import com.syntifi.casper.sdk.model.AbstractJsonTests;
 import com.syntifi.casper.sdk.model.account.Account;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
@@ -44,7 +45,6 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.contract.Contract;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
-import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
@@ -52,7 +52,6 @@ import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 import org.javatuples.Unit;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,13 +66,6 @@ import org.slf4j.LoggerFactory;
 public class StoredValueTests extends AbstractJsonTests {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StoredValueTests.class);
-
-    @BeforeAll
-    public static void init() {
-        // OBJECT_MAPPER.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
-        // OBJECT_MAPPER.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS,
-        // true);
-    }
 
     @Test
     void test_any_clvalue_mapping()
