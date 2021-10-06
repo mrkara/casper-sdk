@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk;
+package com.syntifi.casper.sdk.model.deploy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,11 +7,8 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.syntifi.casper.sdk.model.deploy.Deploy;
-import com.syntifi.casper.sdk.model.deploy.DeployData;
-import com.syntifi.casper.sdk.model.deploy.JsonExecutionResult;
+import com.syntifi.casper.sdk.model.AbstractJsonTests;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +23,6 @@ import org.slf4j.LoggerFactory;
 public class DeployTests extends AbstractJsonTests {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeployTests.class);
-
-    @BeforeAll
-    public static void init() {
-        // OBJECT_MAPPER.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
-        // OBJECT_MAPPER.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS,
-        // true);
-    }
 
     @Test
     void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException {
