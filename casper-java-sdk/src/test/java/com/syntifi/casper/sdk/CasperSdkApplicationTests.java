@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,14 +39,9 @@ import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 import com.syntifi.casper.sdk.service.CasperService;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Unit tests for {@link CasperService}
@@ -56,28 +50,9 @@ import lombok.Getter;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-class CasperSdkApplicationTests {
-	@Getter
-	@AllArgsConstructor(access = AccessLevel.PRIVATE)
-	public enum CasperNetwork {
-		MAIN_NET("195.201.142.76", 7777), TEST_NET("144.76.97.151", 7777);
-
-		private String ip;
-		private int port;
-	}
+public class CasperSdkApplicationTests extends AbstractCasperJsonRpcTests {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CasperSdkApplicationTests.class);
-
-	private static CasperService casperServiceMainnet;
-	private static CasperService casperServiceTestnet;
-
-	@BeforeAll
-	public static void setUp() throws MalformedURLException {
-		casperServiceMainnet = CasperService.usingPeer(CasperNetwork.MAIN_NET.getIp(),
-				CasperNetwork.MAIN_NET.getPort());
-		casperServiceTestnet = CasperService.usingPeer(CasperNetwork.TEST_NET.getIp(),
-				CasperNetwork.TEST_NET.getPort());
-	}
 
 	/**
 	 * Test if get block matches requested by height
@@ -287,31 +262,31 @@ class CasperSdkApplicationTests {
 	@Test
 	void getAccountStateInfoByBlockHash() {
 		AccountData account = casperServiceMainnet.getStateAccountInfo(
-			"012dbde8cac6493c07c5548edc89ab7803c376278ec91757475867324d99f5f4dd",
-			new BlockIdentifierByHash("721767b0bcf867ccab81b3a47b1443bbef38b2ee9e2b791288f6e2a427181931"));
+				"012dbde8cac6493c07c5548edc89ab7803c376278ec91757475867324d99f5f4dd",
+				new BlockIdentifierByHash("721767b0bcf867ccab81b3a47b1443bbef38b2ee9e2b791288f6e2a427181931"));
 
 		assertNotNull(account);
 		assertTrue(account.getAccount() instanceof Account);
 		assertEquals("account-hash-f1075fce3b8cd4eab748b8705ca02444a5e35c0248662649013d8a5cb2b1a87c",
-			account.getAccount().getHash());
+				account.getAccount().getHash());
 	}
 
 	@Test
 	void getAccountStateInfoByBlockHeight() {
 		AccountData account = casperServiceMainnet.getStateAccountInfo(
-			"012dbde8cac6493c07c5548edc89ab7803c376278ec91757475867324d99f5f4dd",
-			new BlockIdentifierByHeight(236509));
+				"012dbde8cac6493c07c5548edc89ab7803c376278ec91757475867324d99f5f4dd",
+				new BlockIdentifierByHeight(236509));
 
 		assertNotNull(account);
 		assertTrue(account.getAccount() instanceof Account);
 		assertEquals("account-hash-f1075fce3b8cd4eab748b8705ca02444a5e35c0248662649013d8a5cb2b1a87c",
-			account.getAccount().getHash());
+				account.getAccount().getHash());
 	}
 
 	@Test
 	void getAuctionInfoByBlockHash() {
 		AuctionData auction = casperServiceMainnet.getStateAuctionInfo(
-			new BlockIdentifierByHash("721767b0bcf867ccab81b3a47b1443bbef38b2ee9e2b791288f6e2a427181931"));
+				new BlockIdentifierByHash("721767b0bcf867ccab81b3a47b1443bbef38b2ee9e2b791288f6e2a427181931"));
 
 		assertNotNull(auction);
 		assertTrue(auction.getAuctionState() instanceof AuctionState);
@@ -320,8 +295,7 @@ class CasperSdkApplicationTests {
 
 	@Test
 	void getAuctionInfoByBlockHeight() {
-		AuctionData auction = casperServiceMainnet.getStateAuctionInfo(
-			new BlockIdentifierByHeight(236509));
+		AuctionData auction = casperServiceMainnet.getStateAuctionInfo(new BlockIdentifierByHeight(236509));
 
 		assertNotNull(auction);
 		assertTrue(auction.getAuctionState() instanceof AuctionState);

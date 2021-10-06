@@ -2,8 +2,11 @@ package com.syntifi.casper.sdk.identifier.block;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Identifier class passed to service
@@ -15,7 +18,9 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-@AllArgsConstructor
+@Builder
+@NoArgsConstructor //(access = AccessLevel.PRIVATE)
+@AllArgsConstructor //(access = AccessLevel.PRIVATE)
 public class BlockIdentifierByHeight {
 
     /**

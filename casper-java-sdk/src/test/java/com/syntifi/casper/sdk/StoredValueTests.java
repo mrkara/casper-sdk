@@ -42,6 +42,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.contract.Contract;
+import com.syntifi.casper.sdk.model.contract.ContractPackage;
 import com.syntifi.casper.sdk.model.key.Algorithm;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
@@ -877,6 +878,23 @@ public class StoredValueTests extends AbstractJsonTests {
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
         assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_contract_package_mapping() throws JsonMappingException, JsonProcessingException, IOException {
+        // String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract.json"));
+
+        // LOGGER.debug("Original JSON: {}", inputJson);
+
+        // StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+
+        // assertTrue(sv.getStoredValue().getValue() instanceof ContractPackage);
+
+        // String reserializedJson = getPrettyJson(sv);
+
+        // LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        // assertEquals(inputJson, reserializedJson);
     }
 
     @Test
