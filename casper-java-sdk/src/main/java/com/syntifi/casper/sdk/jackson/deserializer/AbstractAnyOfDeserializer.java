@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.jackson;
+package com.syntifi.casper.sdk.jackson.deserializer;
 
 import java.io.IOException;
 
