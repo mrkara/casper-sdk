@@ -26,7 +26,7 @@
     },
     "next_upgrade" : null,
     "our_public_signing_key" : "0137e13b86e8d02ba97ef24d0bfab2385f8249b8c4cf6a8e905acccdfe3b9e0e58",
-    "round_length" : null,
-    "starting_state_root_hash" : "51a1ebbd43b98dd393c9aeff2cba44cf770221520eeb9dd24b505b96cd78a8a3"
+    "starting_state_root_hash" : "51a1ebbd43b98dd393c9aeff2cba44cf770221520eeb9dd24b505b96cd78a8a3",
+    "round_length" : null
  }
  

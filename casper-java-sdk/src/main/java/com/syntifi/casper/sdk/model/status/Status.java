@@ -71,12 +71,12 @@ public class Status {
 
     @JsonProperty("round_length")
     protected String getBigInteger() {
-        return this.roundLength.toString(10);
+        return this.roundLength!=null ? this.roundLength.toString(10) : null;
     }
 
     @JsonProperty("round_length")
     protected void setBigInteger(String value) {
-        this.roundLength = new BigInteger(value, 10);
+        this.roundLength = value!=null ? new BigInteger(value, 10) : null;
     }
 
     /**
