@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.jackson;
+package com.syntifi.casper.sdk.jackson.resolver;
 
 import java.util.Collection;
 
@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
+import com.syntifi.casper.sdk.jackson.deserializer.StoredValueDeserializer;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 
 /**

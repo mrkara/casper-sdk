@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.jackson.CLTypeResolver;
+import com.syntifi.casper.sdk.jackson.resolver.CLTypeResolver;
 
 import lombok.Getter;
 import lombok.Setter;
