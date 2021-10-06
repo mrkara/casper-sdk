@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
 import com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
-import com.syntifi.casper.sdk.jackson.AbstractAnyOfDeserializer;
 import com.syntifi.casper.sdk.jackson.resolver.CLValueResolver;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValue;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueTypeData;
