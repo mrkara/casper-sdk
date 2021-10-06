@@ -2,6 +2,7 @@ package com.syntifi.casper.sdk.model.block;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.era.JsonEraEnd;
 
@@ -62,7 +63,9 @@ public class JsonBlockHeader {
     /**
      * Timestamp formatted as per RFC 3339
      */
-    private Date timestamp;
+    @JsonProperty("timestamp")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    private Date timeStamp;
 
     /**
      * Era ID newtype

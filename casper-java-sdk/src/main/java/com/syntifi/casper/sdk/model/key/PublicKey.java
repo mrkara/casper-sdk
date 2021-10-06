@@ -5,9 +5,7 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.syntifi.casper.sdk.jackson.deserializer.PublicKeyDeserializer;
-import com.syntifi.casper.sdk.jackson.serializer.AlgoTaggedHexSerializer;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 
 import lombok.NoArgsConstructor;
@@ -19,12 +17,10 @@ import lombok.NoArgsConstructor;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-@JsonSerialize(using = AlgoTaggedHexSerializer.class)
 @JsonDeserialize(using = PublicKeyDeserializer.class)
 @NoArgsConstructor
 public class PublicKey extends AbstractAlgoTaggedHex {
 
-    @JsonCreator
     public static PublicKey fromTaggedHexString(String hex) throws NoSuchAlgorithmException{
         PublicKey object = new PublicKey();
         byte[] bytes = StringByteHelper.hexStringToByteArray(hex);
@@ -33,11 +29,11 @@ public class PublicKey extends AbstractAlgoTaggedHex {
         return object;
     }
 
-    public String toTaggedHexString(){
-        byte[] algo = new byte[1];
-        algo[0] = this.getAlgorithm().getTag();
-        return StringByteHelper.convertBytesToHex(algo) + 
-            StringByteHelper.convertBytesToHex(this.getKey()); 
+    @JsonCreator
+    public void createPublicKey(String key) throws NoSuchAlgorithmException {
+        PublicKey obj = PublicKey.fromTaggedHexString(key);
+        this.setAlgorithm(obj.getAlgorithm());
+        this.setKey(obj.getKey());
     }
 
 }

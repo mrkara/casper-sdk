@@ -9,6 +9,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
 import com.syntifi.casper.sdk.model.auction.AuctionState;
+import com.syntifi.casper.sdk.model.block.JsonBlock;
+import com.syntifi.casper.sdk.model.block.JsonBlockData;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,13 +18,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Unit tests for {@link AuctionData}
+ * Unit tests for {@link JsonBlockDataTest}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class AuctionInfoTest extends AbstractJsonTests {
+public class JsonBlockDataTest extends AbstractJsonTests {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
 
@@ -34,16 +36,16 @@ public class AuctionInfoTest extends AbstractJsonTests {
     }
 
     @Test
-    void test_status() throws JsonMappingException, JsonProcessingException, IOException {
-        String inputJson = getPrettyJson(loadJsonFromFile("auction-info-samples/auction-info.json"));
+    void test_era_end_block() throws JsonMappingException, JsonProcessingException, IOException {
+        String inputJson = getPrettyJson(loadJsonFromFile("block-samples/block-end-era.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
-        AuctionData ad = OBJECT_MAPPER.readValue(inputJson, AuctionData.class);
+        JsonBlockData block = OBJECT_MAPPER.readValue(inputJson, JsonBlockData.class);
 
-        assertTrue(ad.getAuctionState() instanceof AuctionState);
+        assertTrue(block.getBlock() instanceof JsonBlock);
 
-        String reserializedJson = getPrettyJson(ad);
+        String reserializedJson = getPrettyJson(block);
 
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
