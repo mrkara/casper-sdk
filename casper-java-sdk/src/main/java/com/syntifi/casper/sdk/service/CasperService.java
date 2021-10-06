@@ -13,6 +13,7 @@ import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.model.account.AccountData;
+import com.syntifi.casper.sdk.model.auction.AuctionData;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.peer.PeerData;
@@ -163,15 +164,31 @@ public interface CasperService {
      * Returns an Account from the network
      * 
      * @param publicKey
-     * @param hash identifier Block's height
+     * @param hash identifier Block's hash
      * @return Oject holding the api version, the account and the merkle proof
      */ 
     @JsonRpcMethod("state_get_account_info")
     public AccountData getStateAccountInfo(@JsonRpcParam("public_key") String publicKey,
         @JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
 
-    // @JsonRpcMethod("state_get_auction_info")
-    // public CasperStatus getValidatorsInfo();
+    /**
+     * Returns the Auction info for a given block
+     *  
+     * @param hash identifier Block's hash
+     * @return
+     */ 
+    @JsonRpcMethod("state_get_auction_info")
+    public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
+
+
+    /**
+     * Returns the Auction info for a given block
+     * 
+     * @param height identifier Block's height
+     * @return Object holding the api version and auction state
+     */
+    @JsonRpcMethod("state_get_auction_info")
+    public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifierByHeight height);
 
     /**
      * Builds a CasperService for the node ip/port pair

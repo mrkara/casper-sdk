@@ -17,13 +17,12 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-public class JsonValidatorWeight {
+public class ValidatorWeight {
 
     /**
      * @see PublicKey
      */
-    @JsonProperty("public_key")
-    private PublicKey publicKey;
+    private PublicKey validator;
 
     /**
      * Decimal representation of a 512-bit integer 
@@ -43,3 +42,4 @@ public class JsonValidatorWeight {
 
 
 }
+

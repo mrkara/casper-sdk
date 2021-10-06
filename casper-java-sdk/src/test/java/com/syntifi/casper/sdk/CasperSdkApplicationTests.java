@@ -15,6 +15,8 @@ import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.model.account.Account;
 import com.syntifi.casper.sdk.model.account.AccountData;
+import com.syntifi.casper.sdk.model.auction.AuctionData;
+import com.syntifi.casper.sdk.model.auction.AuctionState;
 import com.syntifi.casper.sdk.model.block.JsonBlock;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
@@ -304,5 +306,25 @@ class CasperSdkApplicationTests {
 		assertTrue(account.getAccount() instanceof Account);
 		assertEquals("account-hash-f1075fce3b8cd4eab748b8705ca02444a5e35c0248662649013d8a5cb2b1a87c",
 			account.getAccount().getHash());
+	}
+
+	@Test
+	void getAuctionInfoByBlockHash() {
+		AuctionData auction = casperServiceMainnet.getStateAuctionInfo(
+			new BlockIdentifierByHash("721767b0bcf867ccab81b3a47b1443bbef38b2ee9e2b791288f6e2a427181931"));
+
+		assertNotNull(auction);
+		assertTrue(auction.getAuctionState() instanceof AuctionState);
+		assertEquals(236509, auction.getAuctionState().getHeight());
+	}
+
+	@Test
+	void getAuctionInfoByBlockHeight() {
+		AuctionData auction = casperServiceMainnet.getStateAuctionInfo(
+			new BlockIdentifierByHeight(236509));
+
+		assertNotNull(auction);
+		assertTrue(auction.getAuctionState() instanceof AuctionState);
+		assertEquals(236509, auction.getAuctionState().getHeight());
 	}
 }

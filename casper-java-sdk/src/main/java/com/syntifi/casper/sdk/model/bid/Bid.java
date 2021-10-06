@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.bid;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.syntifi.casper.sdk.model.key.PublicKey;
+import com.syntifi.casper.sdk.model.uref.URef;
 
 import lombok.Data;
 
@@ -26,9 +27,8 @@ public class Bid {
     /**
      * The purse that was used for bonding.
      */
-    // TODO: convert to URef
     @JsonProperty("bonding_purse")
-    private String bondingPurse;
+    private URef bondingPurse;
 
     /**
      * Delegation rate
@@ -70,8 +70,18 @@ public class Bid {
     /**
      * The amount of tokens staked by a validator (not including delegators).
      */
-    @JsonProperty("staked_amount")
+    @JsonIgnore
     private BigInteger stakedAmount;
+
+    @JsonProperty("staked_amount")
+    protected String getStakedAmount() {
+        return this.stakedAmount.toString(10);
+    }
+
+    @JsonProperty("staked_amount")
+    protected void setStakedAmount(String value) {
+        this.stakedAmount = new BigInteger(value, 10);
+    }
 
     /**
      * Validator PublicKey

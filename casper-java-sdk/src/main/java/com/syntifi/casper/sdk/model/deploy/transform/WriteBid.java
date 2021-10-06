@@ -2,7 +2,7 @@ package com.syntifi.casper.sdk.model.deploy.transform;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.syntifi.casper.sdk.model.deploy.Bid;
+import com.syntifi.casper.sdk.model.bid.Bid;
 
 import lombok.Data;
 

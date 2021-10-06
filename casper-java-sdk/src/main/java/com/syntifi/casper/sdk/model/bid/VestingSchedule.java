@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.deploy;
+package com.syntifi.casper.sdk.model.bid;
 
 import java.math.BigInteger;
 import java.util.List;

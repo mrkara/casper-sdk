@@ -19,9 +19,9 @@ public class JsonEraEnd {
     private JsonEraReport eraReport;
 
     /**
-     * List of @see JsonValidatorWeight
+     * @see JsonValidatorWeight
      */
     @JsonProperty("next_era_validator_weights")
-    private List<JsonValidatorWeight> nextEraValidatorWeights;
+    private List<ValidatorWeight> nextEraValidatorWeights;
 
 }

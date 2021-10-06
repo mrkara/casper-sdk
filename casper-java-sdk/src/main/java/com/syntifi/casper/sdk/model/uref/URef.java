@@ -1,8 +1,15 @@
 package com.syntifi.casper.sdk.model.uref;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 
@@ -25,19 +32,37 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class URef {
+    @JsonIgnore
     byte[] address;
+    
+    @JsonIgnore
     URefAccessRight accessRight;
 
-    @JsonCreator
     public static URef fromString(String uref) throws IOException, DynamicInstanceException {
         String[] urefParts = uref.split("-");
-        if (!urefParts[0].equals("uref-") || urefParts.length!=3){
+        if (!urefParts[0].equals("uref") || urefParts.length!=3){
             throw new IOException("Not a valid Uref");
         }
         byte[] address = StringByteHelper.hexStringToByteArray(urefParts[1]); 
+        byte[] accessRightByte = StringByteHelper.hexStringToByteArray(
+            urefParts[2].substring(1));
         URefAccessRight accessRight = URefAccessRight.getTypeBySerializationTag(
-            StringByteHelper.hexStringToByteArray(urefParts[2])[0]);
+            accessRightByte[accessRightByte.length-1]);
         return new URef(address, accessRight);
 
     }
+
+    @JsonCreator
+    public void createURef(String uref) throws IOException, DynamicInstanceException {
+        URef obj = URef.fromString(uref);
+        this.accessRight = obj.getAccessRight();
+        this.address = obj.getAddress();
+    }
+
+    @JsonValue
+    public String getJsonURef(){
+        return "uref-" + StringByteHelper.convertBytesToHex(this.address) + "-0" + 
+                StringByteHelper.convertBytesToHex(new byte[] {this.accessRight.serializationTag});
+    }
+
 }
