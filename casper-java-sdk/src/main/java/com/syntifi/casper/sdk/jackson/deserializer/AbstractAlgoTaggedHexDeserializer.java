@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.syntifi.casper.sdk.exception.DeserializationException;
+import com.syntifi.casper.sdk.exception.InvalidByteStringException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.key.AbstractAlgoTaggedHex;
 import com.syntifi.casper.sdk.model.key.Algorithm;
@@ -33,7 +34,7 @@ public abstract class AbstractAlgoTaggedHexDeserializer<T extends AbstractAlgoTa
             byte[] bytes = StringByteHelper.hexStringToByteArray(node.asText());
             object.setAlgorithm(Algorithm.getByTag(bytes[0]));
             object.setKey(Arrays.copyOfRange(bytes, 1, bytes.length));
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException | InvalidByteStringException e) {
             throw new DeserializationException("Problem deserializing Algorithm tagged hexa string", e);
         }
 

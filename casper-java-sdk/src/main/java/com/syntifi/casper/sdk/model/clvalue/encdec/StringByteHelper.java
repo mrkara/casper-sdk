@@ -1,5 +1,8 @@
 package com.syntifi.casper.sdk.model.clvalue.encdec;
 
+import com.syntifi.casper.sdk.exception.InvalidByteStringException;
+import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +42,11 @@ public final class StringByteHelper {
      * @param hexString the hex-encoded {@link String} to decode
      * @return decoded array of bytes
      */
-    public static byte[] hexStringToByteArray(String hexString) {
+    public static byte[] hexStringToByteArray(String hexString) throws InvalidByteStringException {
         int len = hexString.length();
+        if (len % 2 != 0) {
+            throw new InvalidByteStringException("Hexstring must have an even number of hex digits.");
+        }
         byte[] bytes = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
             bytes[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)

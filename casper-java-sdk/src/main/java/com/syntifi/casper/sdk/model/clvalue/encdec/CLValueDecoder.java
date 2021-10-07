@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 import com.syntifi.casper.sdk.exception.BufferEndCLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
+import com.syntifi.casper.sdk.exception.InvalidByteStringException;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
@@ -52,8 +53,9 @@ public class CLValueDecoder extends ByteArrayInputStream {
      * Initializes buffer with decoded bytes from hex-encoded {@link String}
      * 
      * @param hexString hex-encoded {@link String} of a CLValue
+     * @throws InvalidByteStringException
      */
-    public CLValueDecoder(String hexString) {
+    public CLValueDecoder(String hexString) throws InvalidByteStringException {
         super(StringByteHelper.hexStringToByteArray(hexString));
 
         LOGGER.debug(LOG_BUFFER_INIT_MESSAGE_STRING, hexString);
@@ -140,7 +142,7 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(buf)) != numberByteLength) {
-            if (this.buf.length > 0 && this.pos == this.buf.length) {
+            if (readBytes == 0 && this.buf.length > 0 && this.pos == this.buf.length) {
                 throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
             } else {
                 throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
@@ -418,7 +420,7 @@ public class CLValueDecoder extends ByteArrayInputStream {
         clValue.setValue(string);
     }
 
-    public void readPublicKey(CLValuePublicKey clvalue) throws NoSuchAlgorithmException {
+    public void readPublicKey(CLValuePublicKey clvalue) throws NoSuchAlgorithmException, InvalidByteStringException {
         byte[] key = this.readAllBytes();
         clvalue.setBytes(StringByteHelper.convertBytesToHex(key));
         clvalue.setValue(PublicKey.fromTaggedHexString(clvalue.getBytes()));

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.exception.InvalidByteStringException;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.uref.URef;
 
@@ -45,7 +46,8 @@ public class Bid {
     private Map<PublicKey, Delegator> delegators = new LinkedHashMap<>();
 
     @JsonSetter("delegators")
-    private void setJsonDelegators(Map<String, Delegator> node) throws NoSuchAlgorithmException {
+    private void setJsonDelegators(Map<String, Delegator> node)
+            throws NoSuchAlgorithmException, InvalidByteStringException {
         for (Map.Entry<String, Delegator> entry : node.entrySet()) {
             PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
             Delegator delegator = entry.getValue();

@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.syntifi.casper.sdk.exception.InvalidByteStringException;
 import com.syntifi.casper.sdk.jackson.deserializer.PublicKeyDeserializer;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 
@@ -21,7 +22,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PublicKey extends AbstractAlgoTaggedHex {
 
-    public static PublicKey fromTaggedHexString(String hex) throws NoSuchAlgorithmException{
+    public static PublicKey fromTaggedHexString(String hex)
+            throws NoSuchAlgorithmException, InvalidByteStringException {
         PublicKey object = new PublicKey();
         byte[] bytes = StringByteHelper.hexStringToByteArray(hex);
         object.setAlgorithm(Algorithm.getByTag(bytes[0]));
@@ -30,7 +32,7 @@ public class PublicKey extends AbstractAlgoTaggedHex {
     }
 
     @JsonCreator
-    public void createPublicKey(String key) throws NoSuchAlgorithmException {
+    public void createPublicKey(String key) throws NoSuchAlgorithmException, InvalidByteStringException {
         PublicKey obj = PublicKey.fromTaggedHexString(key);
         this.setAlgorithm(obj.getAlgorithm());
         this.setKey(obj.getKey());

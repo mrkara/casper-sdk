@@ -1,6 +1,7 @@
 package com.syntifi.casper.sdk.model.storedvalue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
+import com.syntifi.casper.sdk.exception.InvalidByteStringException;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.model.AbstractJsonTests;
 import com.syntifi.casper.sdk.model.account.Account;
@@ -540,6 +542,32 @@ public class StoredValueTests extends AbstractJsonTests {
         LOGGER.debug("Serialized JSON: {}", reserializedJson);
 
         assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_fixedlist_i32_odd_byte_length_clvalue_mapping() throws IOException, CLValueEncodeException,
+            DynamicInstanceException, NoSuchTypeException, CLValueDecodeException {
+        String inputJson = getPrettyJson(
+                loadJsonFromFile("stored-value-samples/stored-value-fixedlist-i32-odd-byte-length.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        Throwable exception = assertThrows(JsonMappingException.class,
+                () -> OBJECT_MAPPER.readValue(inputJson, StoredValueData.class));
+        assertEquals(InvalidByteStringException.class, exception.getCause().getClass());
+    }
+
+    @Test
+    void test_fixedlist_i32_wrong_byte_length_clvalue_mapping() throws IOException, CLValueEncodeException,
+            DynamicInstanceException, NoSuchTypeException, CLValueDecodeException {
+        String inputJson = getPrettyJson(
+                loadJsonFromFile("stored-value-samples/stored-value-fixedlist-i32-wrong-byte-length.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        Throwable exception = assertThrows(JsonMappingException.class,
+                () -> OBJECT_MAPPER.readValue(inputJson, StoredValueData.class));
+        assertEquals(CLValueDecodeException.class, exception.getCause().getClass());
     }
 
     @Test
