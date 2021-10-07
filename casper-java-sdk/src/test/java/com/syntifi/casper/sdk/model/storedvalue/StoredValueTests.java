@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -70,6 +71,9 @@ public class StoredValueTests extends AbstractJsonTests {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StoredValueTests.class);
 
+    private static final String API_VERSION = "1.3.2";
+    private static final String MERKLE_PROOF = "-- erased --";
+
     @Test
     void test_any_clvalue_mapping()
             throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
@@ -80,19 +84,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueAny
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueAny);
-        CLValueAny expected = new CLValueAny("Any Object Test");
+        CLValueAny expectedClValue = new CLValueAny("Any Object Test");
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -105,19 +117,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueU8
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU8);
-        CLValueU8 expected = new CLValueU8((byte) 1);
+        CLValueU8 expectedClValue = new CLValueU8((byte) 1);
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -130,19 +150,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueU32
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU32);
-        CLValueU32 expected = new CLValueU32(4294967295L);
+        CLValueU32 expectedClValue = new CLValueU32(4294967295L);
+        expectedClValue.setParsed(expectedClValue.getValue().toString());
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -155,19 +184,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueU64
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU64);
-        CLValueU64 expected = new CLValueU64(new BigInteger("18446744073709551615", 10));
+        CLValueU64 expectedClValue = new CLValueU64(new BigInteger("18446744073709551615", 10));
+        expectedClValue.setParsed(expectedClValue.getValue().toString(10));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -180,19 +218,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueU128
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU128);
-        CLValueU128 expected = new CLValueU128(new BigInteger("340282366920938463463374607431768211455", 10));
+        CLValueU128 expectedClValue = new CLValueU128(new BigInteger("340282366920938463463374607431768211455", 10));
+        expectedClValue.setParsed(expectedClValue.getValue().toString(10));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -205,20 +252,29 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueU256
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueU256);
-        CLValueU256 expected = new CLValueU256(
+        CLValueU256 expectedClValue = new CLValueU256(
                 new BigInteger("115792089237316195423570985008687907853269984665640564039457584007913129639935", 10));
+        expectedClValue.setParsed(expectedClValue.getValue().toString(10));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -231,20 +287,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueI64
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueI64);
-        CLValueI64 expected = new CLValueI64(9223372036854775807L);
-        expected.setParsed(expected.getValue().toString());
+        CLValueI64 expectedClValue = new CLValueI64(9223372036854775807L);
+        expectedClValue.setParsed(expectedClValue.getValue().toString());
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -257,19 +321,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be string
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueString);
-        CLValueString expected = new CLValueString("the string");
+        CLValueString expectedClValue = new CLValueString("the string");
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -282,19 +354,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple1
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple1);
-        CLValueTuple1 expected = new CLValueTuple1(new Unit<>(new CLValueBool(true)));
+        CLValueTuple1 expectedClValue = new CLValueTuple1(new Unit<>(new CLValueBool(true)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -307,19 +387,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple2
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple2);
-        CLValueTuple2 expected = new CLValueTuple2(new Pair<>(new CLValueI32(1), new CLValueString("Hello, World!")));
+        CLValueTuple2 expectedClValue = new CLValueTuple2(
+                new Pair<>(new CLValueI32(1), new CLValueString("Hello, World!")));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -333,20 +422,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
-        CLValueTuple3 expected = new CLValueTuple3(
+        CLValueTuple3 expectedClValue = new CLValueTuple3(
                 new Triplet<>(new CLValueU8((byte) 1), new CLValueString("Hello, World!"), new CLValueBool(true)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -360,20 +457,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
-        CLValueTuple3 expected = new CLValueTuple3(
+        CLValueTuple3 expectedClValue = new CLValueTuple3(
                 new Triplet<>(new CLValueI32(1), new CLValueString("Hello, World!"), new CLValueBool(true)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -387,21 +492,29 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
-        CLValueTuple3 expected = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
+        CLValueTuple3 expectedClValue = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
                 new CLValueTuple1(new Unit<CLValueBool>(new CLValueBool(true))), new CLValueString("Hello, World!"),
                 new CLValueBool(true)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -415,24 +528,32 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
-        CLValueTuple3 expected = new CLValueTuple3(new Triplet<CLValueTuple2, CLValueTuple1, CLValueTuple1>(
+        CLValueTuple3 expectedClValue = new CLValueTuple3(new Triplet<CLValueTuple2, CLValueTuple1, CLValueTuple1>(
                 new CLValueTuple2(new Pair<CLValueTuple1, CLValueU512>(
                         new CLValueTuple1(new Unit<CLValueU512>(new CLValueU512(BigInteger.valueOf(2)))),
                         new CLValueU512(BigInteger.valueOf(2)))),
                 new CLValueTuple1(new Unit<CLValueString>(new CLValueString("Hello, World!"))),
                 new CLValueTuple1(new Unit<CLValueBool>(new CLValueBool(true)))));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -446,24 +567,32 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueTuple3
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueTuple3);
-        CLValueTuple3 expected = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
+        CLValueTuple3 expectedClValue = new CLValueTuple3(new Triplet<CLValueTuple1, CLValueString, CLValueBool>(
                 new CLValueTuple1(new Unit<CLValueU512>(new CLValueU512(new BigInteger("123456789101112131415", 10)))),
                 new CLValueString("Hello, World!"), new CLValueBool(true)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
         String serializedExpected = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
         LOGGER.debug("Serialized Expected JSON: {}", serializedExpected);
 
-        assertEquals(inputJson, reserializedJson);
-        // assertEquals(serializedExpected, reserializedJson);
+        assertEquals(inputJson, expectedJson);
+        // assertEquals(serializedExpected, expectedJson);
     }
 
     @Test
@@ -476,19 +605,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueList
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueList);
-        CLValueList expected = new CLValueList(Arrays.asList(new CLValueI32(1), new CLValueI32(2), new CLValueI32(3)));
+        CLValueList expectedClValue = new CLValueList(
+                Arrays.asList(new CLValueI32(1), new CLValueI32(2), new CLValueI32(3)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -501,20 +639,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueList
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueFixedList);
-        CLValueFixedList expected = new CLValueFixedList(
+        CLValueFixedList expectedClValue = new CLValueFixedList(
                 Arrays.asList(new CLValueI32(1), new CLValueI32(2), new CLValueI32(3)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -528,20 +674,29 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueList
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueFixedList);
-        CLValueFixedList expected = new CLValueFixedList(Arrays.asList(new CLValueTuple1(new Unit<>(new CLValueI32(1))),
-                new CLValueTuple1(new Unit<>(new CLValueI32(2))), new CLValueTuple1(new Unit<>(new CLValueI32(3)))));
+        CLValueFixedList expectedClValue = new CLValueFixedList(Arrays.asList(
+                new CLValueTuple1(new Unit<>(new CLValueI32(1))), new CLValueTuple1(new Unit<>(new CLValueI32(2))),
+                new CLValueTuple1(new Unit<>(new CLValueI32(3)))));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -580,22 +735,30 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueList
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueList);
-        CLValueList expected = new CLValueList(
+        CLValueList expectedClValue = new CLValueList(
                 Arrays.asList(new CLValueTuple2(new Pair<>(new CLValueI32(1), new CLValueI32(1))),
                         new CLValueTuple2(new Pair<>(new CLValueI32(2), new CLValueI32(2))),
                         new CLValueTuple2(new Pair<>(new CLValueI32(3), new CLValueI32(3)))));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -610,19 +773,27 @@ public class StoredValueTests extends AbstractJsonTests {
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueMap);
         Map<CLValueString, CLValueI32> map = new LinkedHashMap<>();
         map.put(new CLValueString("ABC"), new CLValueI32(10));
-        CLValueMap expected = new CLValueMap(map);
+        CLValueMap expectedClValue = new CLValueMap(map);
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -638,19 +809,27 @@ public class StoredValueTests extends AbstractJsonTests {
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueMap);
         Map<CLValueString, CLValueTuple1> map = new LinkedHashMap<>();
         map.put(new CLValueString("ABC"), new CLValueTuple1(new Unit<CLValueI32>(new CLValueI32(10))));
-        CLValueMap expected = new CLValueMap(map);
+        CLValueMap expectedClValue = new CLValueMap(map);
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -663,19 +842,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueResult
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
-        CLValueResult expected = new CLValueResult(new CLValueI32(10), new CLValueString("Uh oh"));
+        CLValueResult expectedClValue = new CLValueResult(new CLValueI32(10), new CLValueString("Uh oh"));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -689,20 +876,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueResult
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueResult);
-        CLValueResult expected = new CLValueResult(new CLValueI32(10),
+        CLValueResult expectedClValue = new CLValueResult(new CLValueI32(10),
                 new CLValueTuple1(new Unit<>(new CLValueString("Uh oh"))));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -715,19 +910,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
-        CLValueOption expected = new CLValueOption(Optional.of(new CLValueBool(null)));
+        CLValueOption expectedClValue = new CLValueOption(Optional.of(new CLValueBool(null)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -740,19 +943,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
-        CLValueOption expected = new CLValueOption(Optional.of(new CLValueBool(true)));
+        CLValueOption expectedClValue = new CLValueOption(Optional.of(new CLValueBool(true)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -765,19 +976,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
-        CLValueOption expected = new CLValueOption(Optional.of(new CLValueI32(10)));
+        CLValueOption expectedClValue = new CLValueOption(Optional.of(new CLValueI32(10)));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -791,20 +1010,28 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueOption
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueOption);
-        CLValueOption expected = new CLValueOption(
+        CLValueOption expectedClValue = new CLValueOption(
                 Optional.of(new CLValueTuple2(new Pair<>(new CLValueI32(1), new CLValueString("Hello, World!")))));
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -817,19 +1044,27 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueUnit
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueUnit);
-        CLValueUnit expected = new CLValueUnit();
+        CLValueUnit expectedClValue = new CLValueUnit();
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -842,23 +1077,32 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValuURef
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueURef);
-        CLValueURef expected = new CLValueURef(new URef(
+        CLValueURef expectedClValue = new CLValueURef(new URef(
                 StringByteHelper
                         .hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"),
                 URefAccessRight.READ_ADD_WRITE));
+        expectedClValue.setParsed("the uref");
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
         // TODO: FIX EQUALS
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -875,19 +1119,27 @@ public class StoredValueTests extends AbstractJsonTests {
         pk.setAlgorithm(Algorithm.ED25519);
         pk.setKey(StringByteHelper
                 .hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"));
-        CLValuePublicKey expected = new CLValuePublicKey(pk);
+        CLValuePublicKey expectedClValue = new CLValuePublicKey(pk);
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -900,23 +1152,32 @@ public class StoredValueTests extends AbstractJsonTests {
         StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
         // Should be CLValueByteArray
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueByteArray);
-        CLValueByteArray expected = new CLValueByteArray(new byte[] { 122, -50, 107, 117, -83, -99, 95, 64, -35, 5, 34,
-                44, 108, -122, 69, -78, 28, -20, 71, 119, 98, 48, -34, 0, 111, -53, -39, 107, -38, 124, 73, -75 });
+        CLValueByteArray expectedClValue = new CLValueByteArray(
+                new byte[] { 122, -50, 107, 117, -83, -99, 95, 64, -35, 5, 34, 44, 108, -122, 69, -78, 28, -20, 71, 119,
+                        98, 48, -34, 0, 111, -53, -39, 107, -38, 124, 73, -75 });
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {
-            expected.encode(clve);
+            expectedClValue.encode(clve);
         }
 
         sv.getStoredValue().getValue().equals(expected);
 
-        assertEquals(expected, sv.getStoredValue().getValue());
+        assertEquals(expected, sv);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(expected);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -937,11 +1198,11 @@ public class StoredValueTests extends AbstractJsonTests {
 
         assertTrue(sv.getStoredValue().getValue() instanceof Account);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(sv);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -962,11 +1223,11 @@ public class StoredValueTests extends AbstractJsonTests {
 
         assertTrue(sv.getStoredValue().getValue() instanceof Contract);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(sv);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 
     @Test
@@ -979,10 +1240,10 @@ public class StoredValueTests extends AbstractJsonTests {
 
         assertTrue(sv.getStoredValue().getValue() instanceof Transfer);
 
-        String reserializedJson = getPrettyJson(sv);
+        String expectedJson = getPrettyJson(sv);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        assertEquals(inputJson, expectedJson);
     }
 }

@@ -28,6 +28,32 @@ public abstract class AbstractCLTypeWithChildren extends AbstractCLType {
     @JsonIgnore
     private List<AbstractCLType> childTypes = new ArrayList<>();
 
+    private List<Object> childTypeObjects;
+
+    protected void setChildTypeObjects(List<Object> childTypeObjects)
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+            NoSuchMethodException, SecurityException, NoSuchTypeException {
+        this.childTypeObjects = childTypeObjects;
+        this.loadCLTypes(childTypeObjects);
+    }
+
+    protected List<Object> getChildTypeObjects() {
+        if (this.childTypeObjects == null) {
+            this.childTypeObjects = new ArrayList<>();
+        }
+        this.childTypeObjects.clear();
+
+        for (AbstractCLType childType : getChildTypes()) {
+            if (childType instanceof AbstractCLTypeBasic) {
+                this.childTypeObjects.add(childType.getTypeName());
+            } else {
+                this.childTypeObjects.add(childType);
+            }
+        }
+
+        return this.childTypeObjects;
+    }
+
     @JsonIgnore
     public CLTypeData getChildClTypeData(int index) throws NoSuchTypeException {
         return CLTypeData.getTypeByName(getChildTypes().get(index).getTypeName());

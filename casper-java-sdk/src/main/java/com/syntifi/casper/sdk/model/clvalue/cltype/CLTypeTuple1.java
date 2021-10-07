@@ -22,13 +22,17 @@ import lombok.Getter;
 public class CLTypeTuple1 extends AbstractCLTypeWithChildren {
     private final String typeName = AbstractCLType.TUPLE1;
 
+    @Override
     @JsonProperty(AbstractCLType.TUPLE1)
-    private List<Object> childTypeObjects;
-
     protected void setChildTypeObjects(List<Object> childTypeObjects)
             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
             NoSuchMethodException, SecurityException, NoSuchTypeException {
-        this.childTypeObjects = childTypeObjects;
-        super.loadCLTypes(childTypeObjects);
+        super.setChildTypeObjects(childTypeObjects);
+    }
+
+    @Override
+    @JsonProperty(AbstractCLType.TUPLE1)
+    protected List<Object> getChildTypeObjects() {
+        return super.getChildTypeObjects();
     }
 }

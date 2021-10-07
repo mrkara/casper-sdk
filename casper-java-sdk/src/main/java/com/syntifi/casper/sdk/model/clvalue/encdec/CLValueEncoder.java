@@ -65,6 +65,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @throws IOException
      */
     public void writeBool(CLValueBool clValue) throws IOException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.BOOL, Boolean.class.getSimpleName(),
                 clValue.getValue());
 
@@ -84,6 +88,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @param clValue {@link CLValueU8} value to encode
      */
     public void writeU8(CLValueU8 clValue) {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.U8, Byte.class.getSimpleName(),
                 clValue.getValue());
 
@@ -99,6 +107,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @throws IOException
      */
     public void writeByteArray(CLValueByteArray clValue) throws IOException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.BYTE_ARRAY, byte[].class.getSimpleName(),
                 clValue.getValue());
 
@@ -115,6 +127,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @throws IOException
      */
     public void writeI32(CLValueI32 clValue) throws IOException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.I32, Integer.class.getSimpleName(),
                 clValue.getValue());
 
@@ -136,6 +152,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @throws IOException
      */
     public void writeU32(CLValueU32 clValue) throws IOException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.U32, Long.class.getSimpleName(),
                 clValue.getValue());
 
@@ -159,6 +179,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @throws IOException
      */
     public void writeI64(CLValueI64 clValue) throws IOException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.I64, Long.class.getSimpleName(),
                 clValue.getValue());
 
@@ -181,6 +205,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @throws CLValueEncodeException
      */
     public void writeU64(CLValueU64 clValue) throws IOException, CLValueEncodeException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         checkBoundsFor(clValue.getValue(), CLTypeData.U64);
 
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.U64, BigInteger.class.getSimpleName(),
@@ -240,6 +268,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      */
     protected void writeBigInteger(AbstractCLValue<BigInteger, ?> clValue, CLTypeData type)
             throws IOException, CLValueEncodeException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         checkBoundsFor(clValue.getValue(), type);
 
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, type.getClTypeName(), BigInteger.class.getSimpleName(),
@@ -282,6 +314,10 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @throws IOException
      */
     public void writeString(CLValueString clValue) throws IOException {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         LOGGER.debug(LOG_BUFFER_WRITE_TYPE_VALUE_MESSAGE_STRING, CLTypeData.STRING, String.class.getSimpleName(),
                 clValue.getValue());
 
@@ -307,16 +343,24 @@ public class CLValueEncoder extends ByteArrayOutputStream {
      * @param clValue {@link CLValuePublicKey} value to encode
      */
     public void writePublicKey(CLValuePublicKey clValue) {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
         clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { clValue.getValue().getAlgorithm().getTag() })
                 + StringByteHelper.convertBytesToHex(clValue.getValue().getKey()));
     }
 
-    public void writeAny(CLValueAny object) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(this)) {
-            oos.writeObject(object.getValue());
+    public void writeAny(CLValueAny clValue) throws IOException {
+        if (clValue.getValue() == null) {
+            return;
         }
 
-        object.setBytes(StringByteHelper.convertBytesToHex(this.toByteArray()));
+        try (ObjectOutputStream oos = new ObjectOutputStream(this)) {
+            oos.writeObject(clValue.getValue());
+        }
+
+        clValue.setBytes(StringByteHelper.convertBytesToHex(this.toByteArray()));
     }
 
     /**

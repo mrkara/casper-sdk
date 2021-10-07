@@ -42,10 +42,13 @@ import lombok.Setter;
 @JsonTypeResolver(CLValueResolver.class)
 @JsonPropertyOrder({ "cl_type", "bytes", "parsed" })
 public abstract class AbstractCLValue<T, P extends AbstractCLType> implements EncodableValue, DecodableValue {
-    private String bytes;
+    
+    private String bytes = "";
+
     @JsonProperty("parsed")
-    @JsonInclude(Include.NON_NULL)
+    @JsonInclude(Include.NON_NULL)    
     private String parsed;
+
     @JsonIgnore
     private T value;
 
