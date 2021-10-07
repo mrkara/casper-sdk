@@ -21,6 +21,7 @@ import com.syntifi.casper.sdk.model.account.Account;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
+import com.syntifi.casper.sdk.model.clvalue.CLValueFixedList;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueList;
@@ -474,6 +475,59 @@ public class StoredValueTests extends AbstractJsonTests {
         // Should be CLValueList
         assertTrue(sv.getStoredValue().getValue() instanceof CLValueList);
         CLValueList expected = new CLValueList(Arrays.asList(new CLValueI32(1), new CLValueI32(2), new CLValueI32(3)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_fixedlist_i32_clvalue_mapping() throws IOException, CLValueEncodeException, DynamicInstanceException,
+            NoSuchTypeException, CLValueDecodeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-fixedlist-i32.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueList
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueFixedList);
+        CLValueFixedList expected = new CLValueFixedList(
+                Arrays.asList(new CLValueI32(1), new CLValueI32(2), new CLValueI32(3)));
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expected.encode(clve);
+        }
+        assertEquals(expected, sv.getStoredValue().getValue());
+
+        String reserializedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+
+        assertEquals(inputJson, reserializedJson);
+    }
+
+    @Test
+    void test_fixedlist_tuple1_i32_clvalue_mapping() throws IOException, CLValueEncodeException,
+            DynamicInstanceException, NoSuchTypeException, CLValueDecodeException {
+        String inputJson = getPrettyJson(
+                loadJsonFromFile("stored-value-samples/stored-value-fixedlist-tuple1-i32.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueList
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueFixedList);
+        CLValueFixedList expected = new CLValueFixedList(Arrays.asList(new CLValueTuple1(new Unit<>(new CLValueI32(1))),
+                new CLValueTuple1(new Unit<>(new CLValueI32(2))), new CLValueTuple1(new Unit<>(new CLValueI32(3)))));
         // This is done here to account for the missing encode call made by jackson
         // serializer
         try (CLValueEncoder clve = new CLValueEncoder()) {

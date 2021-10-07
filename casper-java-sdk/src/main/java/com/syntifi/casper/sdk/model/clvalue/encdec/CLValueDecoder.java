@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 
+import com.syntifi.casper.sdk.exception.BufferEndCLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
@@ -43,7 +44,8 @@ public class CLValueDecoder extends ByteArrayInputStream {
     private static final String LOG_BUFFER_INIT_MESSAGE_STRING = "Initializing with hexString: {}";
     private static final String LOG_BUFFER_VALUE_MESSAGE_STRING = "Buffer value: {}";
     private static final String LOG_DECODED_VALUE_MESSAGE_STRING = "Decoded value for {}: {}";
-    private static final String DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING = "Could not read %s (Expected length: %d, Actual length: %d";
+    private static final String DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING = "Buffer ended, could not read more data";
+    private static final String DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING = "Could not read %s (Expected length: %d, Actual length: %d)";
     private static final String DECODE_EXCEPTION_OUT_OF_BOUNDS_MESSAGE_STRING = "Value %s out of bounds for expected type %s";
 
     /**
@@ -71,8 +73,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(buf)) != length) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    Boolean.class.getSimpleName(), length, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        Boolean.class.getSimpleName(), length, readBytes));
+            }
         }
 
         LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, buf);
@@ -134,8 +140,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(buf)) != numberByteLength) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    Integer.class.getSimpleName(), numberByteLength, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        Integer.class.getSimpleName(), numberByteLength, readBytes));
+            }
         }
 
         clValue.setBytes(StringByteHelper.convertBytesToHex(buf));
@@ -165,8 +175,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(buf)) != numberByteLength) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    Long.class.getSimpleName(), numberByteLength, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        Long.class.getSimpleName(), numberByteLength, readBytes));
+            }
         }
 
         clValue.setBytes(StringByteHelper.convertBytesToHex(buf));
@@ -202,8 +216,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(buf)) != numberByteLength) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    Long.class.getSimpleName(), numberByteLength, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        Long.class.getSimpleName(), numberByteLength, readBytes));
+            }
         }
 
         clValue.setBytes(StringByteHelper.convertBytesToHex(buf));
@@ -234,8 +252,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(buf)) != numberByteLength) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    Long.class.getSimpleName(), numberByteLength, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        Long.class.getSimpleName(), numberByteLength, readBytes));
+            }
         }
 
         clValue.setBytes(StringByteHelper.convertBytesToHex(buf));
@@ -324,8 +346,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
         buf = new byte[lengthOfNextNumber];
 
         if ((readBytes = this.read(buf)) != lengthOfNextNumber) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    BigInteger.class.getSimpleName(), lengthOfNextNumber, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        BigInteger.class.getSimpleName(), lengthOfNextNumber, readBytes));
+            }
         }
 
         clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { lengthOfNextNumber })
@@ -355,8 +381,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(bufLength)) != numberByteLength) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    Integer.class.getSimpleName(), numberByteLength, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        Integer.class.getSimpleName(), numberByteLength, readBytes));
+            }
         }
         clValue.setBytes(StringByteHelper.convertBytesToHex(bufLength));
 
@@ -370,8 +400,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
         byte[] bufString = new byte[length];
 
         if ((readBytes = this.read(bufString)) != length) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    String.class.getSimpleName(), length, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        String.class.getSimpleName(), length, readBytes));
+            }
         }
 
         LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, bufString);
@@ -431,8 +465,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
 
         int readBytes = 0;
         if ((readBytes = this.read(buf)) != length) {
-            throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
-                    Byte.class.getSimpleName(), length, readBytes));
+            if (this.buf.length > 0 && this.pos == this.buf.length) {
+                throw new BufferEndCLValueDecodeException(DECODE_EXCEPTION_BUFFER_END_MESSAGE_STRING);
+            } else {
+                throw new CLValueDecodeException(String.format(DECODE_EXCEPTION_WRONG_LENGHT_MESSAGE_STRING,
+                        Byte.class.getSimpleName(), length, readBytes));
+            }
         }
 
         LOGGER.debug(LOG_BUFFER_VALUE_MESSAGE_STRING, buf);
