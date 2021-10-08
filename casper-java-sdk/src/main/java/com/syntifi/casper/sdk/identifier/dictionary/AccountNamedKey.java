@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor //(access = AccessLevel.PRIVATE)
 @AllArgsConstructor //(access = AccessLevel.PRIVATE)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
 public class AccountNamedKey {
 
     /**

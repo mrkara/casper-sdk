@@ -12,7 +12,7 @@ import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
-import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKey;
+import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKeyParameter;
 import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
@@ -200,7 +200,7 @@ public interface CasperService {
      */
     @JsonRpcMethod("state_get_dictionary_item")
     public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
-        @JsonRpcParam("dictionary_identifier") AccountNamedKey height);
+        @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter height);
 
     /**
      * Builds a CasperService for the node ip/port pair

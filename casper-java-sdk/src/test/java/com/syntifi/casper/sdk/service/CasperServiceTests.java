@@ -13,6 +13,7 @@ import java.util.List;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKey;
+import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKeyParameter;
 import com.syntifi.casper.sdk.model.account.Account;
 import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
@@ -27,8 +28,8 @@ import com.syntifi.casper.sdk.model.deploy.executabledeploy.ModuleBytes;
 import com.syntifi.casper.sdk.model.deploy.executabledeploy.StoredContractByHash;
 import com.syntifi.casper.sdk.model.deploy.executionresult.Success;
 import com.syntifi.casper.sdk.model.deploy.transform.WriteCLValue;
-import com.syntifi.casper.sdk.model.key.AlgorithmTag;
 import com.syntifi.casper.sdk.model.dictionary.Dictionary;
+import com.syntifi.casper.sdk.model.key.AlgorithmTag;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
@@ -306,7 +307,7 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 	@Test
 	void getStateDictionaryByHeight() {
 		Dictionary dict = casperServiceMainnet.getStateDictionaryItem("asdfsd", 
-			new AccountNamedKey("A", "B", "C"));
+			AccountNamedKeyParameter.builder().accountNamedKey(new AccountNamedKey("A", "B", "C")).build());
 
 		assertNotNull(dict);
 	}
