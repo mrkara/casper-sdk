@@ -1,8 +1,6 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,7 +68,6 @@ public class CLValueFixedList extends AbstractCLValue<List<? extends AbstractCLV
                 ((AbstractCLTypeWithChildren) child.getClType())
                         .setChildTypes(((AbstractCLTypeWithChildren) clType.getListType()).getChildTypes());
             }
-            // TODO: Better way to find end of FixedList
             try {
                 child.decode(clvd);
                 list.add(child);

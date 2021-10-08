@@ -3,7 +3,6 @@ package com.syntifi.casper.sdk.model.era;
 import java.math.BigInteger;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;

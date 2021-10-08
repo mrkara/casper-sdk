@@ -20,13 +20,13 @@ import lombok.NoArgsConstructor;
  */
 @JsonDeserialize(using = PublicKeyDeserializer.class)
 @NoArgsConstructor
-public class PublicKey extends AbstractAlgoTaggedHex {
+public class PublicKey extends AbstractSerializedKeyTaggedHex<AlgorithmTag> {
 
     public static PublicKey fromTaggedHexString(String hex)
             throws NoSuchAlgorithmException, InvalidByteStringException {
         PublicKey object = new PublicKey();
         byte[] bytes = StringByteHelper.hexStringToByteArray(hex);
-        object.setAlgorithm(Algorithm.getByTag(bytes[0]));
+        object.setTag(AlgorithmTag.getByTag(bytes[0]));
         object.setKey(Arrays.copyOfRange(bytes, 1, bytes.length));
         return object;
     }
@@ -34,7 +34,7 @@ public class PublicKey extends AbstractAlgoTaggedHex {
     @JsonCreator
     public void createPublicKey(String key) throws NoSuchAlgorithmException, InvalidByteStringException {
         PublicKey obj = PublicKey.fromTaggedHexString(key);
-        this.setAlgorithm(obj.getAlgorithm());
+        this.setTag(obj.getTag());
         this.setKey(obj.getKey());
     }
 

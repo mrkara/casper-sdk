@@ -10,12 +10,14 @@ import java.security.NoSuchAlgorithmException;
 import com.syntifi.casper.sdk.exception.BufferEndCLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.InvalidByteStringException;
+import com.syntifi.casper.sdk.exception.NoSuchKeyTagException;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 import com.syntifi.casper.sdk.model.clvalue.CLValueAny;
 import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI64;
+import com.syntifi.casper.sdk.model.clvalue.CLValueKey;
 import com.syntifi.casper.sdk.model.clvalue.CLValuePublicKey;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU128;
@@ -25,6 +27,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueU512;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU64;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU8;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
+import com.syntifi.casper.sdk.model.key.Key;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 
 import org.slf4j.Logger;
@@ -441,6 +444,12 @@ public class CLValueDecoder extends ByteArrayInputStream {
         byte[] key = this.readAllBytes();
         clvalue.setBytes(StringByteHelper.convertBytesToHex(key));
         clvalue.setValue(PublicKey.fromTaggedHexString(clvalue.getBytes()));
+    }
+
+    public void readKey(CLValueKey clvalue) throws NoSuchKeyTagException, InvalidByteStringException {
+        byte[] key = this.readAllBytes();
+        clvalue.setBytes(StringByteHelper.convertBytesToHex(key));
+        clvalue.setValue(Key.fromTaggedHexString(clvalue.getBytes()));
     }
 
     /**

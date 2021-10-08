@@ -15,6 +15,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueBool;
 import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI64;
+import com.syntifi.casper.sdk.model.clvalue.CLValueKey;
 import com.syntifi.casper.sdk.model.clvalue.CLValuePublicKey;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
 import com.syntifi.casper.sdk.model.clvalue.CLValueU128;
@@ -347,7 +348,21 @@ public class CLValueEncoder extends ByteArrayOutputStream {
             return;
         }
 
-        clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { clValue.getValue().getAlgorithm().getTag() })
+        clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { clValue.getValue().getTag().getByteTag() })
+                + StringByteHelper.convertBytesToHex(clValue.getValue().getKey()));
+    }
+
+    /**
+     * Writes a Tag/Key Hex string to CLValue byte buffer
+     * 
+     * @param clValue {@link CLValueKey} value to encode
+     */
+    public void writeKey(CLValueKey clValue) {
+        if (clValue.getValue() == null) {
+            return;
+        }
+
+        clValue.setBytes(StringByteHelper.convertBytesToHex(new byte[] { clValue.getValue().getTag().getByteTag() })
                 + StringByteHelper.convertBytesToHex(clValue.getValue().getKey()));
     }
 

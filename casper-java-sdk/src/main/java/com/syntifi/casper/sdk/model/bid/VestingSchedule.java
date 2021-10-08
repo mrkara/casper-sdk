@@ -1,7 +1,6 @@
 package com.syntifi.casper.sdk.model.bid;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

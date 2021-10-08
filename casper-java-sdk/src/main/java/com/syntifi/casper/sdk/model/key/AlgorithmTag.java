@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 
+ * Algorithm byte tag
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -16,14 +16,14 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum Algorithm {
+public enum AlgorithmTag implements Tag {
     SECP256K1((byte) 0x02), ED25519((byte) 0x01);
 
-    private final byte tag;
+    private final byte byteTag;
 
-    public static Algorithm getByTag(byte tag) throws NoSuchAlgorithmException {
-        for (Algorithm a : values()) {
-            if (a.tag == tag)
+    public static AlgorithmTag getByTag(byte byteTag) throws NoSuchAlgorithmException {
+        for (AlgorithmTag a : values()) {
+            if (a.byteTag == byteTag)
                 return a;
         }
         throw new NoSuchAlgorithmException();

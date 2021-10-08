@@ -26,6 +26,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
 import com.syntifi.casper.sdk.model.clvalue.CLValueFixedList;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI64;
+import com.syntifi.casper.sdk.model.clvalue.CLValueKey;
 import com.syntifi.casper.sdk.model.clvalue.CLValueList;
 import com.syntifi.casper.sdk.model.clvalue.CLValueMap;
 import com.syntifi.casper.sdk.model.clvalue.CLValueOption;
@@ -46,7 +47,9 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueUnit;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.contract.Contract;
-import com.syntifi.casper.sdk.model.key.Algorithm;
+import com.syntifi.casper.sdk.model.key.AlgorithmTag;
+import com.syntifi.casper.sdk.model.key.Key;
+import com.syntifi.casper.sdk.model.key.KeyTag;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.uref.URef;
@@ -1105,6 +1108,80 @@ public class StoredValueTests extends AbstractJsonTests {
     }
 
     @Test
+    void test_key_account_clvalue_mapping()
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-key-account.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueKey
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueKey);
+        Key key = new Key();
+        key.setTag(KeyTag.ACCOUNT);
+        key.setKey(StringByteHelper
+                .hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"));
+        CLValueKey expectedClValue = new CLValueKey(key);
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expectedClValue.encode(clve);
+        }
+        assertEquals(expected, sv);
+
+        String expectedJson = getPrettyJson(expected);
+
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
+
+        assertEquals(inputJson, expectedJson);
+    }
+
+    @Test
+    void test_key_hash_clvalue_mapping()
+            throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-key-hash.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+        // Should be CLValueKey
+        assertTrue(sv.getStoredValue().getValue() instanceof CLValueKey);
+        Key key = new Key();
+        key.setTag(KeyTag.HASH);
+        key.setKey(StringByteHelper
+                .hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"));
+        CLValueKey expectedClValue = new CLValueKey(key);
+
+        StoredValueData expected = new StoredValueData();
+        expected.setApiVersion(API_VERSION);
+        expected.setMerkleProof(MERKLE_PROOF);
+        StoredValueCLValue svClValue = new StoredValueCLValue();
+        svClValue.setValue(expectedClValue);
+        expected.setStoredValue(svClValue);
+
+        // This is done here to account for the missing encode call made by jackson
+        // serializer
+        try (CLValueEncoder clve = new CLValueEncoder()) {
+            expectedClValue.encode(clve);
+        }
+        assertEquals(expected, sv);
+
+        String expectedJson = getPrettyJson(expected);
+
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
+
+        assertEquals(inputJson, expectedJson);
+    }
+
+    @Test
     void test_public_key_clvalue_mapping()
             throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-publickey.json"));
@@ -1115,7 +1192,7 @@ public class StoredValueTests extends AbstractJsonTests {
         // Should be CLValuePublicKey
         assertTrue(sv.getStoredValue().getValue() instanceof CLValuePublicKey);
         PublicKey pk = new PublicKey();
-        pk.setAlgorithm(Algorithm.ED25519);
+        pk.setTag(AlgorithmTag.ED25519);
         pk.setKey(StringByteHelper
                 .hexStringToByteArray("2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a"));
         CLValuePublicKey expectedClValue = new CLValuePublicKey(pk);

@@ -11,6 +11,7 @@ import com.syntifi.casper.sdk.model.clvalue.CLValueByteArray;
 import com.syntifi.casper.sdk.model.clvalue.CLValueFixedList;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI32;
 import com.syntifi.casper.sdk.model.clvalue.CLValueI64;
+import com.syntifi.casper.sdk.model.clvalue.CLValueKey;
 import com.syntifi.casper.sdk.model.clvalue.CLValueList;
 import com.syntifi.casper.sdk.model.clvalue.CLValueMap;
 import com.syntifi.casper.sdk.model.clvalue.CLValueOption;
@@ -59,7 +60,7 @@ public enum CLTypeData {
     UNIT(AbstractCLType.UNIT, 0x9, CLValueUnit.class, CLTypeUnit.class),
     STRING(AbstractCLType.STRING, 0x10, CLValueString.class, CLTypeString.class),
     UREF(AbstractCLType.UREF, 0x11, CLValueURef.class, CLTypeURef.class), 
-    KEY(AbstractCLType.KEY, 0x12, null, null),
+    KEY(AbstractCLType.KEY, 0x12, CLValueKey.class, CLTypeKey.class),
     OPTION(AbstractCLType.OPTION, 0x13, CLValueOption.class, CLTypeOption.class),
     LIST(AbstractCLType.LIST, 0x14, CLValueList.class, CLTypeList.class), 
     FIXED_LIST(AbstractCLType.FIXED_LIST, 0x15, CLValueFixedList.class, CLTypeFixedList.class),

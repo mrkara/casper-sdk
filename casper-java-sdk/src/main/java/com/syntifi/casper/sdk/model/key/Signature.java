@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
  */
 @JsonDeserialize(using = SignatureDeserializer.class)
 @NoArgsConstructor
-public class Signature extends AbstractAlgoTaggedHex {
+public class Signature extends AbstractSerializedKeyTaggedHex<AlgorithmTag> {
 
 }

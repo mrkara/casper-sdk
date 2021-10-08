@@ -26,7 +26,7 @@ import com.syntifi.casper.sdk.model.deploy.executabledeploy.ModuleBytes;
 import com.syntifi.casper.sdk.model.deploy.executabledeploy.StoredContractByHash;
 import com.syntifi.casper.sdk.model.deploy.executionresult.Success;
 import com.syntifi.casper.sdk.model.deploy.transform.WriteCLValue;
-import com.syntifi.casper.sdk.model.key.Algorithm;
+import com.syntifi.casper.sdk.model.key.AlgorithmTag;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
@@ -89,7 +89,7 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 		JsonBlockData result = casperServiceMainnet.getBlock(new BlockIdentifierByHeight(0));
 		PublicKey key = result.getBlock().getBody().getProposer();
 
-		assertEquals(Algorithm.ED25519, key.getAlgorithm());
+		assertEquals(AlgorithmTag.ED25519, key.getTag());
 		assertEquals("2bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
 				StringByteHelper.convertBytesToHex(key.getKey()));
 	}
