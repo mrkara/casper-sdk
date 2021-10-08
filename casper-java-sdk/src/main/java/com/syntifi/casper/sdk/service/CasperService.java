@@ -12,10 +12,12 @@ import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
+import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKey;
 import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
+import com.syntifi.casper.sdk.model.dictionary.Dictionary;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
 import com.syntifi.casper.sdk.model.status.Status;
@@ -180,7 +182,6 @@ public interface CasperService {
     @JsonRpcMethod("state_get_auction_info")
     public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
 
-
     /**
      * Returns the Auction info for a given block
      * 
@@ -189,6 +190,17 @@ public interface CasperService {
      */
     @JsonRpcMethod("state_get_auction_info")
     public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifierByHeight height);
+
+    /**
+     * Returns an item from a Dictionary
+     * 
+     * @param rootHash
+     * @param height
+     * @return
+     */
+    @JsonRpcMethod("state_get_dictionary_item")
+    public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
+        @JsonRpcParam("dictionary_identifier") AccountNamedKey height);
 
     /**
      * Builds a CasperService for the node ip/port pair
