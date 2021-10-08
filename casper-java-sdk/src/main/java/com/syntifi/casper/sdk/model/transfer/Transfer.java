@@ -4,7 +4,6 @@ import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 
@@ -16,7 +15,6 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-@JsonPropertyOrder({ "id", "to", "from", "deploy_hash", "source", "target", "amount", "gas" })
 public class Transfer {
     @JsonProperty("id")
     private Long id;

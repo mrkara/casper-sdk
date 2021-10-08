@@ -57,5 +57,5 @@ public abstract class AbstractJsonTests {
      */
     protected String getPrettyJson(Object jsonObject) throws JsonMappingException, JsonProcessingException {
         return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
-    }    
+    }
 }

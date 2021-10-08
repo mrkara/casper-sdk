@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerEntry;
 
@@ -19,8 +18,6 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-@JsonPropertyOrder({ "peers", "api_version", "build_version", "chainspec_name", "last_added_block_info", "next_upgrade",
-        "our_public_signing_key", "starting_state_root_hash", "round_length" })
 public class Status {
 
     /**

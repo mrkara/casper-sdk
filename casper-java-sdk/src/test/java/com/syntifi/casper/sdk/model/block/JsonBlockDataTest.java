@@ -1,6 +1,5 @@
 package com.syntifi.casper.sdk.model.block;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -10,7 +9,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.model.AbstractJsonTests;
 import com.syntifi.casper.sdk.model.status.StatusTests;
 
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,7 @@ public class JsonBlockDataTest extends AbstractJsonTests {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
 
     @Test
-    void test_era_end_block() throws JsonMappingException, JsonProcessingException, IOException {
+    void test_era_end_block() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         // curl -X POST -H 'Content-Type: application/json' -d
         // '{"id":"0","jsonrpc":"2.0","method":"chain_get_block",
         // "params":{"block_identifier":{"Height":"246762"}}}' http://nodeIP:7777/rpc
@@ -38,10 +39,10 @@ public class JsonBlockDataTest extends AbstractJsonTests {
 
         assertTrue(block.getBlock() instanceof JsonBlock);
 
-        String reserializedJson = getPrettyJson(block);
+        String expectedJson = getPrettyJson(block);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        JSONAssert.assertEquals(inputJson, expectedJson, false);
     }
 }

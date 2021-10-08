@@ -1,6 +1,5 @@
 package com.syntifi.casper.sdk.model.auction;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -10,7 +9,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.model.AbstractJsonTests;
 import com.syntifi.casper.sdk.model.status.StatusTests;
 
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,7 @@ public class AuctionInfoTest extends AbstractJsonTests {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
 
     @Test
-    void test_status() throws JsonMappingException, JsonProcessingException, IOException {
+    void test_status() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         String inputJson = getPrettyJson(loadJsonFromFile("auction-info-samples/auction-info.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -35,10 +36,10 @@ public class AuctionInfoTest extends AbstractJsonTests {
 
         assertTrue(ad.getAuctionState() instanceof AuctionState);
 
-        String reserializedJson = getPrettyJson(ad);
+        String expectedJson = getPrettyJson(ad);
 
-        LOGGER.debug("Serialized JSON: {}", reserializedJson);
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
 
-        assertEquals(inputJson, reserializedJson);
+        JSONAssert.assertEquals(inputJson, expectedJson, false);
     }
 }

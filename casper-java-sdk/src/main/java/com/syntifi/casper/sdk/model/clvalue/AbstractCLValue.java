@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
@@ -40,13 +39,12 @@ import lombok.Setter;
 @EqualsAndHashCode(of = { "bytes", "value" })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @JsonTypeResolver(CLValueResolver.class)
-@JsonPropertyOrder({ "cl_type", "bytes", "parsed" })
 public abstract class AbstractCLValue<T, P extends AbstractCLType> implements EncodableValue, DecodableValue {
-    
+
     private String bytes = "";
 
     @JsonProperty("parsed")
-    @JsonInclude(Include.NON_NULL)    
+    @JsonInclude(Include.NON_NULL)
     private String parsed;
 
     @JsonIgnore

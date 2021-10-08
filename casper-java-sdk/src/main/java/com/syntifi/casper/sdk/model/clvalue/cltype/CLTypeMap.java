@@ -3,7 +3,6 @@ package com.syntifi.casper.sdk.model.clvalue.cltype;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +34,6 @@ public class CLTypeMap extends AbstractCLType {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @JsonPropertyOrder({ "key", "value" })
     public class CLTypeMapEntryType {
         @JsonIgnore
         private AbstractCLType keyType;
