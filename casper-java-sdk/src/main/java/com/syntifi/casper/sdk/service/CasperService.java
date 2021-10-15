@@ -188,7 +188,6 @@ public interface CasperService {
         public static CasperService usingPeer(String ip, int port) throws MalformedURLException {
                 CasperObjectMapper objectMapper = new CasperObjectMapper();
                 Map<String, String> newHeaders = new HashMap<>();
-                objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
                 newHeaders.put("Content-Type", "application/json");
 
                 JsonRpcHttpClient client = new JsonRpcHttpClient(objectMapper, new URL("http", ip, port, "/rpc"),
