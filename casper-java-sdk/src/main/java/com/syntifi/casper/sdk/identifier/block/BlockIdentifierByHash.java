@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor //(access = AccessLevel.PRIVATE)
 @AllArgsConstructor //(access = AccessLevel.PRIVATE)
-public class BlockIdentifierByHash {
+public class BlockIdentifierByHash implements BlockIdentifier {
 
     /**
      * Block hash
