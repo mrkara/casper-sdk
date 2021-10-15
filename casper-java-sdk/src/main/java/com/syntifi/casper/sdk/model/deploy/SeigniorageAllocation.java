@@ -4,7 +4,8 @@ import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.syntifi.casper.sdk.model.key.PublicKey;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import lombok.Data;
 
@@ -16,6 +17,9 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
+@JsonSubTypes({ @JsonSubTypes.Type(value = Validator.class, name = "Validator"),
+        @JsonSubTypes.Type(value = Delegator.class, name = "Delegator") })
 public class SeigniorageAllocation {
 
     /**
@@ -25,20 +29,12 @@ public class SeigniorageAllocation {
     private BigInteger amount;
 
     @JsonProperty("amount")
-    protected String getBigInteger() {
+    protected String getJsonAmount() {
         return this.amount.toString(10);
     }
 
     @JsonProperty("amount")
-    protected void setBigInteger(String value) {
+    protected void setJsonAmount(String value) {
         this.amount = new BigInteger(value, 10);
     }
-
-    /**
-     * Validator's public key
-     * 
-     * @see PublickKey
-     */
-    @JsonProperty("validator_public_key")
-    private PublicKey validatorPublicKey;
 }

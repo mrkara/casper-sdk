@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
 import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifier;
-import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
-import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKeyParameter;
 import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
@@ -20,6 +19,7 @@ import com.syntifi.casper.sdk.model.balance.BalanceData;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.dictionary.Dictionary;
+import com.syntifi.casper.sdk.model.era.EraInfoData;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
 import com.syntifi.casper.sdk.model.status.Status;
@@ -89,20 +89,11 @@ public interface CasperService {
         /**
          * Returns a state root hash at a given Block height
          * 
-         * @param height identifier Block's height
+         * @param blockIdentifier BlockIdentifier data
          * @return Object holding the api version and block
          */
         @JsonRpcMethod("chain_get_state_root_hash")
-        public StateRootHashData getStateRootHash(@JsonRpcParam("block_identifier") BlockIdentifierByHeight height);
-
-        /**
-         * Returns a state root hash at a given Block hash
-         * 
-         * @param hash Block's hash
-         * @return Object holding the api version and block
-         */
-        @JsonRpcMethod("chain_get_state_root_hash")
-        public StateRootHashData getStateRootHash(@JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
+        public StateRootHashData getStateRootHash(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
         /**
          * Returns a stored value from the network
@@ -116,8 +107,14 @@ public interface CasperService {
         public StoredValueData getStateItem(@JsonRpcParam("state_root_hash") String stateRootHash,
                         @JsonRpcParam("key") String key, @JsonRpcParam("path") List<String> path);
 
+        /**
+         * Returns an EraInfo from the network
+         * 
+         * @param blockIdentifier BlockIdentifier data
+         * @return Object holding api version and EraInfo
+         */
         @JsonRpcMethod("chain_get_era_info_by_switch_block")
-        public Object getEraInfoBySwitchBlock(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
+        public EraInfoData getEraInfoBySwitchBlock(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
         /**
          * Returns a Deploy from the network
@@ -167,7 +164,7 @@ public interface CasperService {
          */
         @JsonRpcMethod("state_get_dictionary_item")
         public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
-                        @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter height);
+                        @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter dictionaryIdentifier);
 
         /**
          * Fetches balance value
@@ -191,6 +188,7 @@ public interface CasperService {
         public static CasperService usingPeer(String ip, int port) throws MalformedURLException {
                 CasperObjectMapper objectMapper = new CasperObjectMapper();
                 Map<String, String> newHeaders = new HashMap<>();
+                objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
                 newHeaders.put("Content-Type", "application/json");
 
                 JsonRpcHttpClient client = new JsonRpcHttpClient(objectMapper, new URL("http", ip, port, "/rpc"),

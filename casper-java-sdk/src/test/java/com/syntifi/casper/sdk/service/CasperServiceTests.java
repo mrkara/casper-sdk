@@ -29,6 +29,7 @@ import com.syntifi.casper.sdk.model.deploy.executabledeploy.StoredContractByHash
 import com.syntifi.casper.sdk.model.deploy.executionresult.Success;
 import com.syntifi.casper.sdk.model.deploy.transform.WriteCLValue;
 import com.syntifi.casper.sdk.model.dictionary.Dictionary;
+import com.syntifi.casper.sdk.model.era.EraInfoData;
 import com.syntifi.casper.sdk.model.key.AlgorithmTag;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
@@ -306,9 +307,25 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 
 	@Test
 	void getStateDictionaryByHeight() {
-		Dictionary dict = casperServiceMainnet.getStateDictionaryItem("asdfsd", 
-			AccountNamedKeyParameter.builder().accountNamedKey(new AccountNamedKey("A", "B", "C")).build());
+		Dictionary dict = casperServiceMainnet.getStateDictionaryItem("asdfsd",
+				AccountNamedKeyParameter.builder().accountNamedKey(new AccountNamedKey("A", "B", "C")).build());
 
 		assertNotNull(dict);
+	}
+
+	@Test
+	void getEraInfoBySwitchBlockByHeight() {
+		EraInfoData eraInfoData = casperServiceMainnet
+				.getEraInfoBySwitchBlock(BlockIdentifierByHeight.builder().height(200000).build());
+
+		assertNotNull(eraInfoData);
+	}
+
+	@Test
+	void getEraInfoBySwitchBlockByHash() {
+		EraInfoData eraInfoData = casperServiceMainnet.getEraInfoBySwitchBlock(BlockIdentifierByHash.builder()
+				.hash("6eee8974bd9df0c2ae5469a239c23ff901c4ca884a1fe8b7b5319b04fac3b484").build());
+
+		assertNotNull(eraInfoData);
 	}
 }

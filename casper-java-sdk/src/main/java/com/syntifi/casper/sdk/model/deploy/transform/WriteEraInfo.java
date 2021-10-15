@@ -23,7 +23,6 @@ public class WriteEraInfo implements Transform {
      */
     @JsonProperty("WriteEraInfo")
     private EraInfo deployInfo;
-
 }
 
 
