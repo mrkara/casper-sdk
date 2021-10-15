@@ -50,12 +50,12 @@ public class DeployHeader {
     private BigInteger gasPrice; 
 
     // @JsonProperty("gas_price")
-    // protected String getBigInteger() {
+    // protected String getJsonGasPrice() {
     //     return this.gasPrice.toString(10);
     // }
 
     // @JsonProperty("gas_price")
-    // protected void setBigInteger(String value) {
+    // protected void setJsonGasPrice(String value) {
     //     this.gasPrice= new BigInteger(value, 10);
     // }
 

@@ -37,12 +37,12 @@ public class DeployInfo {
     private BigInteger gas;
 
     @JsonProperty("gas")
-    protected String getBigInteger() {
+    protected String getJsonGas() {
         return this.gas.toString(10);
     }
 
     @JsonProperty("gas")
-    protected void setBigInteger(String value) {
+    protected void setJsonGas(String value) {
         this.gas = new BigInteger(value, 10);
     }
 

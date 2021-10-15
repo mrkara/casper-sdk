@@ -49,12 +49,12 @@ public class Delegator {
     private BigInteger stakedAmount;
 
     @JsonProperty("staked_amount")
-    protected String getBigInteger() {
+    protected String getJsonStakedAmount() {
         return this.stakedAmount.toString(10);
     }
 
     @JsonProperty("staked_amount")
-    protected void setBigInteger(String value) {
+    protected void setJsonStakedAmount(String value) {
         this.stakedAmount = new BigInteger(value, 10);
     }
 }

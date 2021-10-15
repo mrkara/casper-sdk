@@ -24,7 +24,6 @@ import lombok.Data;
  */
 @Data
 public class Bid {
-
     /**
      * The purse that was used for bonding.
      */
@@ -45,25 +44,6 @@ public class Bid {
     @JsonIgnore
     private Map<PublicKey, Delegator> delegators = new LinkedHashMap<>();
 
-    @JsonSetter("delegators")
-    private void setJsonDelegators(Map<String, Delegator> node)
-            throws NoSuchAlgorithmException, InvalidByteStringException {
-        for (Map.Entry<String, Delegator> entry : node.entrySet()) {
-            PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
-            Delegator delegator = entry.getValue();
-            this.delegators.put(publicKey, delegator);
-        }
-    }
-
-    @JsonGetter("delegators")
-    private Map<String, Delegator> getJsonDelegators() {
-        Map<String, Delegator> out = new LinkedHashMap<>();
-        for (Map.Entry<PublicKey, Delegator> entry : this.delegators.entrySet()) {
-            out.put(entry.getKey().getAlgoTaggedHex(), entry.getValue());
-        }
-        return out;
-    }
-
     /**
      * `true` if validator has been \"evicted\"
      */
@@ -74,16 +54,6 @@ public class Bid {
      */
     @JsonIgnore
     private BigInteger stakedAmount;
-
-    @JsonProperty("staked_amount")
-    protected String getBigInteger() {
-        return this.stakedAmount.toString(10);
-    }
-
-    @JsonProperty("staked_amount")
-    protected void setBigInteger(String value) {
-        this.stakedAmount = new BigInteger(value, 10);
-    }
 
     /**
      * Validator PublicKey
@@ -97,4 +67,32 @@ public class Bid {
     @JsonProperty("vesting_schedule")
     private VestingSchedule vestingSchedule;
 
+    @JsonSetter("delegators")
+    protected void setJsonDelegators(Map<String, Delegator> node)
+            throws NoSuchAlgorithmException, InvalidByteStringException {
+        for (Map.Entry<String, Delegator> entry : node.entrySet()) {
+            PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
+            Delegator delegator = entry.getValue();
+            this.delegators.put(publicKey, delegator);
+        }
+    }
+
+    @JsonGetter("delegators")
+    protected Map<String, Delegator> getJsonDelegators() {
+        Map<String, Delegator> out = new LinkedHashMap<>();
+        for (Map.Entry<PublicKey, Delegator> entry : this.delegators.entrySet()) {
+            out.put(entry.getKey().getAlgoTaggedHex(), entry.getValue());
+        }
+        return out;
+    }
+
+    @JsonProperty("staked_amount")
+    protected String getJsonStakedAmount() {
+        return this.stakedAmount.toString(10);
+    }
+
+    @JsonProperty("staked_amount")
+    protected void setJsonStakedAmount(String value) {
+        this.stakedAmount = new BigInteger(value, 10);
+    }
 }
