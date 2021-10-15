@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.googlecode.jsonrpc4j.ExceptionResolver;
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
 import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.ProxyUtil;
+import com.syntifi.casper.sdk.exception.CasperExceptionResolver;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifier;
 import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKeyParameter;
 import com.syntifi.casper.sdk.model.account.AccountData;
@@ -34,165 +35,166 @@ import com.syntifi.casper.sdk.model.transfer.TransferData;
  * @since 0.0.1
  */
 public interface CasperService {
-        /**
-         * Get network peers data
-         * 
-         * @return Object holding the api version and peer list
-         */
-        @JsonRpcMethod("info_get_peers")
-        public PeerData getPeerData();
+    /**
+     * Get network peers data
+     * 
+     * @return Object holding the api version and peer list
+     */
+    @JsonRpcMethod("info_get_peers")
+    public PeerData getPeerData();
 
-        /**
-         * Get latest block info
-         * 
-         * @return Object holding the api version and block
-         */
-        @JsonRpcMethod("chain_get_block")
-        public JsonBlockData getBlock();
+    /**
+     * Get latest block info
+     * 
+     * @return Object holding the api version and block
+     */
+    @JsonRpcMethod("chain_get_block")
+    public JsonBlockData getBlock();
 
-        /**
-         * Retrieve block info by its {@link BlockIdentifier}
-         * 
-         * @param blockIdentifier BlockIdentifier data
-         * @return Object holding the api version and block
-         */
-        @JsonRpcMethod("chain_get_block")
-        public JsonBlockData getBlock(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
+    /**
+     * Retrieve block info by its {@link BlockIdentifier}
+     * 
+     * @param blockIdentifier BlockIdentifier data
+     * @return Object holding the api version and block
+     */
+    @JsonRpcMethod("chain_get_block")
+    public JsonBlockData getBlock(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
-        /**
-         * Retrieve last block's transfers
-         * 
-         * @param heightFilter Block's height
-         * @return Object holding the api version and block
-         */
-        @JsonRpcMethod("chain_get_block_transfers")
-        public TransferData getBlockTransfers();
+    /**
+     * Retrieve last block's transfers
+     * 
+     * @param heightFilter Block's height
+     * @return Object holding the api version and block
+     */
+    @JsonRpcMethod("chain_get_block_transfers")
+    public TransferData getBlockTransfers();
 
-        /**
-         * Retrieve block transfers by its {@link BlockIdentifier}
-         * 
-         * @param blockIdentifier BlockIdentifier data
-         * @return Object holding the api version and block
-         */
-        @JsonRpcMethod("chain_get_block_transfers")
-        public TransferData getBlockTransfers(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
+    /**
+     * Retrieve block transfers by its {@link BlockIdentifier}
+     * 
+     * @param blockIdentifier BlockIdentifier data
+     * @return Object holding the api version and block
+     */
+    @JsonRpcMethod("chain_get_block_transfers")
+    public TransferData getBlockTransfers(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
-        /**
-         * Returns a state root hash at the last Block
-         * 
-         * @param height identifier Block's height
-         * @return Object holding the api version and block
-         */
-        @JsonRpcMethod("chain_get_state_root_hash")
-        public StateRootHashData getStateRootHash();
+    /**
+     * Returns a state root hash at the last Block
+     * 
+     * @param height identifier Block's height
+     * @return Object holding the api version and block
+     */
+    @JsonRpcMethod("chain_get_state_root_hash")
+    public StateRootHashData getStateRootHash();
 
-        /**
-         * Returns a state root hash at a given Block height
-         * 
-         * @param blockIdentifier BlockIdentifier data
-         * @return Object holding the api version and block
-         */
-        @JsonRpcMethod("chain_get_state_root_hash")
-        public StateRootHashData getStateRootHash(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
+    /**
+     * Returns a state root hash at a given Block height
+     * 
+     * @param blockIdentifier BlockIdentifier data
+     * @return Object holding the api version and block
+     */
+    @JsonRpcMethod("chain_get_state_root_hash")
+    public StateRootHashData getStateRootHash(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
-        /**
-         * Returns a stored value from the network
-         * 
-         * @param stateRootHash Hash of the state root
-         * @param key           `casper_types::Key` as formatted string
-         * @param path          The path components starting from the key as base
-         * @return Object holding the api version, the merkle proof and the stored_value
-         */
-        @JsonRpcMethod("state_get_item")
-        public StoredValueData getStateItem(@JsonRpcParam("state_root_hash") String stateRootHash,
-                        @JsonRpcParam("key") String key, @JsonRpcParam("path") List<String> path);
+    /**
+     * Returns a stored value from the network
+     * 
+     * @param stateRootHash Hash of the state root
+     * @param key           `casper_types::Key` as formatted string
+     * @param path          The path components starting from the key as base
+     * @return Object holding the api version, the merkle proof and the stored_value
+     */
+    @JsonRpcMethod("state_get_item")
+    public StoredValueData getStateItem(@JsonRpcParam("state_root_hash") String stateRootHash,
+            @JsonRpcParam("key") String key, @JsonRpcParam("path") List<String> path);
 
-        /**
-         * Returns an EraInfo from the network
-         * 
-         * @param blockIdentifier BlockIdentifier data
-         * @return Object holding api version and EraInfo
-         */
-        @JsonRpcMethod("chain_get_era_info_by_switch_block")
-        public EraInfoData getEraInfoBySwitchBlock(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
+    /**
+     * Returns an EraInfo from the network
+     * 
+     * @param blockIdentifier BlockIdentifier data
+     * @return Object holding api version and EraInfo
+     */
+    @JsonRpcMethod("chain_get_era_info_by_switch_block")
+    public EraInfoData getEraInfoBySwitchBlock(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
-        /**
-         * Returns a Deploy from the network
-         * 
-         * @param deployHash The deploy hash
-         * @return Object holding the api version, the deploy and the map of block hash
-         *         to execution result
-         */
-        @JsonRpcMethod("info_get_deploy")
-        public DeployData getDeploy(@JsonRpcParam("deploy_hash") String deployHash);
+    /**
+     * Returns a Deploy from the network
+     * 
+     * @param deployHash The deploy hash
+     * @return Object holding the api version, the deploy and the map of block hash
+     *         to execution result
+     */
+    @JsonRpcMethod("info_get_deploy")
+    public DeployData getDeploy(@JsonRpcParam("deploy_hash") String deployHash);
 
-        /**
-         * Returns the current status of the node
-         * 
-         * @return Object holding the apiversion, minimal block information, build
-         *         version and other properties
-         */
-        @JsonRpcMethod("info_get_status")
-        public Status getStatus();
+    /**
+     * Returns the current status of the node
+     * 
+     * @return Object holding the apiversion, minimal block information, build
+     *         version and other properties
+     */
+    @JsonRpcMethod("info_get_status")
+    public Status getStatus();
 
-        /**
-         * Returns an Account from the network
-         * 
-         * @param publicKey
-         * @param blockIdentifier BlockIdentifier data
-         * @return Oject holding the api version, the account and the merkle proof
-         */
-        @JsonRpcMethod("state_get_account_info")
-        public AccountData getStateAccountInfo(@JsonRpcParam("public_key") String publicKey,
-                        @JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
+    /**
+     * Returns an Account from the network
+     * 
+     * @param publicKey
+     * @param blockIdentifier BlockIdentifier data
+     * @return Oject holding the api version, the account and the merkle proof
+     */
+    @JsonRpcMethod("state_get_account_info")
+    public AccountData getStateAccountInfo(@JsonRpcParam("public_key") String publicKey,
+            @JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
-        /**
-         * Returns the Auction info for a given block
-         * 
-         * @param blockIdentifier BlockIdentifier data
-         * @return Object holding the api version and auction state
-         */
-        @JsonRpcMethod("state_get_auction_info")
-        public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
+    /**
+     * Returns the Auction info for a given block
+     * 
+     * @param blockIdentifier BlockIdentifier data
+     * @return Object holding the api version and auction state
+     */
+    @JsonRpcMethod("state_get_auction_info")
+    public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
-        /**
-         * Returns an item from a Dictionary
-         * 
-         * @param rootHash
-         * @param height
-         * @return
-         */
-        @JsonRpcMethod("state_get_dictionary_item")
-        public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
-                        @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter dictionaryIdentifier);
+    /**
+     * Returns an item from a Dictionary
+     * 
+     * @param rootHash
+     * @param height
+     * @return
+     */
+    @JsonRpcMethod("state_get_dictionary_item")
+    public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
+            @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter dictionaryIdentifier);
 
-        /**
-         * Fetches balance value
-         * 
-         * @param rootHash  The hash of state root
-         * @param purseUref Formatted URef
-         * @return Result for "state_get_balance" RPC response
-         */
-        @JsonRpcMethod("state_get_balance")
-        public BalanceData getBalance(@JsonRpcParam("state_root_hash") String rootHash,
-                        @JsonRpcParam("purse_uref") String purseUref);
+    /**
+     * Fetches balance value
+     * 
+     * @param rootHash  The hash of state root
+     * @param purseUref Formatted URef
+     * @return Result for "state_get_balance" RPC response
+     */
+    @JsonRpcMethod("state_get_balance")
+    public BalanceData getBalance(@JsonRpcParam("state_root_hash") String rootHash,
+            @JsonRpcParam("purse_uref") String purseUref);
 
-        /**
-         * Builds a CasperService for the node ip/port pair
-         * 
-         * @param ip   the peer ip to connect to
-         * @param port the service port of the peer
-         * @return A Dynamic Proxy to CasperService
-         * @throws MalformedURLException is thrown if ip/port are not compliant
-         */
-        public static CasperService usingPeer(String ip, int port) throws MalformedURLException {
-                CasperObjectMapper objectMapper = new CasperObjectMapper();
-                Map<String, String> newHeaders = new HashMap<>();
-                newHeaders.put("Content-Type", "application/json");
+    /**
+     * Builds a CasperService for the node ip/port pair
+     * 
+     * @param ip   the peer ip to connect to
+     * @param port the service port of the peer
+     * @return A Dynamic Proxy to CasperService
+     * @throws MalformedURLException is thrown if ip/port are not compliant
+     */
+    public static CasperService usingPeer(String ip, int port) throws MalformedURLException {
+        CasperObjectMapper objectMapper = new CasperObjectMapper();
+        Map<String, String> newHeaders = new HashMap<>();
+        newHeaders.put("Content-Type", "application/json");
+        JsonRpcHttpClient client = new JsonRpcHttpClient(objectMapper, new URL("http", ip, port, "/rpc"), newHeaders);
 
-                JsonRpcHttpClient client = new JsonRpcHttpClient(objectMapper, new URL("http", ip, port, "/rpc"),
-                                newHeaders);
+        ExceptionResolver exceptionResolver = new CasperExceptionResolver();
+        client.setExceptionResolver(exceptionResolver);
 
-                return ProxyUtil.createClientProxy(CasperService.class.getClassLoader(), CasperService.class, client);
-        }
+        return ProxyUtil.createClientProxy(CasperService.class.getClassLoader(), CasperService.class, client);
+    }
 }

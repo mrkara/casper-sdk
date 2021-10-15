@@ -3,13 +3,17 @@ package com.syntifi.casper.sdk.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.syntifi.casper.sdk.exception.CasperClientException;
+import com.syntifi.casper.sdk.identifier.block.BlockIdentifier;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHash;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKey;
@@ -42,7 +46,9 @@ import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.Transfer;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -314,18 +320,35 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 	}
 
 	@Test
-	void getEraInfoBySwitchBlockByHeight() {
+	void getEraInfoBySwitchBlockByHeight() throws JSONException, IOException {
 		EraInfoData eraInfoData = casperServiceMainnet
 				.getEraInfoBySwitchBlock(BlockIdentifierByHeight.builder().height(200000).build());
 
-		assertNotNull(eraInfoData);
+		String inputJson = getPrettyJson(loadJsonFromFile("era-info-samples/era-info-by-switch-block.json"));
+
+		JSONAssert.assertEquals(inputJson, getPrettyJson(eraInfoData), false);
 	}
 
 	@Test
-	void getEraInfoBySwitchBlockByHash() {
+	void getEraInfoBySwitchBlockByHash() throws JSONException, IOException {
 		EraInfoData eraInfoData = casperServiceMainnet.getEraInfoBySwitchBlock(BlockIdentifierByHash.builder()
 				.hash("6eee8974bd9df0c2ae5469a239c23ff901c4ca884a1fe8b7b5319b04fac3b484").build());
 
-		assertNotNull(eraInfoData);
+		String inputJson = getPrettyJson(loadJsonFromFile("era-info-samples/era-info-by-switch-block.json"));
+
+		JSONAssert.assertEquals(inputJson, getPrettyJson(eraInfoData), false);
+	}
+
+	@Test
+	void getCasperClientExceptionExceptionBlockNotKnown() throws JSONException, IOException {
+		String expectedMessage = "block not known (code: -32001)";
+
+		BlockIdentifier blockIdentifier = BlockIdentifierByHash.builder()
+				.hash("2bb2ac73f7d15cff3698f69c182b2c4b749c79ab857b9873a4110af8999c41fb").build();
+
+		CasperClientException casperClientException = assertThrows(CasperClientException.class,
+				() -> casperServiceMainnet.getEraInfoBySwitchBlock(blockIdentifier));
+
+		assertEquals(expectedMessage, casperClientException.getMessage());
 	}
 }

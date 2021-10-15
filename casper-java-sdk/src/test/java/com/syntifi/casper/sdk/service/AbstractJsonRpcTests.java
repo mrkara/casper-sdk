@@ -2,6 +2,8 @@ package com.syntifi.casper.sdk.service;
 
 import java.net.MalformedURLException;
 
+import com.syntifi.casper.sdk.model.AbstractJsonTests;
+
 import org.junit.jupiter.api.BeforeAll;
 
 import lombok.AccessLevel;
@@ -15,7 +17,7 @@ import lombok.Getter;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public abstract class AbstractJsonRpcTests {
+public abstract class AbstractJsonRpcTests extends AbstractJsonTests {
 	@Getter
 	@AllArgsConstructor(access = AccessLevel.PRIVATE)
 	public enum CasperNetwork {
