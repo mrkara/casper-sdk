@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Data
 public class JsonBlockHeader {
-   
+
     /**
      * Block height
      */

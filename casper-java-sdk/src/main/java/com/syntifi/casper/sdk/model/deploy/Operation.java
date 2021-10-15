@@ -11,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class Operation {
+    
     /**
      * The formatted string of the `Key`
      */
@@ -20,5 +21,4 @@ public class Operation {
      * @see OpKind 
      */
     private OpKind kind;
-
 }

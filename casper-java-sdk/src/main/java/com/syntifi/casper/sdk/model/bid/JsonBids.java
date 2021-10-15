@@ -16,15 +16,13 @@ import lombok.Data;
 public class JsonBids {
 
     /**
-     * @see JsonBid 
+     * @see JsonBid
      */
     private JsonBid bid;
 
     /**
-     * @see PublicKey 
+     * @see PublicKey
      */
     @JsonProperty("public_key")
     private PublicKey publicKey;
-
 }
-

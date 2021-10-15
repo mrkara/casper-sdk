@@ -47,7 +47,7 @@ public class Delegator {
      */
     @JsonIgnore
     private BigInteger stakedAmount;
-
+    
     @JsonProperty("staked_amount")
     protected String getJsonStakedAmount() {
         return this.stakedAmount.toString(10);

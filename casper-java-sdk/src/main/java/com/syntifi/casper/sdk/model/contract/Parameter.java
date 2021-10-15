@@ -18,6 +18,7 @@ import lombok.Data;
  */
 @Data
 public class Parameter {
+
     /**
      * cl_type(CLType) The value of the entry: a casper `Key` type.
      */

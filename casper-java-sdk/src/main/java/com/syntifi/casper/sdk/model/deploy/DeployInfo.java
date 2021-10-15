@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Data
 public class DeployInfo {
- 
+
     /**
      * The relevant Deploy
      */
@@ -36,18 +36,9 @@ public class DeployInfo {
     @JsonIgnore
     private BigInteger gas;
 
-    @JsonProperty("gas")
-    protected String getJsonGas() {
-        return this.gas.toString(10);
-    }
-
-    @JsonProperty("gas")
-    protected void setJsonGas(String value) {
-        this.gas = new BigInteger(value, 10);
-    }
-
     /**
      * Source purse used for payment of the Deploy.
+     * 
      * @see URef
      */
     private URef source;
@@ -57,4 +48,13 @@ public class DeployInfo {
      */
     private List<String> transfers;
 
+    @JsonProperty("gas")
+    protected String getJsonGas() {
+        return this.gas.toString(10);
+    }
+
+    @JsonProperty("gas")
+    protected void setJsonGas(String value) {
+        this.gas = new BigInteger(value, 10);
+    }
 }

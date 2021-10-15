@@ -36,5 +36,4 @@ public class Key extends AbstractSerializedKeyTaggedHex<KeyTag> {
         this.setTag(obj.getTag());
         this.setKey(obj.getKey());
     }
-
 }

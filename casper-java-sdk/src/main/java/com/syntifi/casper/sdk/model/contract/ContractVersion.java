@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class ContractVersion {
+
     /**
      * contract_hash(string) The hash address of the contract
      */

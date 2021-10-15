@@ -20,6 +20,7 @@ import lombok.Data;
  */
 @Data
 public class EntryPoint {
+
     public enum EntryPointAccess {
         @JsonProperty("Public")
         PUBLIC;
@@ -32,7 +33,7 @@ public class EntryPoint {
     }
 
     /**
-     * access(enum/String) - 
+     * access(enum/String) -
      */
     @JsonProperty("access")
     private EntryPointAccess access; // TODO: Check object/Groups on spec

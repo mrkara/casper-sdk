@@ -17,6 +17,7 @@ import lombok.Data;
  */
 @Data
 public class JsonEraReport {
+    
     /**
      * List of @see PublicKey 
      */

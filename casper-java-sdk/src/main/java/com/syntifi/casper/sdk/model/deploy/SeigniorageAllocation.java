@@ -36,9 +36,9 @@ public class SeigniorageAllocation {
 
     /**
      * Validator's public key
+     * 
      * @see PublickKey
      */
     @JsonProperty("validator_public_key")
     private PublicKey validatorPublicKey;
-    
 }

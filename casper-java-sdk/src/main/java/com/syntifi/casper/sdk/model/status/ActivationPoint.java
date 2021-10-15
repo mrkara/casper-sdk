@@ -25,20 +25,20 @@ public class ActivationPoint {
     @JsonIgnore
     private BigInteger eraId;
 
-    @JsonProperty("era_id")
-    protected String getBigInteger() {
-        return this.eraId.toString(10);
-    }
-
-    @JsonProperty("era_id")
-    protected void setBigInteger(String value) {
-        this.eraId = new BigInteger(value, 10);
-    }
-
     /**
      * Timestamp formatted as per RFC 3339
      */
     @JsonProperty("timestamp")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date timeStamp;
+
+    @JsonProperty("era_id")
+    protected String getJsonEraId() {
+        return this.eraId.toString(10);
+    }
+
+    @JsonProperty("era_id")
+    protected void setJsonEraId(String value) {
+        this.eraId = new BigInteger(value, 10);
+    }
 }

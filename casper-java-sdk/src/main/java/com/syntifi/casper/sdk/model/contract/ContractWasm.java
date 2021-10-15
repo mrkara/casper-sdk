@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class ContractWasm {
+
     /**
      * ContractWasm(object/string) A contract's Wasm.
      */

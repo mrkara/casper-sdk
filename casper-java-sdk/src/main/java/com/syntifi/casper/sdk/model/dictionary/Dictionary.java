@@ -15,6 +15,7 @@ import lombok.Data;
  */
 @Data
 public class Dictionary {
+    
     /**
      * The RPC API version 
      */

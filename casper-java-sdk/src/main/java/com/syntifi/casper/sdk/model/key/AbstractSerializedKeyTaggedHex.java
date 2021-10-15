@@ -15,6 +15,7 @@ import lombok.Data;
  */
 @Data
 public abstract class AbstractSerializedKeyTaggedHex<T extends Tag> {
+
     /**
      * @see Tag
      */
@@ -32,5 +33,4 @@ public abstract class AbstractSerializedKeyTaggedHex<T extends Tag> {
         return StringByteHelper.convertBytesToHex(new byte[] { this.tag.getByteTag() })
                 + StringByteHelper.convertBytesToHex(this.getKey());
     }
-
 }

@@ -20,27 +20,18 @@ import lombok.Data;
  */
 @Data
 public class MinimalBlockInfo {
+
     /**
-     * @see PublicKey 
+     * @see PublicKey
      */
     private PublicKey creator;
 
     /**
-     * Era ID 
+     * Era ID
      */
-    //@JsonIgnore
+    // @JsonIgnore
     @JsonProperty("era_id")
     private BigInteger eraId;
-
-    // @JsonProperty("era_id")
-    // protected String getBigInteger() {
-    //     return this.eraId.toString(10);
-    // }
-
-    // @JsonProperty("era_id")
-    // protected void setBigInteger(String value) {
-    //     this.eraId = new BigInteger(value, 10);
-    // }
 
     /**
      * Block Hash
@@ -65,4 +56,13 @@ public class MinimalBlockInfo {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date timeStamp;
 
+    // @JsonProperty("era_id")
+    // protected String getJsonEraId() {
+    // return this.eraId.toString(10);
+    // }
+
+    // @JsonProperty("era_id")
+    // protected void setJsonEraId(String value) {
+    // this.eraId = new BigInteger(value, 10);
+    // }
 }

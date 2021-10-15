@@ -23,5 +23,4 @@ public class WriteCLValue implements Transform {
      */
     @JsonProperty("WriteCLValue")
     private AbstractCLValue<?, ?> clvalue;
-
 }

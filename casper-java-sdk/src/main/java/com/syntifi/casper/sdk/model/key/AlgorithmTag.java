@@ -28,5 +28,4 @@ public enum AlgorithmTag implements Tag {
         }
         throw new NoSuchAlgorithmException();
     }
-
 }

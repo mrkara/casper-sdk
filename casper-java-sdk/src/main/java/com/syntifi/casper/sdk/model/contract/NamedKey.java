@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class NamedKey {
+
     /**
      * key(String) The value of the entry: a casper `Key` type.
      */

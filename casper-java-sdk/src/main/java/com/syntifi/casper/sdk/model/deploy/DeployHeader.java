@@ -49,16 +49,6 @@ public class DeployHeader {
     @JsonProperty("gas_price")
     private BigInteger gasPrice; 
 
-    // @JsonProperty("gas_price")
-    // protected String getJsonGasPrice() {
-    //     return this.gasPrice.toString(10);
-    // }
-
-    // @JsonProperty("gas_price")
-    // protected void setJsonGasPrice(String value) {
-    //     this.gasPrice= new BigInteger(value, 10);
-    // }
-
     /**
      * Timestamp formatted as per RFC 3339
      */
@@ -70,4 +60,14 @@ public class DeployHeader {
      * Human-readable duration
      */
     private String ttl;
+
+    // @JsonProperty("gas_price")
+    // protected String getJsonGasPrice() {
+    //     return this.gasPrice.toString(10);
+    // }
+
+    // @JsonProperty("gas_price")
+    // protected void setJsonGasPrice(String value) {
+    //     this.gasPrice= new BigInteger(value, 10);
+    // }
 }

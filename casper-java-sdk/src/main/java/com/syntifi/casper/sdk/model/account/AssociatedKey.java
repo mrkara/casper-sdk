@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class AssociatedKey {
+    
     /**
      * account_hash(String) Hex-encoded account hash.
      */

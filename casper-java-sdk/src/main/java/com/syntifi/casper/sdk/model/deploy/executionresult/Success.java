@@ -11,8 +11,8 @@ import com.syntifi.casper.sdk.model.deploy.ExecutionEffect;
 import lombok.Data;
 
 /**
- * Abstract Executable Result of type Success containing the details of 
- * the contract execution. It shows the result of a successs execution
+ * Abstract Executable Result of type Success containing the details of the
+ * contract execution. It shows the result of a successs execution
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -21,22 +21,13 @@ import lombok.Data;
  */
 @Data
 @JsonTypeName("Success")
-public class Success implements ExecutionResult{
+public class Success implements ExecutionResult {
+
     /**
      * The cost of executing the deploy.
      */
     @JsonIgnore
     private BigInteger cost;
-
-    @JsonProperty("cost")
-    protected String getBigInteger() {
-        return this.cost.toString(10);
-    }
-
-    @JsonProperty("cost")
-    protected void setBigInteger(String value) {
-        this.cost = new BigInteger(value, 10);
-    }
 
     /**
      * @see ExecutionEffect
@@ -47,5 +38,14 @@ public class Success implements ExecutionResult{
      * List of Hex-encoded transfer address.
      */
     private List<String> transfers;
-}
 
+    @JsonProperty("cost")
+    protected String getJsonCost() {
+        return this.cost.toString(10);
+    }
+
+    @JsonProperty("cost")
+    protected void setJsonCost(String value) {
+        this.cost = new BigInteger(value, 10);
+    }
+}

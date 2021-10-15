@@ -14,21 +14,20 @@ import lombok.Data;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see ExecutableDeployItem 
+ * @see ExecutableDeployItem
  */
 @Data
 @JsonTypeName("ModuleBytes")
 public class ModuleBytes implements ExecutableDeployItem {
+
     /**
-     * Module bytes 
+     * Module bytes
      */
     @JsonProperty("module_bytes")
     private String bytes;
 
     /**
-     * @see NamedArg 
+     * @see NamedArg
      */
     private List<NamedArg<?, ?>> args;
-
-
 }

@@ -8,8 +8,8 @@ import com.syntifi.casper.sdk.model.deploy.NamedArg;
 import lombok.Data;
 
 /**
- * An AbstractExecutableDeployItem of Type Transfer containing the runtime 
- * args of the contract.
+ * An AbstractExecutableDeployItem of Type Transfer containing the runtime args
+ * of the contract.
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -17,10 +17,10 @@ import lombok.Data;
  */
 @Data
 @JsonTypeName("Transfer")
-public class Transfer implements ExecutableDeployItem{
-   
+public class Transfer implements ExecutableDeployItem {
+
     /**
-     * List of @see NamedArg 
+     * List of @see NamedArg
      */
     private List<NamedArg<?, ?>> args;
 

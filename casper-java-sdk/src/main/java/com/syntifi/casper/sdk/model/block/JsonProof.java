@@ -16,6 +16,7 @@ import lombok.Data;
  */
 @Data
 public class JsonProof {
+
     /**
      * @see PublicKey
      */

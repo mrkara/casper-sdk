@@ -16,6 +16,7 @@ import lombok.Data;
  */
 @Data
 public class Account {
+    
     /**
      * account_hash(String) Hex-encoded account hash.
      */

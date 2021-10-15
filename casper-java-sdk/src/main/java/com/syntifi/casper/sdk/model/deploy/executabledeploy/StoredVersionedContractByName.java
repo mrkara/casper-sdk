@@ -14,25 +14,25 @@ import lombok.Data;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see ExecutableDeployItem 
+ * @see ExecutableDeployItem
  */
 @Data
 @JsonTypeName("StoredVersionedContractByName")
-public class StoredVersionedContractByName implements ExecutableDeployItem{
-   
+public class StoredVersionedContractByName implements ExecutableDeployItem {
+
     /**
-     * List of @see NamedArg 
+     * List of @see NamedArg
      */
     private List<NamedArg<?, ?>> args;
 
     /**
-     * Entry Point 
+     * Entry Point
      */
     @JsonProperty("entry_point")
     private String entryPoint;
 
     /**
-     * Contract Name 
+     * Contract Name
      */
     private String name;
 

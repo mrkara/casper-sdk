@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class ActionThresholds {
+    
     /**
      * deployment(Integer)
      */

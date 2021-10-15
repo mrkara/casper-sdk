@@ -33,12 +33,13 @@ public class JsonBid {
 
     /**
      * The delegators
+     * 
      * @see JsonDelegator
      */
     private List<JsonDelegator> delegators;
 
     /**
-     * Is this an innactive validator 
+     * Is this an innactive validator
      */
     private boolean inactive;
 
@@ -57,5 +58,4 @@ public class JsonBid {
     protected void setJsonStakedAmount(String value) {
         this.stakedAmount = new BigInteger(value, 10);
     }
-
 }

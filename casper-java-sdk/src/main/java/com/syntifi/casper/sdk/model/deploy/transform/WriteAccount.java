@@ -22,7 +22,6 @@ public class WriteAccount implements Transform {
      */
     @JsonProperty("WriteAccount")
     private String account;
-
 }
 
 

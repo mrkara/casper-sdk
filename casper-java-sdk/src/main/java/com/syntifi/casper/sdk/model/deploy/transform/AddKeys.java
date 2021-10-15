@@ -10,6 +10,7 @@ import lombok.Data;
 
 /**
  * An implmentation of Transform that Adds the given collection of named keys.
+ * 
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -19,14 +20,11 @@ import lombok.Data;
 @Data
 @JsonTypeName("AddKeys")
 public class AddKeys implements Transform {
-   
+
     /**
-     * @see NamedKey 
+     * @see NamedKey
      */
     @JsonProperty("AddKeys")
     private List<NamedKey> addKeys;
 
 }
-
-
-

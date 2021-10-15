@@ -30,6 +30,5 @@ public enum WriteContract implements Transform {
     WRITE_CONTRACT, 
     @JsonProperty("WriteContractPackage")
     @JsonUnwrapped
-    WRITE_CONTRACT_PACKAGE;
-   
+    WRITE_CONTRACT_PACKAGE;   
 }

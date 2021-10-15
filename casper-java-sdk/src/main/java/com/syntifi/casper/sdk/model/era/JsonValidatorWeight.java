@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Data
 public class JsonValidatorWeight {
-
+    
     /**
      * @see PublicKey
      */
@@ -32,14 +32,12 @@ public class JsonValidatorWeight {
     private BigInteger weight;
 
     @JsonProperty("weight")
-    protected String getBigInteger() {
+    protected String getJsonWeight() {
         return this.weight.toString(10);
     }
 
     @JsonProperty("weight")
-    protected void setBigInteger(String value) {
+    protected void setJsonWeight(String value) {
         this.weight = new BigInteger(value, 10);
     }
-
-
 }

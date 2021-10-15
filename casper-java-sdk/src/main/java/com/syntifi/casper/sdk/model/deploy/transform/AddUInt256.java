@@ -10,6 +10,7 @@ import lombok.Data;
 
 /**
  * An implmentation of Transform that Adds the given `u256`
+ * 
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -19,9 +20,9 @@ import lombok.Data;
 @Data
 @JsonTypeName("AddUInt256")
 public class AddUInt256 implements Transform {
-   
+
     /**
-     * u256 
+     * u256
      */
     @JsonIgnore
     private BigInteger u256;
@@ -36,5 +37,3 @@ public class AddUInt256 implements Transform {
         this.u256 = new BigInteger(value, 10);
     }
 }
-
-

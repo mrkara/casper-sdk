@@ -24,6 +24,7 @@ import lombok.Data;
  */
 @Data
 public class Bid {
+
     /**
      * The purse that was used for bonding.
      */

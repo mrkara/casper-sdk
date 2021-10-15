@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class Entry {
+    
     /**
      * The formatted string of the `Key`
      */

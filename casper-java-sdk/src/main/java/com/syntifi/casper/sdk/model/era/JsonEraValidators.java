@@ -16,28 +16,27 @@ import lombok.Data;
  */
 @Data
 public class JsonEraValidators {
-
+    
     /**
      * Era id
      */
-    //@JsonIgnore
+    // @JsonIgnore
     @JsonProperty("era_id")
     private BigInteger eraId;
-    
-    // @JsonProperty("era_id")
-    // protected String getBigInteger() {
-    //     return this.eraId.toString(10);
-    // }
 
-    // @JsonProperty("era_id")
-    // protected void setBigInteger(String value) {
-    //     this.eraId = new BigInteger(value, 10);
-    // }
     /**
-     * @see JsonValidatorWeight 
+     * @see JsonValidatorWeight
      */
     @JsonProperty("validator_weights")
     private List<JsonValidatorWeight> validatorWeights;
 
-}
+    // @JsonProperty("era_id")
+    // protected String getJsonEraId() {
+    // return this.eraId.toString(10);
+    // }
 
+    // @JsonProperty("era_id")
+    // protected void setJsonEraId(String value) {
+    // this.eraId = new BigInteger(value, 10);
+    // }
+}

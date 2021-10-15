@@ -10,6 +10,7 @@ import lombok.Data;
 
 /**
  * An implmentation of Transform that Adds the given `u128`
+ * 
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -19,7 +20,7 @@ import lombok.Data;
 @Data
 @JsonTypeName("AddUInt128")
 public class AddUInt128 implements Transform {
-   
+
     /**
      * u128
      */
@@ -36,6 +37,3 @@ public class AddUInt128 implements Transform {
         this.u128 = new BigInteger(value, 10);
     }
 }
-
-
-

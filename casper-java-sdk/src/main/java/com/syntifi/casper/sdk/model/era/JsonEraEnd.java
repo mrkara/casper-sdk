@@ -11,7 +11,7 @@ import java.util.List;
  * @since 0.0.1
  */
 public class JsonEraEnd {
-
+    
     /**
      * @see JsonEraReport
      */

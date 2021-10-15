@@ -15,6 +15,7 @@ import lombok.Data;
  */
 @Data
 public class Group {
+
     /**
      * group(string)
      */

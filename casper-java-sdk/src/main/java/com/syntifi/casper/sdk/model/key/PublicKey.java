@@ -37,5 +37,4 @@ public class PublicKey extends AbstractSerializedKeyTaggedHex<AlgorithmTag> {
         this.setTag(obj.getTag());
         this.setKey(obj.getKey());
     }
-
 }

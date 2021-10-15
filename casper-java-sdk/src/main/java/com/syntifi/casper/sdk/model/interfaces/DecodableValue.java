@@ -14,6 +14,7 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
  * @since 0.0.1
  */
 public interface DecodableValue {
+    
     /**
      * Called when the object's values must be decoded after deserializing
      * 

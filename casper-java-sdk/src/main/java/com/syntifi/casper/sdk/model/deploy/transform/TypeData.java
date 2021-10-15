@@ -47,6 +47,5 @@ public enum TypeData {
             }
         }
         throw new NoSuchTypeException();
-    }
- 
+    } 
 }

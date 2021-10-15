@@ -15,6 +15,7 @@ import lombok.Data;
  */
 @Data
 public class ContractPackage {
+
     /**
      * access_key(string)
      */

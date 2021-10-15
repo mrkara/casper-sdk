@@ -7,6 +7,7 @@ import lombok.Data;
 
 /**
  * An implmentation of Transform that Adds the given `i32`
+ * 
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -16,12 +17,10 @@ import lombok.Data;
 @Data
 @JsonTypeName("AddInt32")
 public class AddInt32 implements Transform {
-   
+
     /**
-     * i32 
+     * i32
      */
     @JsonProperty("AddInt32")
     private long addInt32;
-
 }
-

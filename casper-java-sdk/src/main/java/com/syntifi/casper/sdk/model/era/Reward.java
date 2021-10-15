@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 public class Reward {
-
+    
     /**
      * @see PublicKey
      */

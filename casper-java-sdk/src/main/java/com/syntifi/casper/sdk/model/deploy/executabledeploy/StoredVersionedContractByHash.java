@@ -14,25 +14,25 @@ import lombok.Data;
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
- * @see ExecutableDeployItem 
+ * @see ExecutableDeployItem
  */
 @Data
 @JsonTypeName("StoredVersionedContractByHash")
-public class StoredVersionedContractByHash implements ExecutableDeployItem{
-   
+public class StoredVersionedContractByHash implements ExecutableDeployItem {
+
     /**
-     * @see NamedArg 
+     * @see NamedArg
      */
     private List<NamedArg<?, ?>> args;
 
     /**
-     * Entry Point 
+     * Entry Point
      */
     @JsonProperty("entry_point")
     private String entryPoint;
 
     /**
-     * Hex-encoded Hash 
+     * Hex-encoded Hash
      */
     private String hash;
 

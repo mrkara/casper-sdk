@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class DisabledVersion {
+
     /**
      * contract_version(integer)
      */

@@ -10,7 +10,7 @@ import com.syntifi.casper.sdk.model.uref.URef;
 import lombok.Data;
 
 /**
- * A delegator associated with the give validator 
+ * A delegator associated with the give validator
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -18,19 +18,20 @@ import lombok.Data;
  */
 @Data
 public class JsonDelegator {
+
     /**
      * @see URef
      */
     @JsonProperty("bonding_purse")
     private URef bondingPurse;
-  
+
     /**
      * @see PublicKey
      */
     private PublicKey delegatee;
 
     /**
-     * @see PublicKey 
+     * @see PublicKey
      */
     @JsonProperty("public_key")
     private PublicKey publicKey;
@@ -50,5 +51,4 @@ public class JsonDelegator {
     protected void setJsonStakedAmount(String value) {
         this.stakedAmount = new BigInteger(value, 10);
     }
-
 }

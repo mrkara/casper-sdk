@@ -17,27 +17,17 @@ import lombok.Data;
  */
 @Data
 public class UnbondingPurse {
-   
+
     /**
      * Unbonding amount
      */
     @JsonIgnore
     private BigInteger unbondingAmount;
-   
-    @JsonProperty("unbonding_amount")
-    protected String getBigInteger() {
-        return this.unbondingAmount.toString(10);
-    }
-
-    @JsonProperty("unbonding_amount")
-    protected void setBigInteger(String value) {
-        this.unbondingAmount = new BigInteger(value, 10);
-    }
 
     /**
      * @see Uref
      */
-    //TODO: change to Uref
+    // TODO: change to Uref
     @JsonProperty("bonding_purse")
     private String bondingPurse;
 
@@ -48,16 +38,28 @@ public class UnbondingPurse {
     private BigInteger eraOfCreation;
 
     /**
-     * Unbonders public key 
+     * Unbonders public key
+     * 
      * @see PublickKey
      */
     @JsonProperty("unbonder_public_key")
     private PublicKey unbonderPublicKey;
 
     /**
-     * Validators public key 
+     * Validators public key
+     * 
      * @see PublickKey
      */
     @JsonProperty("validator_public_key")
     private PublicKey validatorPublicKey;
+
+    @JsonProperty("unbonding_amount")
+    protected String getJsonUnbondingAmount() {
+        return this.unbondingAmount.toString(10);
+    }
+
+    @JsonProperty("unbonding_amount")
+    protected void setJsonUnbondingAmount(String value) {
+        this.unbondingAmount = new BigInteger(value, 10);
+    }
 }

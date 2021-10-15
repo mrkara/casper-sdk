@@ -10,6 +10,7 @@ import lombok.Data;
 
 /**
  * An implmentation of Transform that Adds the given `u512`
+ * 
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -19,9 +20,9 @@ import lombok.Data;
 @Data
 @JsonTypeName("AddUInt512")
 public class AddUInt512 implements Transform {
-   
+
     /**
-     * u512 
+     * u512
      */
     @JsonIgnore
     private BigInteger u512;
@@ -36,6 +37,3 @@ public class AddUInt512 implements Transform {
         this.u512 = new BigInteger(value, 10);
     }
 }
-
-
-

@@ -28,6 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class URef {
+
     @JsonIgnore
     byte[] address;
 
@@ -60,5 +61,4 @@ public class URef {
         return "uref-" + StringByteHelper.convertBytesToHex(this.address) + "-0"
                 + StringByteHelper.convertBytesToHex(new byte[] { this.accessRight.serializationTag });
     }
-
 }

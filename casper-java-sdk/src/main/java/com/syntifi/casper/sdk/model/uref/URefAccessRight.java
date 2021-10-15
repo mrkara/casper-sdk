@@ -37,5 +37,4 @@ public enum URefAccessRight {
         }
         throw new DynamicInstanceException("No such access right exception");
     }
-
 }

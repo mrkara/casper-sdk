@@ -69,20 +69,19 @@ public class Status {
     @JsonIgnore
     private BigInteger roundLength;
 
-    @JsonProperty("round_length")
-    protected String getBigInteger() {
-        return this.roundLength != null ? this.roundLength.toString(10) : null;
-    }
-
-    @JsonProperty("round_length")
-    protected void setBigInteger(String value) {
-        this.roundLength = value != null ? new BigInteger(value, 10) : null;
-    }
-
     /**
      * The state root hash used at the start of the current session
      */
     @JsonProperty("starting_state_root_hash")
     private String startStateRootHash;
 
+    @JsonProperty("round_length")
+    protected String getJsonRoundLength() {
+        return this.roundLength != null ? this.roundLength.toString(10) : null;
+    }
+
+    @JsonProperty("round_length")
+    protected void setJsonRoundLength(String value) {
+        this.roundLength = value != null ? new BigInteger(value, 10) : null;
+    }
 }
