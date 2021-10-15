@@ -27,7 +27,7 @@ public class BalanceData {
      * The balance value
      */
     @JsonProperty("balance_value")
-    private BigInteger auctionState;
+    private BigInteger value;
 
     /**
      * The merkle proof
