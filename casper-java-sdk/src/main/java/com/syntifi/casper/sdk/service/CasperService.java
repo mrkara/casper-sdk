@@ -15,6 +15,7 @@ import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
 import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKeyParameter;
 import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
+import com.syntifi.casper.sdk.model.balance.BalanceData;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.dictionary.Dictionary;
@@ -145,8 +146,8 @@ public interface CasperService {
     /**
      * Returns the current status of the node
      * 
-     * @return Object holding the apiversion, minimal block information, build version 
-     * and other properties 
+     * @return Object holding the apiversion, minimal block information, build
+     *         version and other properties
      */
     @JsonRpcMethod("info_get_status")
     public Status getStatus();
@@ -155,30 +156,30 @@ public interface CasperService {
      * Returns an Account from the network
      * 
      * @param publicKey
-     * @param height identifier Block's height
+     * @param height    identifier Block's height
      * @return Oject holding the api version, the account and the merkle proof
      */
     @JsonRpcMethod("state_get_account_info")
     public AccountData getStateAccountInfo(@JsonRpcParam("public_key") String publicKey,
-        @JsonRpcParam("block_identifier") BlockIdentifierByHeight height);
+            @JsonRpcParam("block_identifier") BlockIdentifierByHeight height);
 
     /**
      * Returns an Account from the network
      * 
      * @param publicKey
-     * @param hash identifier Block's hash
+     * @param hash      identifier Block's hash
      * @return Oject holding the api version, the account and the merkle proof
-     */ 
+     */
     @JsonRpcMethod("state_get_account_info")
     public AccountData getStateAccountInfo(@JsonRpcParam("public_key") String publicKey,
-        @JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
+            @JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
 
     /**
      * Returns the Auction info for a given block
-     *  
+     * 
      * @param hash identifier Block's hash
      * @return
-     */ 
+     */
     @JsonRpcMethod("state_get_auction_info")
     public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifierByHash hash);
 
@@ -200,7 +201,18 @@ public interface CasperService {
      */
     @JsonRpcMethod("state_get_dictionary_item")
     public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
-        @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter height);
+            @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter height);
+
+    /**
+     * Fetches balance value
+     * 
+     * @param rootHash  The hash of state root
+     * @param purseUref Formatted URef
+     * @return Result for "state_get_balance" RPC response
+     */
+    @JsonRpcMethod("state_get_balance")
+    public BalanceData getBalance(@JsonRpcParam("state_root_hash") String rootHash,
+            @JsonRpcParam("purse_uref") String purseUref);
 
     /**
      * Builds a CasperService for the node ip/port pair

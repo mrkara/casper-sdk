@@ -1,4 +1,4 @@
-package com.syntifi.casper.sdk.model.clvalue.interfaces;
+package com.syntifi.casper.sdk.model.clvalue.encdec.interfaces;
 
 import java.io.IOException;
 

@@ -19,8 +19,8 @@ import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeData;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
-import com.syntifi.casper.sdk.model.clvalue.interfaces.DecodableValue;
-import com.syntifi.casper.sdk.model.clvalue.interfaces.EncodableValue;
+import com.syntifi.casper.sdk.model.clvalue.encdec.interfaces.DecodableValue;
+import com.syntifi.casper.sdk.model.clvalue.encdec.interfaces.EncodableValue;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
