@@ -11,7 +11,7 @@ import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
 import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.ProxyUtil;
-import com.syntifi.casper.sdk.exception.CasperExceptionResolver;
+import com.syntifi.casper.sdk.exception.CasperClientExceptionResolver;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifier;
 import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKeyParameter;
 import com.syntifi.casper.sdk.model.account.AccountData;
@@ -192,7 +192,7 @@ public interface CasperService {
         newHeaders.put("Content-Type", "application/json");
         JsonRpcHttpClient client = new JsonRpcHttpClient(objectMapper, new URL("http", ip, port, "/rpc"), newHeaders);
 
-        ExceptionResolver exceptionResolver = new CasperExceptionResolver();
+        ExceptionResolver exceptionResolver = new CasperClientExceptionResolver();
         client.setExceptionResolver(exceptionResolver);
 
         return ProxyUtil.createClientProxy(CasperService.class.getClassLoader(), CasperService.class, client);

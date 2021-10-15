@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.googlecode.jsonrpc4j.ExceptionResolver;
 import com.syntifi.casper.sdk.service.CasperObjectMapper;
 
-public class CasperExceptionResolver implements ExceptionResolver {
+public class CasperClientExceptionResolver implements ExceptionResolver {
     private static ObjectMapper objectMapper = new CasperObjectMapper();
 
     @Override
