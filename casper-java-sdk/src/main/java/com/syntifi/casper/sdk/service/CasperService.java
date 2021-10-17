@@ -27,6 +27,8 @@ import com.syntifi.casper.sdk.model.status.Status;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 
+import com.googlecode.jsonrpc4j.JsonRpcParamsPassMode; 
+
 /**
  * Interface to be used as Dynamic Proxy for RPC method operation
  * 
@@ -157,13 +159,13 @@ public interface CasperService {
     public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
     /**
-     * Returns an item from a Dictionary
+     * Returns an item from a Dictionary given the AccountNamedKey
      * 
      * @param rootHash
-     * @param height
-     * @return
+     * @param AccountNamedKey 
+     * @return Object holding the api version, the dictionary key, the merkle proof and the stored value
      */
-    @JsonRpcMethod("state_get_dictionary_item")
+    @JsonRpcMethod(value="state_get_dictionary_item", paramsPassMode = JsonRpcParamsPassMode.OBJECT)
     public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
             @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter dictionaryIdentifier);
 
