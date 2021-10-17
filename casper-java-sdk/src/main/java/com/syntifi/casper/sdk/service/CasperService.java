@@ -28,9 +28,7 @@ import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
 import com.syntifi.casper.sdk.model.status.Status;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
-import com.syntifi.casper.sdk.model.transfer.TransferData;
-
-import com.googlecode.jsonrpc4j.JsonRpcParamsPassMode; 
+import com.syntifi.casper.sdk.model.transfer.TransferData; 
 
 /**
  * Interface to be used as Dynamic Proxy for RPC method operation

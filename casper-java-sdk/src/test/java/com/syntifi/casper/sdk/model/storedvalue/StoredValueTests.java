@@ -102,7 +102,7 @@ public class StoredValueTests extends AbstractJsonTests {
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expectedClValue.encode(clve);
         }
-        //assertEquals(expected, sv);
+        // assertEquals(expected, sv);
 
         String expectedJson = getPrettyJson(expected);
 
@@ -597,7 +597,6 @@ public class StoredValueTests extends AbstractJsonTests {
         LOGGER.debug("Serialized Expected JSON: {}", serializedExpected);
 
         JSONAssert.assertEquals(inputJson, expectedJson, false);
-        // assertEquals(serializedExpected, expectedJson);
     }
 
     @Test
@@ -1100,7 +1099,7 @@ public class StoredValueTests extends AbstractJsonTests {
         try (CLValueEncoder clve = new CLValueEncoder()) {
             expectedClValue.encode(clve);
         }
-        // TODO: FIX EQUALS
+
         assertEquals(expected, sv);
 
         String expectedJson = getPrettyJson(expected);
