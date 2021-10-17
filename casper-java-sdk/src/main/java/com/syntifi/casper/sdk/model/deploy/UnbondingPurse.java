@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syntifi.casper.sdk.model.key.PublicKey;
+import com.syntifi.casper.sdk.model.uref.URef;
 
 import lombok.Data;
 
@@ -27,9 +28,8 @@ public class UnbondingPurse {
     /**
      * @see Uref
      */
-    // TODO: change to Uref
     @JsonProperty("bonding_purse")
-    private String bondingPurse;
+    private URef bondingPurse;
 
     /**
      * Era in which this unbonding request was created.

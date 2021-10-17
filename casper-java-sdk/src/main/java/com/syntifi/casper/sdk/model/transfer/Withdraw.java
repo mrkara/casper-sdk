@@ -1,5 +1,7 @@
 package com.syntifi.casper.sdk.model.transfer;
 
+import com.syntifi.casper.sdk.model.uref.URef;
+
 import lombok.Data;
 
 /**
@@ -17,11 +19,10 @@ public class Withdraw {
      */
     private String amount;
 
-    // TODO: Change to URef
     /**
      * bonding_purse(String) - Hex-encoded, formatted URef.
      */
-    private String bondingPurse;
+    private URef bondingPurse;
 
     /**
      * amount(Integer) - Era ID newtype.
