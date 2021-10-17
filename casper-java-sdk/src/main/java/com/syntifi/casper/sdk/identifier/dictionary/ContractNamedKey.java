@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * Identifier class passed to service
- * {@link CasperService#getDictionaryItem(String, AccountNamedKeyParameter)}
- * to Lookup a dictionary item via an Account named key
+ * {@link CasperService#getDictionaryItem(String, ContractNamedKeyParameter)}
+ * to Lookup a dictionary item via a Contract named keys
  *
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor //(access = AccessLevel.PRIVATE)
 @AllArgsConstructor //(access = AccessLevel.PRIVATE)
-public class AccountNamedKey {
+public class ContractNamedKey {
 
     /**
      *  The dictionary item key formatted as a string
@@ -36,7 +36,7 @@ public class AccountNamedKey {
     private String dictionaryName;
 
     /**
-     * The account key as a formatted string whose named keys contains dictionary_name.
+     * The contract key as a formatted string whose named keys contains dictionary_name.
      */
     private String key;
 

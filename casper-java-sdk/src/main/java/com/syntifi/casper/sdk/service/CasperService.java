@@ -14,6 +14,9 @@ import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.exception.CasperClientExceptionResolver;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifier;
 import com.syntifi.casper.sdk.identifier.dictionary.AccountNamedKeyParameter;
+import com.syntifi.casper.sdk.identifier.dictionary.ContractNamedKeyParameter;
+import com.syntifi.casper.sdk.identifier.dictionary.DictionaryParameter;
+import com.syntifi.casper.sdk.identifier.dictionary.URefParameter;
 import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
 import com.syntifi.casper.sdk.model.balance.BalanceData;
@@ -159,15 +162,52 @@ public interface CasperService {
     public AuctionData getStateAuctionInfo(@JsonRpcParam("block_identifier") BlockIdentifier blockIdentifier);
 
     /**
+     * Lookup a dictionary item via an Account's named keys.
      * Returns an item from a Dictionary given the AccountNamedKey
      * 
      * @param rootHash
      * @param AccountNamedKey 
      * @return Object holding the api version, the dictionary key, the merkle proof and the stored value
      */
-    @JsonRpcMethod(value="state_get_dictionary_item", paramsPassMode = JsonRpcParamsPassMode.OBJECT)
+    @JsonRpcMethod("state_get_dictionary_item")
     public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
             @JsonRpcParam("dictionary_identifier") AccountNamedKeyParameter dictionaryIdentifier);
+
+    /**
+     * Lookup a dictionary item via an Contract's named keys.
+     * Returns an item from a Dictionary given the ContractNamedKey 
+     * 
+     * @param rootHash
+     * @param dictionaryIdentifier
+     * @return Object holding the api version, the dictionary key, the merkle proof and the stored value
+     */
+    @JsonRpcMethod("state_get_dictionary_item")
+    public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
+            @JsonRpcParam("dictionary_identifier") ContractNamedKeyParameter dictionaryIdentifier);
+
+    /**
+     * Lookup a dictionary item via an Dictionary's URef seed.
+     * Returns an item from a Dictionary given the URef seed 
+     * 
+     * @param rootHash
+     * @param dictionaryIdentifier
+     * @return Object holding the api version, the dictionary key, the merkle proof and the stored value
+     */
+    @JsonRpcMethod("state_get_dictionary_item")
+    public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
+            @JsonRpcParam("dictionary_identifier") URefParameter dictionaryIdentifier);
+
+    /**
+     * Lookup a dictionary item via its unique key.
+     * Returns an item from a Dictionary given the dictionary's key 
+     * 
+     * @param rootHash
+     * @param dictionaryIdentifier
+     * @return
+     */ 
+    @JsonRpcMethod("state_get_dictionary_item")
+    public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
+            @JsonRpcParam("dictionary_identifier") DictionaryParameter dictionaryIdentifier);
 
     /**
      * Fetches balance value
