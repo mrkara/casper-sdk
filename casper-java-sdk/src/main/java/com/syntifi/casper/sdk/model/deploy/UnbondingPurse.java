@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.uref.URef;
 
@@ -54,12 +55,14 @@ public class UnbondingPurse {
     private PublicKey validatorPublicKey;
 
     @JsonProperty("unbonding_amount")
-    protected String getJsonUnbondingAmount() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonUnbondingAmount() {
         return this.unbondingAmount.toString(10);
     }
 
     @JsonProperty("unbonding_amount")
-    protected void setJsonUnbondingAmount(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonUnbondingAmount(String value) {
         this.unbondingAmount = new BigInteger(value, 10);
     }
 }

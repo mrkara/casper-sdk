@@ -2,6 +2,8 @@ package com.syntifi.casper.sdk.model.key;
 
 import java.security.NoSuchAlgorithmException;
 
+import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

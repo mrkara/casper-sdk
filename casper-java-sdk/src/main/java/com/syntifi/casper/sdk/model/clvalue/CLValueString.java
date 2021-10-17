@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeString;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
@@ -30,12 +31,14 @@ public class CLValueString extends AbstractCLValue<String, CLTypeString> {
     private CLTypeString clType = new CLTypeString();
 
     @JsonSetter("cl_type")
-    protected void setJsonClType(CLTypeString clType) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonClType(CLTypeString clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    protected String getJsonClType() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

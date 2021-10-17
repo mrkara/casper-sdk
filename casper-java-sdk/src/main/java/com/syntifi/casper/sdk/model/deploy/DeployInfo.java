@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.model.uref.URef;
 
 import lombok.Data;
@@ -49,11 +50,13 @@ public class DeployInfo {
     private List<String> transfers;
 
     @JsonProperty("gas")
+    @ExcludeFromJacocoGeneratedReport
     protected String getJsonGas() {
         return this.gas.toString(10);
     }
 
     @JsonProperty("gas")
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonGas(String value) {
         this.gas = new BigInteger(value, 10);
     }

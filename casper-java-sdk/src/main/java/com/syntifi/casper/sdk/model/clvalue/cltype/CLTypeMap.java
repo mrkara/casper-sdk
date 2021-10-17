@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,12 +42,14 @@ public class CLTypeMap extends AbstractCLType {
         private AbstractCLType valueType;
 
         @JsonSetter("key")
-        protected void setJsonKey(AbstractCLType clType) {
+        @ExcludeFromJacocoGeneratedReport
+	protected void setJsonKey(AbstractCLType clType) {
             this.keyType = clType;
         }
 
         @JsonGetter("key")
-        protected Object getJsonKey() {
+        @ExcludeFromJacocoGeneratedReport
+	protected Object getJsonKey() {
             if (this.keyType instanceof AbstractCLTypeBasic) {
                 return this.keyType.getTypeName();
             } else {
@@ -55,12 +58,14 @@ public class CLTypeMap extends AbstractCLType {
         }
 
         @JsonSetter("value")
-        protected void setJsonValue(AbstractCLType clType) {
+        @ExcludeFromJacocoGeneratedReport
+	protected void setJsonValue(AbstractCLType clType) {
             this.valueType = clType;
         }
 
         @JsonGetter("value")
-        protected Object getJsonValue() {
+        @ExcludeFromJacocoGeneratedReport
+	protected Object getJsonValue() {
             if (this.valueType instanceof AbstractCLTypeBasic) {
                 return this.valueType.getTypeName();
             } else {

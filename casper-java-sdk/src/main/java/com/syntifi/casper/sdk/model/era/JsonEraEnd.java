@@ -1,7 +1,8 @@
 package com.syntifi.casper.sdk.model.era;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Casper block root Era data

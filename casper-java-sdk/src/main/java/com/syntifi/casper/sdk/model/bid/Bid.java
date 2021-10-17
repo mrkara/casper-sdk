@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.InvalidByteStringException;
 import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.uref.URef;
@@ -69,7 +70,8 @@ public class Bid {
     private VestingSchedule vestingSchedule;
 
     @JsonSetter("delegators")
-    protected void setJsonDelegators(Map<String, Delegator> node)
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonDelegators(Map<String, Delegator> node)
             throws NoSuchAlgorithmException, InvalidByteStringException {
         for (Map.Entry<String, Delegator> entry : node.entrySet()) {
             PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
@@ -79,7 +81,8 @@ public class Bid {
     }
 
     @JsonGetter("delegators")
-    protected Map<String, Delegator> getJsonDelegators() {
+    @ExcludeFromJacocoGeneratedReport
+	protected Map<String, Delegator> getJsonDelegators() {
         Map<String, Delegator> out = new LinkedHashMap<>();
         for (Map.Entry<PublicKey, Delegator> entry : this.delegators.entrySet()) {
             out.put(entry.getKey().getAlgoTaggedHex(), entry.getValue());
@@ -88,12 +91,14 @@ public class Bid {
     }
 
     @JsonProperty("staked_amount")
-    protected String getJsonStakedAmount() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonStakedAmount() {
         return this.stakedAmount.toString(10);
     }
 
     @JsonProperty("staked_amount")
-    protected void setJsonStakedAmount(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonStakedAmount(String value) {
         this.stakedAmount = new BigInteger(value, 10);
     }
 }

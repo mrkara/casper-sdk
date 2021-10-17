@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.Data;
 
@@ -33,16 +34,19 @@ public class VestingSchedule {
     private List<BigInteger> lockedAmounts;
 
     // @JsonProperty("initial_release_timestamp_millis")
+    // @ExcludeFromJacocoGeneratedReport
     // protected String getJsonInitialReleaseTimeStampMillis() {
     // return this.initialReleaseTimeStampMillis.toString(10);
     // }
 
     // @JsonProperty("initial_release_timestamp_millis")
+    // @ExcludeFromJacocoGeneratedReport
     // protected void setJsonInitialReleaseTimeStampMillis(String value) {
     // this.initialReleaseTimeStampMillis = new BigInteger(value, 10);
     // }
 
     @JsonProperty("locked_amounts")
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonLockedAmounts(final List<String> lockedAmounts) {
         List<BigInteger> list = new LinkedList<>();
         for (String string : lockedAmounts) {
@@ -52,6 +56,7 @@ public class VestingSchedule {
     }
 
     @JsonProperty("locked_amounts")
+    @ExcludeFromJacocoGeneratedReport
     protected List<String> getJsonLockedAmounts() {
         List<String> list = new LinkedList<>();
         for (BigInteger bi : lockedAmounts) {

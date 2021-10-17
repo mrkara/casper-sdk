@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeURef;
@@ -13,7 +14,6 @@ import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.uref.URef;
 import com.syntifi.casper.sdk.model.uref.URefAccessRight;
 
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,12 +38,14 @@ public class CLValueURef extends AbstractCLValue<URef, CLTypeURef> {
     private CLTypeURef clType = new CLTypeURef();
 
     @JsonSetter("cl_type")
-    protected void setJsonClType(CLTypeURef clType) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonClType(CLTypeURef clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    protected String getJsonClType() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 
@@ -72,7 +74,7 @@ public class CLValueURef extends AbstractCLValue<URef, CLTypeURef> {
         setValue(uref);
     }
 
-    @Generated
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public boolean equals(final Object o) {
         if (o == this)
@@ -97,13 +99,13 @@ public class CLValueURef extends AbstractCLValue<URef, CLTypeURef> {
         return true;
     }
 
-    @Generated
+    @ExcludeFromJacocoGeneratedReport
     @Override
     protected boolean canEqual(final Object other) {
         return other instanceof CLValueURef;
     }
 
-    @Generated
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public int hashCode() {
         final int PRIME = 59;

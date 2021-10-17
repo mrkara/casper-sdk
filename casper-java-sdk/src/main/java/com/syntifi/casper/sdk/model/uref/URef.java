@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
 import com.syntifi.casper.sdk.exception.InvalidByteStringException;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
@@ -57,7 +58,8 @@ public class URef {
     }
 
     @JsonValue
-    public String getJsonURef() {
+    @ExcludeFromJacocoGeneratedReport
+    protected String getJsonURef() {
         return "uref-" + StringByteHelper.convertBytesToHex(this.address) + "-0"
                 + StringByteHelper.convertBytesToHex(new byte[] { this.accessRight.serializationTag });
     }

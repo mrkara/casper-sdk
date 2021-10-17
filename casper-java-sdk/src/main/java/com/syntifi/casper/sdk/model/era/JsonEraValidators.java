@@ -31,12 +31,14 @@ public class JsonEraValidators {
     private List<JsonValidatorWeight> validatorWeights;
 
     // @JsonProperty("era_id")
-    // protected String getJsonEraId() {
+    // @ExcludeFromJacocoGeneratedReport
+	// protected String getJsonEraId() {
     // return this.eraId.toString(10);
     // }
 
     // @JsonProperty("era_id")
-    // protected void setJsonEraId(String value) {
+    // @ExcludeFromJacocoGeneratedReport
+	// protected void setJsonEraId(String value) {
     // this.eraId = new BigInteger(value, 10);
     // }
 }

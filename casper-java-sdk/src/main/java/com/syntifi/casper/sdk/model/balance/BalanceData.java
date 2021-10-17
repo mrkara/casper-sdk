@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.Data;
 
@@ -37,13 +38,14 @@ public class BalanceData {
     private String merkleProof;
 
     @JsonProperty("balance_value")
+    @ExcludeFromJacocoGeneratedReport
     protected String getJsonValue() {
         return this.value.toString(10);
     }
 
     @JsonProperty("balance_value")
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonValue(String value) {
         this.value = new BigInteger(value, 10);
     }
-
 }

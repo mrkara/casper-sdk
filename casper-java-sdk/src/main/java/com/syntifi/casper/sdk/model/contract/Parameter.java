@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
 import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLTypeBasic;
 
@@ -32,6 +33,7 @@ public class Parameter {
     private String name;
 
     @JsonSetter("cl_type")
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonClType(AbstractCLType clType) {
         this.clType = clType;
     }
@@ -42,6 +44,7 @@ public class Parameter {
      * @return String if cl_type is basic type, CLType object if not.
      */
     @JsonGetter("cl_type")
+    @ExcludeFromJacocoGeneratedReport
     protected Object getJsonClType() {
         if (this.clType instanceof AbstractCLTypeBasic) {
             return this.clType.getTypeName();

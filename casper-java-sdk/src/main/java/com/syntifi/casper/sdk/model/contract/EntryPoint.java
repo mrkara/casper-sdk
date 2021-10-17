@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLType;
 import com.syntifi.casper.sdk.model.clvalue.cltype.AbstractCLTypeBasic;
 
@@ -63,6 +64,7 @@ public class EntryPoint {
     private AbstractCLType ret;
 
     @JsonSetter("ret")
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonRet(AbstractCLType clType) {
         this.ret = clType;
     }
@@ -73,6 +75,7 @@ public class EntryPoint {
      * @return String if cl_type is basic type, CLType object if not.
      */
     @JsonGetter("ret")
+    @ExcludeFromJacocoGeneratedReport
     protected Object getJsonRet() {
         if (this.ret instanceof AbstractCLTypeBasic) {
             return this.ret.getTypeName();

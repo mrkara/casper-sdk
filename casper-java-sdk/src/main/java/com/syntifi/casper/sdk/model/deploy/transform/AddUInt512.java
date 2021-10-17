@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.Data;
 
@@ -28,12 +29,14 @@ public class AddUInt512 implements Transform {
     private BigInteger u512;
 
     @JsonProperty("AddUInt512")
-    protected String getJsonU512() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonU512() {
         return this.u512.toString(10);
     }
 
     @JsonProperty("AddUInt512")
-    protected void setJsonU512(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonU512(String value) {
         this.u512 = new BigInteger(value, 10);
     }
 }

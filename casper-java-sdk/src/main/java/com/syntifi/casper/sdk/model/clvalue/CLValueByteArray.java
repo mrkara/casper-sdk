@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeByteArray;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueEncoder;
 
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,7 +45,7 @@ public class CLValueByteArray extends AbstractCLValue<byte[], CLTypeByteArray> {
     }
 
     @Override
-    @Generated
+    @ExcludeFromJacocoGeneratedReport
     public boolean equals(final Object o) {
         if (o == this)
             return true;
@@ -69,14 +69,14 @@ public class CLValueByteArray extends AbstractCLValue<byte[], CLTypeByteArray> {
         return true;
     }
 
-    @Generated
+    @ExcludeFromJacocoGeneratedReport
     @Override
     protected boolean canEqual(final Object other) {
         return other instanceof CLValueByteArray;
     }
 
     @Override
-    @Generated
+    @ExcludeFromJacocoGeneratedReport
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();

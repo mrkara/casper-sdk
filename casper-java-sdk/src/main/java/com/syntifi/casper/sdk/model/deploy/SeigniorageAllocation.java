@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.Data;
 
@@ -29,12 +30,14 @@ public class SeigniorageAllocation {
     private BigInteger amount;
 
     @JsonProperty("amount")
-    protected String getJsonAmount() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonAmount() {
         return this.amount.toString(10);
     }
 
     @JsonProperty("amount")
-    protected void setJsonAmount(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonAmount(String value) {
         this.amount = new BigInteger(value, 10);
     }
 }

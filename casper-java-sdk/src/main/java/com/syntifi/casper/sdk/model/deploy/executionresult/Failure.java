@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.model.deploy.ExecutionEffect;
 
 import lombok.Data;
@@ -46,11 +47,13 @@ public class Failure implements ExecutionResult {
     private List<String> transfers;
 
     @JsonProperty("cost")
+    @ExcludeFromJacocoGeneratedReport
     protected String getJsonCost() {
         return this.cost.toString(10);
     }
 
     @JsonProperty("cost")
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonCost(String value) {
         this.cost = new BigInteger(value, 10);
     }

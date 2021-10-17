@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.Data;
 
@@ -62,22 +63,26 @@ public class Transfer {
     private BigInteger gas;
 
     @JsonProperty("amount")
-    protected String getJsonAmount() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonAmount() {
         return this.amount.toString(10);
     }
 
     @JsonProperty("amount")
-    protected void setJsonAmount(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonAmount(String value) {
         this.amount = new BigInteger(value, 10);
     }
 
     @JsonProperty("gas")
-    protected String getJsonGas() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonGas() {
         return this.gas.toString(10);
     }
 
     @JsonProperty("gas")
-    protected void setJsonGas(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonGas(String value) {
         this.gas = new BigInteger(value, 10);
     }
 }

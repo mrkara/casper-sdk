@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.model.uref.URef;
 
 import lombok.Data;
@@ -50,12 +51,14 @@ public class JsonBid {
     private BigInteger stakedAmount;
 
     @JsonProperty("staked_amount")
-    protected String getJsonStakedAmount() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonStakedAmount() {
         return this.stakedAmount.toString(10);
     }
 
     @JsonProperty("staked_amount")
-    protected void setJsonStakedAmount(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonStakedAmount(String value) {
         this.stakedAmount = new BigInteger(value, 10);
     }
 }

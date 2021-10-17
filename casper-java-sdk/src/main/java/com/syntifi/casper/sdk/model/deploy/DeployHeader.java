@@ -62,12 +62,14 @@ public class DeployHeader {
     private String ttl;
 
     // @JsonProperty("gas_price")
-    // protected String getJsonGasPrice() {
+    // @ExcludeFromJacocoGeneratedReport
+	// protected String getJsonGasPrice() {
     //     return this.gasPrice.toString(10);
     // }
 
     // @JsonProperty("gas_price")
-    // protected void setJsonGasPrice(String value) {
+    // @ExcludeFromJacocoGeneratedReport
+	// protected void setJsonGasPrice(String value) {
     //     this.gasPrice= new BigInteger(value, 10);
     // }
 }

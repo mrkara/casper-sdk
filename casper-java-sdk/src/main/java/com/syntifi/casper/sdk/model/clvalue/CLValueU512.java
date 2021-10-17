@@ -5,6 +5,7 @@ import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypeU512;
@@ -32,12 +33,14 @@ public class CLValueU512 extends AbstractCLValue<BigInteger, CLTypeU512> {
     private CLTypeU512 clType = new CLTypeU512();
 
     @JsonSetter("cl_type")
-    protected void setJsonClType(CLTypeU512 clType) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonClType(CLTypeU512 clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    protected String getJsonClType() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

@@ -3,6 +3,7 @@ package com.syntifi.casper.sdk.model.clvalue.cltype;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,11 +29,13 @@ public class CLTypeOption extends AbstractCLType {
     private AbstractCLType childType;
 
     @JsonSetter(AbstractCLType.OPTION)
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonClType(AbstractCLType clType) {
         this.childType = clType;
     }
 
     @JsonGetter(AbstractCLType.OPTION)
+    @ExcludeFromJacocoGeneratedReport
     protected Object getJsonClType() {
         if (this.childType instanceof AbstractCLTypeBasic) {
             return this.childType.getTypeName();

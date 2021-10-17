@@ -6,6 +6,7 @@ import java.sql.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 
 import lombok.Data;
 
@@ -33,12 +34,14 @@ public class ActivationPoint {
     private Date timeStamp;
 
     @JsonProperty("era_id")
-    protected String getJsonEraId() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonEraId() {
         return this.eraId.toString(10);
     }
 
     @JsonProperty("era_id")
-    protected void setJsonEraId(String value) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonEraId(String value) {
         this.eraId = new BigInteger(value, 10);
     }
 }

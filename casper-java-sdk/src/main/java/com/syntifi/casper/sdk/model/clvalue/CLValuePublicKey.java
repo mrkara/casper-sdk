@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.model.clvalue.cltype.CLTypePublicKey;
 import com.syntifi.casper.sdk.model.clvalue.encdec.CLValueDecoder;
@@ -32,12 +33,14 @@ public class CLValuePublicKey extends AbstractCLValue<PublicKey, CLTypePublicKey
     private CLTypePublicKey clType = new CLTypePublicKey();
 
     @JsonSetter("cl_type")
-    protected void setJsonClType(CLTypePublicKey clType) {
+    @ExcludeFromJacocoGeneratedReport
+	protected void setJsonClType(CLTypePublicKey clType) {
         this.clType = clType;
     }
 
     @JsonGetter("cl_type")
-    protected String getJsonClType() {
+    @ExcludeFromJacocoGeneratedReport
+	protected String getJsonClType() {
         return this.getClType().getTypeName();
     }
 

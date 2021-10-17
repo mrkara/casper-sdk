@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
 import com.syntifi.casper.sdk.jackson.deserializer.CLValueDeserializer;
+import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
 
 /**
  * Specification of the Custom Type Resolver for CLValue subtype identification. This

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
+import com.syntifi.casper.sdk.annotation.ExcludeFromJacocoGeneratedReport;
 import com.syntifi.casper.sdk.exception.CLValueDecodeException;
 import com.syntifi.casper.sdk.exception.CLValueEncodeException;
 import com.syntifi.casper.sdk.exception.DynamicInstanceException;
@@ -51,6 +52,7 @@ public abstract class AbstractCLValue<T, P extends AbstractCLType> implements En
     private T value;
 
     @JsonSetter(value = "bytes")
+    @ExcludeFromJacocoGeneratedReport
     protected void setJsonBytes(String bytes)
             throws IOException, CLValueDecodeException, DynamicInstanceException, NoSuchTypeException {
         this.bytes = bytes;
@@ -61,6 +63,7 @@ public abstract class AbstractCLValue<T, P extends AbstractCLType> implements En
     }
 
     @JsonGetter(value = "bytes")
+    @ExcludeFromJacocoGeneratedReport
     protected String getJsonBytes()
             throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
         try (CLValueEncoder clve = new CLValueEncoder()) {
