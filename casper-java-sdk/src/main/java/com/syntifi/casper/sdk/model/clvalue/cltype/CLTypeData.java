@@ -48,33 +48,33 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CLTypeData {
-    BOOL(AbstractCLType.BOOL, 0x0, CLValueBool.class, CLTypeBool.class),
-    I32(AbstractCLType.I32, 0x1, CLValueI32.class, CLTypeI32.class), 
-    I64(AbstractCLType.I64, 0x2, CLValueI64.class, CLTypeI64.class),
-    U8(AbstractCLType.U8, 0x3, CLValueU8.class, CLTypeU8.class), 
-    U32(AbstractCLType.U32, 0x4, CLValueU32.class, CLTypeU32.class),
-    U64(AbstractCLType.U64, 0x5, CLValueU64.class, CLTypeU64.class),
-    U128(AbstractCLType.U128, 0x6, CLValueU128.class, CLTypeU128.class),
-    U256(AbstractCLType.U256, 0x7, CLValueU256.class, CLTypeU256.class),
-    U512(AbstractCLType.U512, 0x8, CLValueU512.class, CLTypeU512.class),
-    UNIT(AbstractCLType.UNIT, 0x9, CLValueUnit.class, CLTypeUnit.class),
-    STRING(AbstractCLType.STRING, 0x10, CLValueString.class, CLTypeString.class),
-    UREF(AbstractCLType.UREF, 0x11, CLValueURef.class, CLTypeURef.class), 
-    KEY(AbstractCLType.KEY, 0x12, CLValueKey.class, CLTypeKey.class),
-    OPTION(AbstractCLType.OPTION, 0x13, CLValueOption.class, CLTypeOption.class),
-    LIST(AbstractCLType.LIST, 0x14, CLValueList.class, CLTypeList.class), 
-    FIXED_LIST(AbstractCLType.FIXED_LIST, 0x15, CLValueFixedList.class, CLTypeFixedList.class),
-    RESULT(AbstractCLType.RESULT, 0x16, CLValueResult.class, CLTypeResult.class),
-    MAP(AbstractCLType.MAP, 0x17, CLValueMap.class, CLTypeMap.class),
-    TUPLE1(AbstractCLType.TUPLE1, 0x18, CLValueTuple1.class, CLTypeTuple1.class),
-    TUPLE2(AbstractCLType.TUPLE2, 0x19, CLValueTuple2.class, CLTypeTuple2.class),
-    TUPLE3(AbstractCLType.TUPLE3, 0x20, CLValueTuple3.class, CLTypeTuple3.class),
-    ANY(AbstractCLType.ANY, 0x21, CLValueAny.class, CLTypeAny.class),
-    PUBLIC_KEY(AbstractCLType.PUBLIC_KEY, 0x22, CLValuePublicKey.class, CLTypePublicKey.class),
-    BYTE_ARRAY(AbstractCLType.BYTE_ARRAY, 0x23, CLValueByteArray.class, CLTypeByteArray.class);
+    BOOL(AbstractCLType.BOOL, (byte) 0x0, CLValueBool.class, CLTypeBool.class),
+    I32(AbstractCLType.I32, (byte) 0x1, CLValueI32.class, CLTypeI32.class), 
+    I64(AbstractCLType.I64, (byte) 0x2, CLValueI64.class, CLTypeI64.class),
+    U8(AbstractCLType.U8, (byte) 0x3, CLValueU8.class, CLTypeU8.class), 
+    U32(AbstractCLType.U32, (byte) 0x4, CLValueU32.class, CLTypeU32.class),
+    U64(AbstractCLType.U64, (byte) 0x5, CLValueU64.class, CLTypeU64.class),
+    U128(AbstractCLType.U128, (byte) 0x6, CLValueU128.class, CLTypeU128.class),
+    U256(AbstractCLType.U256, (byte) 0x7, CLValueU256.class, CLTypeU256.class),
+    U512(AbstractCLType.U512, (byte) 0x8, CLValueU512.class, CLTypeU512.class),
+    UNIT(AbstractCLType.UNIT, (byte) 0x9, CLValueUnit.class, CLTypeUnit.class),
+    STRING(AbstractCLType.STRING, (byte) 0x10, CLValueString.class, CLTypeString.class),
+    UREF(AbstractCLType.UREF, (byte) 0x11, CLValueURef.class, CLTypeURef.class), 
+    KEY(AbstractCLType.KEY, (byte) 0x12, CLValueKey.class, CLTypeKey.class),
+    OPTION(AbstractCLType.OPTION, (byte) 0x13, CLValueOption.class, CLTypeOption.class),
+    LIST(AbstractCLType.LIST, (byte) 0x14, CLValueList.class, CLTypeList.class), 
+    FIXED_LIST(AbstractCLType.FIXED_LIST, (byte) 0x15, CLValueFixedList.class, CLTypeFixedList.class),
+    RESULT(AbstractCLType.RESULT, (byte) 0x16, CLValueResult.class, CLTypeResult.class),
+    MAP(AbstractCLType.MAP, (byte) 0x17, CLValueMap.class, CLTypeMap.class),
+    TUPLE1(AbstractCLType.TUPLE1, (byte) 0x18, CLValueTuple1.class, CLTypeTuple1.class),
+    TUPLE2(AbstractCLType.TUPLE2, (byte) 0x19, CLValueTuple2.class, CLTypeTuple2.class),
+    TUPLE3(AbstractCLType.TUPLE3, (byte) 0x20, CLValueTuple3.class, CLTypeTuple3.class),
+    ANY(AbstractCLType.ANY, (byte) 0x21, CLValueAny.class, CLTypeAny.class),
+    PUBLIC_KEY(AbstractCLType.PUBLIC_KEY, (byte) 0x22, CLValuePublicKey.class, CLTypePublicKey.class),
+    BYTE_ARRAY(AbstractCLType.BYTE_ARRAY, (byte) 0x23, CLValueByteArray.class, CLTypeByteArray.class);
 
     private final String clTypeName;
-    private final int serializationTag;
+    private final byte serializationTag;
     private final Class<? extends AbstractCLValue<?, ?>> clazz;
     private final Class<? extends AbstractCLType> clTypeClass;
 
