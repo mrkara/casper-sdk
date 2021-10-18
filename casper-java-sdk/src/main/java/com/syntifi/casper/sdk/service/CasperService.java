@@ -10,6 +10,7 @@ import com.googlecode.jsonrpc4j.ExceptionResolver;
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
 import com.googlecode.jsonrpc4j.JsonRpcParam;
+import com.googlecode.jsonrpc4j.JsonRpcParamsPassMode;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.syntifi.casper.sdk.exception.CasperClientExceptionResolver;
 import com.syntifi.casper.sdk.identifier.block.BlockIdentifier;
@@ -21,7 +22,9 @@ import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
 import com.syntifi.casper.sdk.model.balance.BalanceData;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
+import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
+import com.syntifi.casper.sdk.model.deploy.DeployResult;
 import com.syntifi.casper.sdk.model.dictionary.Dictionary;
 import com.syntifi.casper.sdk.model.era.EraInfoData;
 import com.syntifi.casper.sdk.model.peer.PeerData;
@@ -201,7 +204,7 @@ public interface CasperService {
      * 
      * @param rootHash
      * @param dictionaryIdentifier
-     * @return
+     * @return Object holding the api version, the dictionary key, the merkle proof and the stored value
      */ 
     @JsonRpcMethod("state_get_dictionary_item")
     public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
@@ -217,6 +220,16 @@ public interface CasperService {
     @JsonRpcMethod("state_get_balance")
     public BalanceData getBalance(@JsonRpcParam("state_root_hash") String rootHash,
             @JsonRpcParam("purse_uref") String purseUref);
+
+
+    /**
+     * Sends a deploy to be received by the network
+     * 
+     * @param deploy
+     * @return Object holding the api version and the deploy hash
+     */
+    @JsonRpcMethod(value = "account_put_deploy", paramsPassMode = JsonRpcParamsPassMode.ARRAY)
+    public DeployResult putDeploy(Deploy deploy);
 
     /**
      * Builds a CasperService for the node ip/port pair

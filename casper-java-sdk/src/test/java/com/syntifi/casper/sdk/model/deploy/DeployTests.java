@@ -80,4 +80,19 @@ public class DeployTests extends AbstractJsonTests {
 
         JSONAssert.assertEquals(inputJson, expectedJson, false);
     }
+
+    @Test
+    void test_deploy_result() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+        String inputJson = getPrettyJson(loadJsonFromFile("deploy-samples/deploy-result.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        DeployResult deploy = OBJECT_MAPPER.readValue(inputJson, DeployResult.class);
+
+        String expectedJson = getPrettyJson(deploy);
+
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
+
+        JSONAssert.assertEquals(inputJson, expectedJson, false);
+    }
 }
