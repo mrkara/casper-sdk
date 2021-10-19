@@ -23,7 +23,6 @@ public class VestingSchedule {
     /**
      * release time in miliseconds
      */
-    // @JsonIgnore
     @JsonProperty("initial_release_timestamp_millis")
     private BigInteger initialReleaseTimeStampMillis;
 
@@ -32,18 +31,6 @@ public class VestingSchedule {
      */
     @JsonIgnore
     private List<BigInteger> lockedAmounts;
-
-    // @JsonProperty("initial_release_timestamp_millis")
-    // @ExcludeFromJacocoGeneratedReport
-    // protected String getJsonInitialReleaseTimeStampMillis() {
-    // return this.initialReleaseTimeStampMillis.toString(10);
-    // }
-
-    // @JsonProperty("initial_release_timestamp_millis")
-    // @ExcludeFromJacocoGeneratedReport
-    // protected void setJsonInitialReleaseTimeStampMillis(String value) {
-    // this.initialReleaseTimeStampMillis = new BigInteger(value, 10);
-    // }
 
     @JsonProperty("locked_amounts")
     @ExcludeFromJacocoGeneratedReport

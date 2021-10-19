@@ -23,7 +23,6 @@ public class WriteTransfer implements Transform {
      */
     @JsonProperty("WriteTransfer")
     private Transfer transfer;
-
 }
 
 

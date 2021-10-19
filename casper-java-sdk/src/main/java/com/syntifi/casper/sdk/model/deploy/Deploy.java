@@ -7,7 +7,8 @@ import com.syntifi.casper.sdk.model.deploy.executabledeploy.ExecutableDeployItem
 import lombok.Data;
 
 /**
- *  A deploy; an item containing a smart contract along with the requester's signature(s)
+ * A deploy; an item containing a smart contract along with the requester's
+ * signature(s)
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -32,12 +33,12 @@ public class Deploy {
     private List<Approval> approvals;
 
     /**
-     * @see ExecutableDeployItem 
+     * @see ExecutableDeployItem
      */
     private ExecutableDeployItem payment;
 
     /**
-     * @see ExecutableDeployItem 
+     * @see ExecutableDeployItem
      */
     private ExecutableDeployItem session;
 }

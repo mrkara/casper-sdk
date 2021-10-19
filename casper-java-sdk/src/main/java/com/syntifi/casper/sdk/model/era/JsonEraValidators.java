@@ -16,11 +16,10 @@ import lombok.Data;
  */
 @Data
 public class JsonEraValidators {
-    
+
     /**
      * Era id
      */
-    // @JsonIgnore
     @JsonProperty("era_id")
     private BigInteger eraId;
 
@@ -29,16 +28,4 @@ public class JsonEraValidators {
      */
     @JsonProperty("validator_weights")
     private List<JsonValidatorWeight> validatorWeights;
-
-    // @JsonProperty("era_id")
-    // @ExcludeFromJacocoGeneratedReport
-	// protected String getJsonEraId() {
-    // return this.eraId.toString(10);
-    // }
-
-    // @JsonProperty("era_id")
-    // @ExcludeFromJacocoGeneratedReport
-	// protected void setJsonEraId(String value) {
-    // this.eraId = new BigInteger(value, 10);
-    // }
 }

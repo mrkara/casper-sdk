@@ -10,6 +10,7 @@ import lombok.Data;
 
 /**
  * An implmentation of Transform that Writes the given Withdraw to global state.
+ * 
  * @see Transform
  * 
  * @author Alexandre Carvalho
@@ -19,14 +20,12 @@ import lombok.Data;
 @Data
 @JsonTypeName("WriteWithdraw")
 public class WriteWithdraw implements Transform {
-   
+
     /**
-     * Array of UnbondingPurse 
+     * Array of UnbondingPurse
+     * 
      * @see UnbondingPurse
      */
     @JsonProperty("WriteWithdraw")
     private List<UnbondingPurse> purses;
-
 }
-
-

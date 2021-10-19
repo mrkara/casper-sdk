@@ -45,7 +45,6 @@ public class DeployHeader {
     /**
      * Gas price 
      */
-    //@JsonIgnore
     @JsonProperty("gas_price")
     private BigInteger gasPrice; 
 
@@ -60,16 +59,4 @@ public class DeployHeader {
      * Human-readable duration
      */
     private String ttl;
-
-    // @JsonProperty("gas_price")
-    // @ExcludeFromJacocoGeneratedReport
-	// protected String getJsonGasPrice() {
-    //     return this.gasPrice.toString(10);
-    // }
-
-    // @JsonProperty("gas_price")
-    // @ExcludeFromJacocoGeneratedReport
-	// protected void setJsonGasPrice(String value) {
-    //     this.gasPrice= new BigInteger(value, 10);
-    // }
 }

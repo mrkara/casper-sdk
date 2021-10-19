@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer;
 import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import com.syntifi.casper.sdk.jackson.resolver.CLValueResolver;
 import com.syntifi.casper.sdk.model.clvalue.AbstractCLValue;
-import com.syntifi.casper.sdk.model.deploy.transform.TypeData;
+import com.syntifi.casper.sdk.model.deploy.transform.TransformTypeData;
 
 /**
  * Core Deserializer for the CLValue property. This deserializer is used by the
@@ -38,6 +38,6 @@ public class TransformDeserializer extends AbstractAnyOfDeserializer {
 
     @Override
     protected Class<?> getClassByName(String anyOfType) throws NoSuchTypeException {
-        return TypeData.getClassByName(anyOfType);
+        return TransformTypeData.getClassByName(anyOfType);
     }
 }

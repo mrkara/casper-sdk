@@ -29,7 +29,6 @@ public class MinimalBlockInfo {
     /**
      * Era ID
      */
-    // @JsonIgnore
     @JsonProperty("era_id")
     private BigInteger eraId;
 
@@ -55,16 +54,4 @@ public class MinimalBlockInfo {
     @JsonProperty("timestamp")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date timeStamp;
-
-    // @JsonProperty("era_id")
-    // @ExcludeFromJacocoGeneratedReport
-	// protected String getJsonEraId() {
-    // return this.eraId.toString(10);
-    // }
-
-    // @JsonProperty("era_id")
-    // @ExcludeFromJacocoGeneratedReport
-	// protected void setJsonEraId(String value) {
-    // this.eraId = new BigInteger(value, 10);
-    // }
 }

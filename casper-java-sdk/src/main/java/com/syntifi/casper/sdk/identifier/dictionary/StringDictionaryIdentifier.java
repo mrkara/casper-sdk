@@ -9,8 +9,8 @@ import lombok.Data;
 
 /**
  * Identifier class passed to service
- * {@link CasperService#getDictionaryItem(String, Dictionary)}
- * to Lookup a dictionary item via it's unique key 
+ * {@link CasperService#getDictionaryItem(String, Dictionary)} to Lookup a
+ * dictionary item via it's unique key
  *
  * @author Alexandre Carvalho
  * @author Andre Bertolace
@@ -18,10 +18,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class DictionaryParameter {
+public class StringDictionaryIdentifier implements DictionaryIdentifier {
     @JsonProperty("Dictionary")
     private String dictionary;
 }
-
-
-

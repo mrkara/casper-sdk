@@ -41,8 +41,6 @@ public class Bid {
     /**
      * This validator's delegators, indexed by their public keys
      */
-    // @JsonDeserialize(as= HashMap.class, keyAs = PublicKey.class, contentAs =
-    // Delegator.class)
     @JsonIgnore
     private Map<PublicKey, Delegator> delegators = new LinkedHashMap<>();
 
@@ -71,7 +69,7 @@ public class Bid {
 
     @JsonSetter("delegators")
     @ExcludeFromJacocoGeneratedReport
-	protected void setJsonDelegators(Map<String, Delegator> node)
+    protected void setJsonDelegators(Map<String, Delegator> node)
             throws NoSuchAlgorithmException, InvalidByteStringException {
         for (Map.Entry<String, Delegator> entry : node.entrySet()) {
             PublicKey publicKey = PublicKey.fromTaggedHexString(entry.getKey());
@@ -82,7 +80,7 @@ public class Bid {
 
     @JsonGetter("delegators")
     @ExcludeFromJacocoGeneratedReport
-	protected Map<String, Delegator> getJsonDelegators() {
+    protected Map<String, Delegator> getJsonDelegators() {
         Map<String, Delegator> out = new LinkedHashMap<>();
         for (Map.Entry<PublicKey, Delegator> entry : this.delegators.entrySet()) {
             out.put(entry.getKey().getAlgoTaggedHex(), entry.getValue());
@@ -92,13 +90,13 @@ public class Bid {
 
     @JsonProperty("staked_amount")
     @ExcludeFromJacocoGeneratedReport
-	protected String getJsonStakedAmount() {
+    protected String getJsonStakedAmount() {
         return this.stakedAmount.toString(10);
     }
 
     @JsonProperty("staked_amount")
     @ExcludeFromJacocoGeneratedReport
-	protected void setJsonStakedAmount(String value) {
+    protected void setJsonStakedAmount(String value) {
         this.stakedAmount = new BigInteger(value, 10);
     }
 }

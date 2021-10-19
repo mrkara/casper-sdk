@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import com.syntifi.casper.sdk.identifier.block.BlockIdentifierByHeight;
+import com.syntifi.casper.sdk.identifier.block.HeightBlockIdentifier;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
@@ -17,7 +17,7 @@ public final class StoredValueCasperServiceTests extends AbstractJsonRpcTests {
     void check_contract_package() {
         StateRootHashData stateRootHashData = casperServiceMainnet.getStateRootHash();
         JsonBlockData jsonBlockData = casperServiceMainnet
-                .getBlock(BlockIdentifierByHeight.builder().height(100000).build());
+                .getBlock(HeightBlockIdentifier.builder().height(100000).build());
         JsonBlockData firstJsonBlockData = casperServiceMainnet.getBlock();
 
         // StateRootHashData rootHash =

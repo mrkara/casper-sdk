@@ -7,9 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class URefParameter {
+public class URefDictionaryIdentifier implements DictionaryIdentifier {
     @JsonProperty("URef")
     private URefSeed uref;
 }
-
-

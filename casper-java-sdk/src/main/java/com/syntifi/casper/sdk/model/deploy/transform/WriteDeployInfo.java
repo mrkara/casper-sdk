@@ -23,7 +23,6 @@ public class WriteDeployInfo implements Transform {
      */
     @JsonProperty("WriteDeployInfo")
     private DeployInfo deployInfo;
-
 }
 
 

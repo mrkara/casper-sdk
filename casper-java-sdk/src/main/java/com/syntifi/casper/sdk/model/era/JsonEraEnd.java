@@ -24,5 +24,4 @@ public class JsonEraEnd {
      */
     @JsonProperty("next_era_validator_weights")
     private List<ValidatorWeight> nextEraValidatorWeights;
-
 }

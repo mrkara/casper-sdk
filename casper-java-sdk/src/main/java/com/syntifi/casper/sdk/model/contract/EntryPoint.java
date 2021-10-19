@@ -37,7 +37,7 @@ public class EntryPoint {
      * access(enum/String) -
      */
     @JsonProperty("access")
-    private EntryPointAccess access; // TODO: Check object/Groups on spec
+    private EntryPointAccess access; // TODO: Check object/Group on spec
 
     /**
      * args(Array/Object) - Parameter to a method

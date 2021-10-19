@@ -7,8 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ContractNamedKeyParameter {
+public class ContractNamedKeyDictionaryIdentifier implements DictionaryIdentifier {
     @JsonProperty("ContractNamedKey")
     private ContractNamedKey contractNamedKey;
 }
-

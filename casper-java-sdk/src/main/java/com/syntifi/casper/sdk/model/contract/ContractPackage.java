@@ -32,7 +32,7 @@ public class ContractPackage {
      * groups(Array/Group)
      */
     @JsonProperty("groups")
-    private List<Group> groups;
+    private List<Groups> groups;
 
     /**
      * versions(Array/ContractVersion)

@@ -5,7 +5,7 @@ import com.syntifi.casper.sdk.exception.NoSuchTypeException;
 import lombok.Getter;
 
 @Getter
-public enum TypeData {
+public enum TransformTypeData {
     WRITE_ADDI32("AddInt32", AddInt32.class),
     WRITE_ADDKEYS("AddKeys", AddKeys.class),
     WRITE_ADDU64("AddUInt64", AddUInt64.class),
@@ -28,7 +28,7 @@ public enum TypeData {
     private final String name;
     private final Class<?> clazz;
 
-    private TypeData(String name, Class<?> clazz) {
+    private TransformTypeData(String name, Class<?> clazz) {
         this.name = name;
         this.clazz = clazz;
     }
@@ -41,7 +41,7 @@ public enum TypeData {
      * @throws NoSuchCLTypeException
      */
     public static Class<?> getClassByName(String name) throws NoSuchTypeException {
-        for (TypeData t : values()) {
+        for (TransformTypeData t : values()) {
             if (t.name.equals(name)) {
                 return t.getClazz();
             }

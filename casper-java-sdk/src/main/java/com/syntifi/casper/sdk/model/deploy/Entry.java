@@ -22,6 +22,5 @@ public class Entry {
     /**
      * @see Transform
      */
-    private Transform transform;
-   
+    private Transform transform;   
 }

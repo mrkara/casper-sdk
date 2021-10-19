@@ -23,15 +23,14 @@ public class DeployData {
     private String apiVersion;
 
     /**
-     * @see Deploy 
+     * @see Deploy
      */
     @JsonProperty("deploy")
     private Deploy deploy;
 
     /**
-     * @see ExecutionResults 
+     * @see ExecutionResults
      */
     @JsonProperty("execution_results")
     private List<JsonExecutionResult> executionResults;
 }
-

@@ -14,15 +14,14 @@ import lombok.Data;
  */
 @Data
 public class Approval {
-    
+
     /**
-     * @see PublicKey 
+     * @see PublicKey
      */
     private PublicKey signer;
 
-    /** 
-     * @see Signature 
+    /**
+     * @see Signature
      */
     private Signature signature;
 }
-
