@@ -15,9 +15,9 @@ public class CasperClientExceptionResolver implements ExceptionResolver {
         try {
             JsonNode errorNode = response.get("error");
             CasperClientErrorData error = objectMapper.treeToValue(errorNode, CasperClientErrorData.class);
-            return new CasperClientException(String.format("%s (code: %d)", error.getMessage(), error.getCode()));
+            return new CasperClientException(error);
         } catch (JsonProcessingException | IllegalArgumentException e) {
-            return new CasperClientException(String.format("Could not extract error, response: %s", response), e);
+            return new CasperClientException(String.format("Could not extract error, response was: %s", response), e);
         }
     }
 }

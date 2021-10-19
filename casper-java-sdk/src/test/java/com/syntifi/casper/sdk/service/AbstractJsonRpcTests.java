@@ -21,7 +21,7 @@ public abstract class AbstractJsonRpcTests extends AbstractJsonTests {
 	@Getter
 	@AllArgsConstructor(access = AccessLevel.PRIVATE)
 	public enum CasperNetwork {
-		MAIN_NET("195.201.142.76", 7777), TEST_NET("65.21.238.244", 7777);
+		MAIN_NET("195.201.142.76", 7777), TEST_NET("65.21.238.244", 7777), LOCAL_NET("csprnd.ddns.net", 11101);
 
 		private String ip;
 		private int port;
@@ -29,6 +29,7 @@ public abstract class AbstractJsonRpcTests extends AbstractJsonTests {
 
 	protected static CasperService casperServiceMainnet;
 	protected static CasperService casperServiceTestnet;
+	protected static CasperService casperServiceLocalnet;
 
 	@BeforeAll
 	public static void setUp() throws MalformedURLException {
@@ -36,6 +37,8 @@ public abstract class AbstractJsonRpcTests extends AbstractJsonTests {
 				CasperNetwork.MAIN_NET.getPort());
 		casperServiceTestnet = CasperService.usingPeer(CasperNetwork.TEST_NET.getIp(),
 				CasperNetwork.TEST_NET.getPort());
+		casperServiceLocalnet = CasperService.usingPeer(CasperNetwork.LOCAL_NET.getIp(),
+				CasperNetwork.LOCAL_NET.getPort());
 	}
 
 }
