@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
+ * Groups
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace

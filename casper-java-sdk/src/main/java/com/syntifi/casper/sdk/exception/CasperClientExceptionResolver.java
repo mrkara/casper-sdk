@@ -7,6 +7,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.googlecode.jsonrpc4j.ExceptionResolver;
 import com.syntifi.casper.sdk.service.CasperObjectMapper;
 
+/**
+ * Custom exception handler for jsonrpc4j client
+ *
+ * @author Alexandre Carvalho
+ * @author Andre Bertolace
+ * @since 0.0.1
+ */
 public class CasperClientExceptionResolver implements ExceptionResolver {
     private static ObjectMapper objectMapper = new CasperObjectMapper();
 

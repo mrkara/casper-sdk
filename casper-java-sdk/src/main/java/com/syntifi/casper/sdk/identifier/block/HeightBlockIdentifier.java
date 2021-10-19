@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Builder
-@NoArgsConstructor // (access = AccessLevel.PRIVATE)
-@AllArgsConstructor // (access = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class HeightBlockIdentifier implements BlockIdentifier {
 
     /**
