@@ -1309,6 +1309,23 @@ public class StoredValueTests extends AbstractJsonTests {
     }
 
     @Test
+    void test_contract_mapping_access_groups() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+        String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-contract-access-groups.json"));
+
+        LOGGER.debug("Original JSON: {}", inputJson);
+
+        StoredValueData sv = OBJECT_MAPPER.readValue(inputJson, StoredValueData.class);
+
+        assertTrue(sv.getStoredValue().getValue() instanceof Contract);
+
+        String expectedJson = getPrettyJson(sv);
+
+        LOGGER.debug("Serialized JSON: {}", expectedJson);
+
+        JSONAssert.assertEquals(inputJson, expectedJson, false);
+    }
+
+    @Test
     void test_transfer_mapping() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         String inputJson = getPrettyJson(loadJsonFromFile("stored-value-samples/stored-value-transfer.json"));
 
