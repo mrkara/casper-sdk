@@ -45,7 +45,9 @@ public class CLValueOption extends AbstractCLValue<Optional<AbstractCLValue<?, ?
     @Override
     public void encode(CLValueEncoder clve)
             throws IOException, CLValueEncodeException, DynamicInstanceException, NoSuchTypeException {
-        CLValueBool isPresent = new CLValueBool(getValue().isPresent() && getValue().get().getValue() != null);
+        Optional<AbstractCLValue<?, ?>> value = getValue();
+        
+        CLValueBool isPresent = new CLValueBool(value.isPresent() && value.get().getValue() != null);
         isPresent.encode(clve);
         setBytes(isPresent.getBytes());
 
