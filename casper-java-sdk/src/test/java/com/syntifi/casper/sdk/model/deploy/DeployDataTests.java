@@ -65,7 +65,7 @@ public class DeployDataTests extends AbstractJsonTests {
     }
 
     @Test
-    void test_deploy_mapping_3() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateDeployDataMapping_3() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         String inputJson = getPrettyJson(loadJsonFromFile("deploy-samples/deploy-v3.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
@@ -82,7 +82,7 @@ public class DeployDataTests extends AbstractJsonTests {
     }
 
     @Test
-    void test_deploy_result() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateDeployResultMapping() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         String inputJson = getPrettyJson(loadJsonFromFile("deploy-samples/deploy-result.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
