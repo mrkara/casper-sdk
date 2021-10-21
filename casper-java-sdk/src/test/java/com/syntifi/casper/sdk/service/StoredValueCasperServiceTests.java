@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public final class StoredValueCasperServiceTests extends AbstractJsonRpcTests {
 
     @Test
-    void check_contract_package() {
+    void validateContractPackage() {
         StateRootHashData stateRootHashData = casperServiceMainnet.getStateRootHash();
         JsonBlockData jsonBlockData = casperServiceMainnet
                 .getBlock(HeightBlockIdentifier.builder().height(100000).build());
