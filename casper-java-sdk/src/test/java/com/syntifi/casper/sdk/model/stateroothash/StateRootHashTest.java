@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.model.AbstractJsonTests;
-import com.syntifi.casper.sdk.model.status.StatusTests;
+import com.syntifi.casper.sdk.model.status.StatusDataTests;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -22,10 +22,10 @@ import org.slf4j.LoggerFactory;
  */
 public class StateRootHashTest extends AbstractJsonTests {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatusDataTests.class);
 
     @Test
-    void test_era_end_block() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateStateRootHashMapping() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         // curl -X POST -H 'Content-Type: application/json' -d
         // '{"id":"1132050564","jsonrpc":"2.0","method":"chain_get_state_root_hash","params":{"block_identifier":{"Height":0}}}'
         // http://nodeIP:7777/rpc

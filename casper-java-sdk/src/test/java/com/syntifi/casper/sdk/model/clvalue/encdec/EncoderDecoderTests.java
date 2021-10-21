@@ -93,7 +93,7 @@ public class EncoderDecoderTests {
             new TestData<BigInteger>(AbstractCLType.U512, CLValueEncoder.MAX_U512.add(CLValueEncoder.ONE), null, null));
 
     @Test
-    void should_be_able_to_decode_sample_data() throws IOException, CLValueDecodeException {
+    void validateDecode_with_SampleData() throws IOException, CLValueDecodeException {
         for (TestData<?> testData : successTestDataList) {
             try (CLValueDecoder decoder = new CLValueDecoder(testData.getHexEncodedValue())) {
                 switch (testData.getName()) {
@@ -163,7 +163,7 @@ public class EncoderDecoderTests {
     }
 
     @Test
-    void should_be_able_to_encode_sample_data() throws IOException, CLValueEncodeException, NoSuchTypeException {
+    void validateEncode_with_SampleData() throws IOException, CLValueEncodeException, NoSuchTypeException {
         for (TestData<?> testData : successTestDataList) {
             try (CLValueEncoder encoder = new CLValueEncoder()) {
                 switch (testData.getName()) {
@@ -223,7 +223,7 @@ public class EncoderDecoderTests {
     }
 
     @Test
-    void should_be_inside_bounds() throws IOException, CLValueEncodeException, NoSuchTypeException {
+    void numbersShouldBeInsideTheirTypeBounds() throws IOException, CLValueEncodeException, NoSuchTypeException {
         for (TestData<?> testData : lastValidNumberTestDataList) {
             try (CLValueEncoder encoder = new CLValueEncoder()) {
                 switch (testData.getName()) {
@@ -261,7 +261,7 @@ public class EncoderDecoderTests {
     }
 
     @Test
-    void should_throw_CLValueEncodeException_for_out_of_bounds()
+    void dataOutOfBounds_should_throw_CLValueEncodeException()
             throws IOException, CLValueEncodeException, NoSuchTypeException {
         for (TestData<?> testData : outOfBoundsTestDataList) {
             try (CLValueEncoder encoder = new CLValueEncoder()) {
@@ -297,7 +297,7 @@ public class EncoderDecoderTests {
     }
 
     @Test
-    void should_throw_CLValueDecodeException_for_wrong_input_length()
+    void dataWithWrongInputLength_should_throw_CLValueDecodeException()
             throws IOException, CLValueDecodeException, NoSuchTypeException {
         try (CLValueDecoder decoder = new CLValueDecoder("")) {
             assertThrows(CLValueDecodeException.class, () -> decoder.readBool(new CLValueBool()));

@@ -1,6 +1,7 @@
 package com.syntifi.casper.sdk.model.clvalue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,13 +18,10 @@ public class CLValueTests {
     private static final Logger LOGGER = LoggerFactory.getLogger(CLValueTests.class);
 
     @Test
-    void test_instance_types_mapping() throws DynamicInstanceException, NoSuchTypeException {
+    void allCLTypes_must_be_implemented() throws DynamicInstanceException, NoSuchTypeException {
         for (CLTypeData clTypeData : CLTypeData.values()) {
-            // Warn if there are any missing implementation
-            if (clTypeData.getClazz() == null) {
-                LOGGER.warn("CLType {} does not have an implementation!", clTypeData);
-                continue;
-            }
+            // Ensure there are no types with missing implementation
+            assertNotNull(clTypeData.getClazz());
 
             AbstractCLValue<?, ?> clValue = CLTypeData.createCLValueFromCLTypeData(clTypeData);
 
@@ -36,37 +34,39 @@ public class CLValueTests {
     }
 
     @Test
-    void test_get_type_by_serialization_tag() throws DynamicInstanceException, NoSuchTypeException {
-        assertEquals(CLTypeData.ANY, CLTypeData.getTypeBySerializationTag(CLTypeData.ANY.getSerializationTag()));
+    void getTypeBySerializationTag_should_return_correct_CLTypeData() throws DynamicInstanceException, NoSuchTypeException {
+        for (CLTypeData typeData : CLTypeData.values()) {
+            assertEquals(typeData, CLTypeData.getTypeBySerializationTag(typeData.getSerializationTag()));
+        }
     }
 
     @Test
-    void test_create_cltype_from_cltype_data() throws DynamicInstanceException, NoSuchTypeException {
+    void createCLTypeFromCLTypeData_should_return_correct_CLType() throws DynamicInstanceException, NoSuchTypeException {
         assertTrue(CLTypeData.createCLTypeFromCLTypeData(CLTypeData.ANY) instanceof CLTypeAny);
     }
 
     @Test
-    void test_create_clvalue_from_cl_type_name() throws DynamicInstanceException, NoSuchTypeException {
+    void createCLValueFromCLTypeName_should_return_correct_CLValue() throws DynamicInstanceException, NoSuchTypeException {
         assertTrue(CLTypeData.createCLValueFromCLTypeName(CLTypeData.ANY.getClTypeName()) instanceof CLValueAny);
     }
 
     @Test
-    void test_create_clvalue_from_cl_type_name_throws_no_such_type_exception() {
+    void createCLValueFromCLTypeName_from_CLTypeData_should_throw_NoSuchTypeException() {
         assertThrows(NoSuchTypeException.class, () -> CLTypeData.createCLValueFromCLTypeName("NE"));
     }
 
     @Test
-    void test_get_class_by_name_throws_no_such_type_exception() {
+    void getClassByName_from_CLTypeData_should_throw_NoSuchTypeException() {
         assertThrows(NoSuchTypeException.class, () -> CLTypeData.getClassByName("NE"));
     }
 
     @Test
-    void test_get_cl_type_class_by_name_throws_no_such_type_exception() {
+    void getCLTypeClassByName_from_CLTypeData_should_throw_NoSuchTypeException() {
         assertThrows(NoSuchTypeException.class, () -> CLTypeData.getCLTypeClassByName("NE"));
     }
 
     @Test
-    void test_get_type_by_name_throws_no_such_type_exception() {
+    void getTypeByName_from_CLTypeData_should_throw_NoSuchTypeException() {
         assertThrows(NoSuchTypeException.class, () -> CLTypeData.getTypeByName("NE"));
     }
 }

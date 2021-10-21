@@ -21,12 +21,12 @@ import org.slf4j.LoggerFactory;
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class DeployTests extends AbstractJsonTests {
+public class DeployDataTests extends AbstractJsonTests {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DeployTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeployDataTests.class);
 
     @Test
-    void test_deploy_mapping_1() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateDeployDataMapping_1() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         // curl -X POST -H 'Content-Type: application/json' -d
         // '{"jsonrpc":"2.0","id":"1","method":"info_get_deploy",
         // "params":{"deploy_hash":"614030ac705ed2067fed57d30545b3a4974ffc40a1c32f72e3b7b7442d6c83a3"}
@@ -48,7 +48,7 @@ public class DeployTests extends AbstractJsonTests {
     }
 
     @Test
-    void test_deploy_mapping_2() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateDeployDataMapping_2() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         String inputJson = getPrettyJson(loadJsonFromFile("deploy-samples/deploy-v2.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);

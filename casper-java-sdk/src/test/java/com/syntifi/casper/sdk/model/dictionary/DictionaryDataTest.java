@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.model.AbstractJsonTests;
-import com.syntifi.casper.sdk.model.status.StatusTests;
+import com.syntifi.casper.sdk.model.status.StatusDataTests;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -14,23 +14,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Unit tests for {@link Dictionary}
+ * Unit tests for {@link DictionaryData}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class DictionaryTest extends AbstractJsonTests {
+public class DictionaryDataTest extends AbstractJsonTests {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatusDataTests.class);
 
     @Test
-    void test_dict_1() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateDictionaryMapping() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         String inputJson = getPrettyJson(loadJsonFromFile("dictionary-samples/dictionary1.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
-        Dictionary dict = OBJECT_MAPPER.readValue(inputJson, Dictionary.class);
+        DictionaryData dict = OBJECT_MAPPER.readValue(inputJson, DictionaryData.class);
 
         String expectedJson = getPrettyJson(dict);
 

@@ -15,23 +15,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Unit tests for {@link Status}
+ * Unit tests for {@link StatusData}
  * 
  * @author Alexandre Carvalho
  * @author Andre Bertolace
  * @since 0.0.1
  */
-public class StatusTests extends AbstractJsonTests {
+public class StatusDataTests extends AbstractJsonTests {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatusDataTests.class);
 
     @Test
-    void test_status() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateStatusMapping() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         String inputJson = getPrettyJson(loadJsonFromFile("status-samples/status-info.json"));
 
         LOGGER.debug("Original JSON: {}", inputJson);
 
-        Status st = OBJECT_MAPPER.readValue(inputJson, Status.class);
+        StatusData st = OBJECT_MAPPER.readValue(inputJson, StatusData.class);
 
         assertTrue(st.getLastAddedBlockInfo() instanceof MinimalBlockInfo);
 

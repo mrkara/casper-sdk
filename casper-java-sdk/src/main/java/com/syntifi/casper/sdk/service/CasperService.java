@@ -22,11 +22,11 @@ import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
 import com.syntifi.casper.sdk.model.deploy.DeployResult;
-import com.syntifi.casper.sdk.model.dictionary.Dictionary;
+import com.syntifi.casper.sdk.model.dictionary.DictionaryData;
 import com.syntifi.casper.sdk.model.era.EraInfoData;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
-import com.syntifi.casper.sdk.model.status.Status;
+import com.syntifi.casper.sdk.model.status.StatusData;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
 import com.syntifi.casper.sdk.model.transfer.TransferData;
 
@@ -137,7 +137,7 @@ public interface CasperService {
          *         version and other properties
          */
         @JsonRpcMethod("info_get_status")
-        public Status getStatus();
+        public StatusData getStatus();
 
         /**
          * Returns an Account from the network
@@ -169,7 +169,7 @@ public interface CasperService {
          *         and the stored value
          */
         @JsonRpcMethod("state_get_dictionary_item")
-        public Dictionary getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
+        public DictionaryData getStateDictionaryItem(@JsonRpcParam("state_root_hash") String rootHash,
                         @JsonRpcParam("dictionary_identifier") DictionaryIdentifier dictionaryIdentifier);
 
         /**

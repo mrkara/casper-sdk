@@ -7,7 +7,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.syntifi.casper.sdk.model.AbstractJsonTests;
-import com.syntifi.casper.sdk.model.status.StatusTests;
+import com.syntifi.casper.sdk.model.status.StatusDataTests;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -24,10 +24,10 @@ import org.slf4j.LoggerFactory;
  */
 public class JsonBlockDataTest extends AbstractJsonTests {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatusDataTests.class);
 
     @Test
-    void test_era_end_block() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
+    void validateJsonBlock_EraEndBlock() throws JsonMappingException, JsonProcessingException, IOException, JSONException {
         // curl -X POST -H 'Content-Type: application/json' -d
         // '{"id":"0","jsonrpc":"2.0","method":"chain_get_block",
         // "params":{"block_identifier":{"Height":"246762"}}}' http://nodeIP:7777/rpc

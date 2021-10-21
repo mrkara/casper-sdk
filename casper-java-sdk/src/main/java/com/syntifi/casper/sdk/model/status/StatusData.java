@@ -19,7 +19,7 @@ import lombok.Data;
  * @since 0.0.1
  */
 @Data
-public class Status {
+public class StatusData {
 
     /**
      * The RPC API version

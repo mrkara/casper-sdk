@@ -20,14 +20,12 @@ import com.syntifi.casper.sdk.model.account.Account;
 import com.syntifi.casper.sdk.model.account.AccountData;
 import com.syntifi.casper.sdk.model.auction.AuctionData;
 import com.syntifi.casper.sdk.model.auction.AuctionState;
-import com.syntifi.casper.sdk.model.balance.BalanceData;
 import com.syntifi.casper.sdk.model.block.JsonBlock;
 import com.syntifi.casper.sdk.model.block.JsonBlockData;
 import com.syntifi.casper.sdk.model.clvalue.CLValueString;
 import com.syntifi.casper.sdk.model.clvalue.encdec.StringByteHelper;
 import com.syntifi.casper.sdk.model.deploy.Deploy;
 import com.syntifi.casper.sdk.model.deploy.DeployData;
-import com.syntifi.casper.sdk.model.deploy.DeployResult;
 import com.syntifi.casper.sdk.model.deploy.executabledeploy.ModuleBytes;
 import com.syntifi.casper.sdk.model.deploy.executabledeploy.StoredContractByHash;
 import com.syntifi.casper.sdk.model.deploy.executionresult.Success;
@@ -38,7 +36,7 @@ import com.syntifi.casper.sdk.model.key.PublicKey;
 import com.syntifi.casper.sdk.model.peer.PeerData;
 import com.syntifi.casper.sdk.model.stateroothash.StateRootHashData;
 import com.syntifi.casper.sdk.model.status.MinimalBlockInfo;
-import com.syntifi.casper.sdk.model.status.Status;
+import com.syntifi.casper.sdk.model.status.StatusData;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueAccount;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueContract;
 import com.syntifi.casper.sdk.model.storedvalue.StoredValueData;
@@ -127,8 +125,8 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 	// "d8f921f792064202749cbd286379acb6c0fdb3d3d0526c2c7e92c03ff2c26c1d"
 	@Test
 	void getBlockByHash() {
-		JsonBlockData blockData = casperServiceMainnet.getBlock(
-				new HashBlockIdentifier("2fe9630b7790852e4409d815b04ca98f37effcdf9097d317b9b9b8ad658f47c8"));
+		JsonBlockData blockData = casperServiceMainnet
+				.getBlock(new HashBlockIdentifier("2fe9630b7790852e4409d815b04ca98f37effcdf9097d317b9b9b8ad658f47c8"));
 
 		assertNotNull(blockData);
 		JsonBlock block = blockData.getBlock();
@@ -243,7 +241,7 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 
 	@Test
 	void getStatus() {
-		Status status = casperServiceMainnet.getStatus();
+		StatusData status = casperServiceMainnet.getStatus();
 		assertNotNull(status);
 		assertTrue(status.getLastAddedBlockInfo() instanceof MinimalBlockInfo);
 		assertNotNull(status.getStartStateRootHash());
@@ -315,6 +313,11 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 		EraInfoData eraInfoData = casperServiceMainnet
 				.getEraInfoBySwitchBlock(HeightBlockIdentifier.builder().height(200000).build());
 
+		assertNotNull(eraInfoData);
+		assertNotNull(eraInfoData.getEraSummary());
+		assertEquals("485a33d5c737030432fba0c3b15c1cc6b372fd286677bf9f29d4ab8b1f0c9223",
+				eraInfoData.getEraSummary().getStateRootHash());
+
 		String inputJson = getPrettyJson(loadJsonFromFile("era-info-samples/era-info-by-switch-block.json"));
 
 		JSONAssert.assertEquals(inputJson, getPrettyJson(eraInfoData), false);
@@ -324,6 +327,11 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 	void getEraInfoBySwitchBlockByHash() throws JSONException, IOException {
 		EraInfoData eraInfoData = casperServiceMainnet.getEraInfoBySwitchBlock(HashBlockIdentifier.builder()
 				.hash("6eee8974bd9df0c2ae5469a239c23ff901c4ca884a1fe8b7b5319b04fac3b484").build());
+
+		assertNotNull(eraInfoData);
+		assertNotNull(eraInfoData.getEraSummary());
+		assertEquals("485a33d5c737030432fba0c3b15c1cc6b372fd286677bf9f29d4ab8b1f0c9223",
+				eraInfoData.getEraSummary().getStateRootHash());
 
 		String inputJson = getPrettyJson(loadJsonFromFile("era-info-samples/era-info-by-switch-block.json"));
 
@@ -345,30 +353,38 @@ public class CasperServiceTests extends AbstractJsonRpcTests {
 
 	// @Test
 	// void getDeployz() {
-	// 	StateRootHashData stateRootHash = casperServiceLocalnet.getStateRootHash();
-	// 	String deployHash = "814faff6bfd55489c824c4d247e89ce83fbccf749e214e9f815b595d061119ef";
-	// 	String publicKey = "01d6f7cbc9b8f68ed21b2e22a5920580b2582c7b129f664608c731243151e9815f";
+	// StateRootHashData stateRootHash = casperServiceLocalnet.getStateRootHash();
+	// String deployHash =
+	// "814faff6bfd55489c824c4d247e89ce83fbccf749e214e9f815b595d061119ef";
+	// String publicKey =
+	// "01d6f7cbc9b8f68ed21b2e22a5920580b2582c7b129f664608c731243151e9815f";
 
-	// 	DeployData deploy = casperServiceLocalnet.getDeploy(deployHash);
+	// DeployData deploy = casperServiceLocalnet.getDeploy(deployHash);
 
-	// 	AccountData account = casperServiceLocalnet.getStateAccountInfo(publicKey, null);
+	// AccountData account = casperServiceLocalnet.getStateAccountInfo(publicKey,
+	// null);
 
-	// 	BalanceData balance = casperServiceLocalnet.getBalance(stateRootHash.getStateRootHash(),
-	// 			account.getAccount().getMainPurse());
+	// BalanceData balance =
+	// casperServiceLocalnet.getBalance(stateRootHash.getStateRootHash(),
+	// account.getAccount().getMainPurse());
 
-	// 	JsonBlockData block1 = casperServiceLocalnet.getBlock(HeightBlockIdentifier.builder().height(1).build());
-	// 	JsonBlockData block2 = casperServiceLocalnet.getBlock(HeightBlockIdentifier.builder().height(2).build());
-	// 	JsonBlockData block3 = casperServiceLocalnet.getBlock(HeightBlockIdentifier.builder().height(3).build());
-	// 	JsonBlockData lastBlock = casperServiceLocalnet.getBlock();
+	// JsonBlockData block1 =
+	// casperServiceLocalnet.getBlock(HeightBlockIdentifier.builder().height(1).build());
+	// JsonBlockData block2 =
+	// casperServiceLocalnet.getBlock(HeightBlockIdentifier.builder().height(2).build());
+	// JsonBlockData block3 =
+	// casperServiceLocalnet.getBlock(HeightBlockIdentifier.builder().height(3).build());
+	// JsonBlockData lastBlock = casperServiceLocalnet.getBlock();
 
-	// 	JsonBlockData transfDeployBlock = casperServiceLocalnet.getBlock(
-	// 			HashBlockIdentifier.builder().hash(deploy.getExecutionResults().get(0).getBlockHash()).build());
+	// JsonBlockData transfDeployBlock = casperServiceLocalnet.getBlock(
+	// HashBlockIdentifier.builder().hash(deploy.getExecutionResults().get(0).getBlockHash()).build());
 
-	// 	assertEquals(deploy.getExecutionResults().get(0).getBlockHash(), transfDeployBlock.getBlock().getHash());
+	// assertEquals(deploy.getExecutionResults().get(0).getBlockHash(),
+	// transfDeployBlock.getBlock().getHash());
 
-	// 	TransferData transfer = casperServiceLocalnet.getBlockTransfers(
-	// 			HashBlockIdentifier.builder().hash(transfDeployBlock.getBlock().getHash()).build());
+	// TransferData transfer = casperServiceLocalnet.getBlockTransfers(
+	// HashBlockIdentifier.builder().hash(transfDeployBlock.getBlock().getHash()).build());
 
-	// 	assertEquals(deployHash, deploy.getDeploy().getHash());
+	// assertEquals(deployHash, deploy.getDeploy().getHash());
 	// }
 }
