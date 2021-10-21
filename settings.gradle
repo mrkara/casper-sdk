@@ -9,6 +9,6 @@ pluginManagement {
     }
 }
 
-include 'casper-java-sdk'
-include 'demo-springboot-api'
-include 'demo-quarkus-api'
+include ':casper-java-sdk'
+include ':demos:demo-springboot-api'
+include ':demos:demo-quarkus-api'
