@@ -85,12 +85,11 @@ jacocoTestReport {
     }
 }
 
-
 publishing {
   repositories {
     maven {
       name = "GitHubPackages"
-      url = "https://maven.pkg.github.com/syntify/casper-jdk"
+      url = "https://maven.pkg.github.com/syntifi/casper-sdk"
       credentials {
         username = System.getenv("GITHUB_ACTOR")
         password = System.getenv("GITHUB_TOKEN")
